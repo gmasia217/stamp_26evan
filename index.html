@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>에반 핸슨 관극 기록</title>
+<title>디어 에반 핸슨 관극 기록</title>
 
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/jpeg" href="evan_icon.jpg">
@@ -323,7 +323,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
             <option value="2층">2층</option>
             <option value="3층">3층</option>
         </select>
-        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열 (예: A)">
+        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열">
         <input type="number" id="rm-num" class="finput" style="flex:1;" placeholder="번호" min="1">
       </div>
     </div>
@@ -425,14 +425,65 @@ const CONFIG = {
   ]
 };
 
-// 추후 업데이트될 충무아트센터 좌석표 뼈대 (현재는 임시 더미 데이터)
+// 유틸리티 함수: 좌석 배열 생성 및 정렬용
+function range(start, end) {
+  let arr = [];
+  for(let i=start; i<=end; i++) arr.push(i);
+  return arr;
+}
+function padLeft(arr, total) { return [...Array(total - arr.length).fill(null), ...arr]; }
+function padRight(arr, total) { return [...arr, ...Array(total - arr.length).fill(null)]; }
+function padBoth(arr, total) {
+  let pad = (total - arr.length) / 2;
+  return [...Array(Math.floor(pad)).fill(null), ...arr, ...Array(Math.ceil(pad)).fill(null)];
+}
+
+// 충무아트센터 대극장 정밀 좌석표
 const THEATER_ZONES = [
   {
     name: '1층',
-    rows: [
-      { id: '1', map: [1,2,3, 'a', 4,5,6,7, 'a', 8,9,10] },
-      { id: '2', map: [1,2,3, 'a', 4,5,6,7, 'a', 8,9,10] }
-    ]
+    rows: (() => {
+      let rows = [];
+      for(let r=1; r<=21; r++) {
+        let L, C, R;
+        // 충무아트센터 1층 좌석 구조 (연번 1~35번)
+        if(r<=3) { L = padLeft(range(1,7), 9); C = range(8,24); R = padRight(range(25,31), 9); }
+        else if(r===4) { L = padLeft(range(1,8), 9); C = range(9,25); R = padRight(range(26,33), 9); }
+        else if(r<=20) { L = range(1,9); C = range(10,26); R = range(27,35); }
+        else if(r===21) { L = padLeft(range(4,9), 9); C = range(10,26); R = padRight(range(27,33), 9); } // 휠체어석 등 여백 처리
+        rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
+      }
+      return rows;
+    })()
+  },
+  {
+    name: '2층',
+    rows: (() => {
+      let rows = [];
+      for(let r=1; r<=11; r++) {
+        let L, C, R;
+        // 충무아트센터 2층 좌석 구조 (중앙 블록이 밑으로 갈수록 좁아짐)
+        if(r<=6) { L = range(1,9); C = range(10,25); R = range(26,34); }
+        else if(r===7) { L = padLeft(range(3,9), 9); C = range(10,25); R = padRight(range(26,31), 9); }
+        else if(r===8) { L = Array(9).fill(null); C = padBoth(range(11,24), 16); R = Array(9).fill(null); }
+        else if(r===9) { L = Array(9).fill(null); C = padBoth(range(12,23), 16); R = Array(9).fill(null); }
+        else if(r===10) { L = Array(9).fill(null); C = padBoth(range(13,22), 16); R = Array(9).fill(null); }
+        else if(r===11) { L = Array(9).fill(null); C = padBoth(range(14,21), 16); R = Array(9).fill(null); }
+        rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
+      }
+      return rows;
+    })()
+  },
+  {
+    name: '3층',
+    rows: (() => {
+      let rows = [];
+      for(let r=1; r<=8; r++) {
+        // 충무아트센터 3층 좌석 구조 (직사각형 형태)
+        rows.push({ id: String(r), map: [...range(1,9), 'a', ...range(10,25), 'a', ...range(26,34)] });
+      }
+      return rows;
+    })()
   }
 ];
 
