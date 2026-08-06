@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>에반 핸슨 관극 기록</title>
+
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/jpeg" href="evan_icon.jpg">
+<link rel="apple-touch-icon" href="evan_icon.jpg">
+<meta name="theme-color" content="#ffffff">
+
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap');
+
+:root {
+  /* 블루 & 화이트 (라이트 모드) 테마 */
+  --bg: #f0f4f8; 
+  --bg2: #ffffff; 
+  --bg3: #f8fafc; 
+  --bg4: #e2e8f0;
+  --brd: #cbd5e1; 
+  --brd2: #94a3b8;
+  --txt: #0f172a; 
+  --txt2: #334155; 
+  --txt3: #475569; 
+  --txt4: #64748b; 
+  --dim: #94a3b8;
+  
+  --primary: #0284c7; /* 메인 블루 */
+  --primary2: #38bdf8;
+  --primary3: #e0f2fe; 
+  --primary4: #f0f9ff;
+  
+  --seat1: #bae6fd; 
+  --seat2: #7dd3fc; 
+  --seat3: #38bdf8; 
+  --seat4: #0ea5e9; 
+  --seat5: #0284c7;
+  
+  --tab-h: 60px;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-serif; font-size:14px; overflow-x:hidden; }
+#app { padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px)); }
+
+/* TAB BAR */
+.tab-bar { position:fixed; bottom:0; left:0; width:100%; height:calc(var(--tab-h) + env(safe-area-inset-bottom, 0px)); padding-bottom:env(safe-area-inset-bottom, 0px); background:var(--bg2); border-top:1px solid var(--brd); display:flex; z-index:100; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+.tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:none; border:none; cursor:pointer; color:var(--txt4); font-size:10px; transition:color 0.2s; font-weight:600;}
+.tab-btn.active { color:var(--primary); }
+.tab-btn .icon { font-size:20px; filter: grayscale(100%) opacity(0.6); transition:all 0.2s; }
+.tab-btn.active .icon { filter: none; transform:scale(1.1); }
+
+/* PAGES & COMMON */
+.page { display:none; padding:16px; animation: fadeIn 0.2s ease; }
+.page.active { display:block; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.page-title { font-family:'IBM Plex Sans KR', sans-serif; font-size:22px; font-weight:700; color:var(--primary); margin-bottom:16px; letter-spacing:-0.5px; }
+.card { background:var(--bg2); border:1px solid var(--brd); border-radius:12px; padding:16px; margin-bottom:16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.card-title { font-size:14px; color:var(--txt); margin-bottom:12px; font-weight:700; letter-spacing:0.02em; }
+
+/* BUTTONS */
+.btn { background:transparent; border:1px solid var(--brd2); color:var(--txt2); padding:8px 14px; cursor:pointer; font-family:inherit; font-size:13px; border-radius:6px; transition:all 0.2s; font-weight:600; }
+.btn:active { border-color:var(--primary); color:var(--primary); background:var(--primary4); }
+.btn.prim { background:var(--primary); border-color:var(--primary); color:#fff; font-weight:700; box-shadow: 0 4px 10px rgba(2,132,199,0.2); }
+.btn.prim:active { background:var(--primary2); border-color:var(--primary2); }
+.btn.sm { padding:4px 10px; font-size:11px; }
+.btn.ghost { background:transparent; border-color:transparent; color:var(--txt4); }
+.flex-between { display:flex; justify-content:space-between; align-items:center; }
+
+/* TABLE (기록 탭) */
+.twrap { overflow-x:auto; margin:0 -16px; padding:0 16px; -webkit-overflow-scrolling: touch; }
+table.record-tb { width:max-content; min-width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--brd); border-left:0; border-top:0; background:var(--bg2); }
+.record-tb th, .record-tb td { padding:10px 8px; border-bottom:1px solid var(--brd); border-right:1px solid var(--brd); text-align:center; white-space:nowrap; font-size:12px; vertical-align:middle; transition: background 0.2s; }
+.record-tb thead th { background:var(--bg3); font-size:11px; color:var(--txt3); font-weight:700; border-top:1px solid var(--brd); letter-spacing:0.02em; position:sticky; top:0; z-index:10; }
+.hover-row:hover { background-color: var(--primary4); }
+
+.closest-row td { background-color: var(--primary4) !important; }
+.next-badge { display: inline-block; font-size: 9px; background: var(--primary); color: #fff; padding: 2px 5px; border-radius: 4px; margin-bottom: 4px; font-weight: 800; letter-spacing: 0.5px; }
+
+/* FORMS & MODALS */
+.finput, .fselect { width:100%; background:var(--bg2); border:1px solid var(--brd); color:var(--txt); padding:10px 12px; font-family:inherit; font-size:13px; border-radius:6px; outline:none; transition:border 0.2s; }
+.finput:focus, .fselect:focus { border-color:var(--primary); box-shadow: 0 0 0 2px var(--primary3); }
+.fg { margin-bottom:12px; }
+.flbl { display:block; font-size:12px; color:var(--txt2); margin-bottom:5px; font-weight:700; }
+
+/* OVERLAY & MODAL ANIMATION */
+.overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,.6); z-index:200; justify-content:center; align-items:flex-end; backdrop-filter: blur(2px); }
+.overlay.show { display:flex; }
+.modal { background:var(--bg2); border-top:3px solid var(--primary); width:100%; max-width:520px; max-height:90vh; overflow-y:auto; padding:24px 20px; border-radius:20px 20px 0 0; animation:slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 25px rgba(0,0,0,0.1); }
+@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+
+.overlay.center { align-items:center; padding:20px; z-index:250; }
+.modal.center { border-radius:16px; border:1px solid var(--brd); border-top:3px solid var(--primary); animation:popIn 0.2s ease; margin:auto; width:100%; max-width:400px; padding:20px; }
+@keyframes popIn { from { transform:scale(0.95); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+.detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom:1px solid var(--brd); padding-bottom:12px; }
+.detail-date-title { font-size: 18px; font-weight: 700; color: var(--primary); font-family: 'IBM Plex Sans KR', sans-serif; }
+.detail-info-row { font-size: 14px; margin-bottom: 12px; display: flex; align-items: flex-start; }
+.dt-label { color: var(--txt3); font-weight: 700; margin-right: 12px; width: 65px; font-size:12px; margin-top:2px; }
+.dt-value { color: var(--txt); font-weight: 600; flex:1; line-height:1.4; }
+
+/* TICKET BUTTON */
+.btn-ticket { width:36px; height:36px; border-radius:50%; background:var(--bg2); border:1px solid var(--primary); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s; color:var(--primary); }
+.btn-ticket:hover { background:var(--primary4); transform:scale(1.05); }
+
+/* CALENDAR */
+.cal-filter-group { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.cal-filter-label { font-size:12px; color:var(--txt2); width:55px; font-weight:700; }
+.cal-filter-btn { background:var(--bg2); border:1px solid var(--brd); color:var(--txt3); padding:4px 10px; border-radius:20px; font-size:12px; cursor:pointer; transition:all 0.2s; font-weight:600;}
+.cal-filter-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; box-shadow: 0 2px 5px rgba(2,132,199,0.3); }
+
+.cal-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.cal-grid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:1px; position:relative; background:var(--brd); border:1px solid var(--brd); border-radius:8px; overflow:hidden;}
+.cal-dow { text-align:center; font-size:11px; font-weight:700; color:var(--txt3); padding:10px 0; background:var(--bg3); }
+.cal-day { min-height:100px; min-width:0; background:var(--bg2); padding:6px 4px; cursor:pointer; position:relative; display:flex; flex-direction:column; align-items:flex-start; transition:background 0.15s; }
+.cal-day.today { background:var(--primary4); }
+.cal-day.empty { background:var(--bg3); cursor:default; }
+.cal-day-num { font-size:12px; font-weight:700; color:var(--txt2); margin-bottom:4px; padding-left:2px; }
+.cal-day.today .cal-day-num { color:var(--primary); }
+.cal-day.sun .cal-day-num { color:#ef4444; }
+.cal-day.sat .cal-day-num { color:#3b82f6; }
+
+.cs-chip { width:100%; text-align:left; padding:4px; border-radius:4px; margin-top:4px; background:transparent; border:1px solid transparent; }
+.cs-time { font-size:11px; font-weight:800; color:var(--txt); }
+.cs-time::before { content: '• '; color:var(--primary); }
+.cs-cast { font-size:10px; color:var(--txt3); margin-top:2px; padding-left:0; word-break:break-all; white-space:normal; line-height:1.2; font-weight:500;}
+.cs-chip.booked { background:var(--primary4); border-color:var(--primary2); }
+.cs-chip.booked .cs-time { color:var(--primary); }
+.cs-chip.booked .cs-cast { color:var(--txt); }
+.cs-chip.unseated { background:var(--bg4); border-color:var(--brd2); }
+
+/* HEATMAP & MINIMAP */
+.heatmap-wrap { display:flex; flex-direction:column; gap:30px; align-items:center; overflow-x:auto; padding-bottom:15px; }
+.mini-hm-container { display:flex; flex-direction:column; gap:20px; align-items:center; margin:16px 0; border:1px solid var(--brd); padding:20px; border-radius:8px; background:var(--bg3); overflow-x:auto;}
+
+.zone-col { display:flex; flex-direction:column; gap:3px; align-items:center; }
+.seat-row { display:flex; gap:3px; align-items:center; }
+.row-label { font-size:9px; width:12px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; }
+.seat-cell { width:14px; height:14px; background:var(--bg4); border-radius:3px; border:1px solid transparent; flex-shrink:0; }
+.seat-aisle { width:10px; flex-shrink:0; }
+
+.mini-seat-row { display:flex; gap:2px; justify-content:center; align-items:center; }
+.mini-seat-cell { width:12px; height:12px; background:var(--bg4); border-radius:2px; flex-shrink:0; border:1px solid transparent; }
+.mini-seat-aisle { width:8px; flex-shrink:0; }
+.mini-row-label { font-size:8px; width:12px; text-align:center; color:var(--txt4); margin-right:4px; line-height:10px; font-weight:600;}
+
+.seat-cell.v1 { background:var(--seat1); border-color:var(--seat1); } 
+.seat-cell.v2 { background:var(--seat2); border-color:var(--seat2); }
+.seat-cell.v3 { background:var(--seat3); border-color:var(--seat3); } 
+.seat-cell.v4 { background:var(--seat4); border-color:var(--seat4); }
+.seat-cell.v5 { background:var(--seat5); border-color:var(--seat5); }
+.seat-cell.hidden, .mini-seat-cell.hidden { background:transparent; border-color:transparent; pointer-events:none; }
+.mini-seat-cell.highlight { background: var(--seat4); border-color: var(--seat5); transform:scale(1.2); }
+
+.heatmap-legend { display:flex; gap:12px; justify-content:center; margin-top:10px; flex-wrap:wrap; padding:10px; background:var(--bg3); border-radius:8px; }
+.legend-item { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2); font-weight:600; }
+.legend-dot { width:14px; height:14px; border-radius:3px; }
+
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- 1. 기록 탭 -->
+  <div class="page active" id="page-record">
+    <div style="text-align:center; margin-bottom:20px; position:relative;">
+      <img src="evan_logo.png" alt="디어 에반 핸슨" style="height:60px; object-fit:contain;">
+    </div>
+    
+    <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:12px;">
+      <button class="btn prim sm" onclick="openRecordModal()" style="padding:8px 16px; font-size:13px; border-radius:20px;">+ 회차 추가</button>
+    </div>
+    
+    <div class="twrap">
+      <table class="record-tb">
+        <thead id="record-thead">
+          <tr>
+            <th>날짜</th>
+            <th>시간</th>
+            <th>캐스트</th>
+            <th>좌석</th>
+            <th>할인</th>
+            <th>이벤트</th>
+            <th>관리</th>
+          </tr>
+        </thead>
+        <tbody id="record-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2. 스케줄 탭 -->
+  <div class="page" id="page-calendar">
+    <div class="page-title">스케줄</div>
+    
+    <div class="card" style="padding:16px 12px;">
+      <div id="cal-filter-wrap"></div>
+      <div style="margin-top:12px; text-align:right;">
+        <button class="btn sm" style="color:var(--txt); border-color:var(--brd2);" onclick="applyCalFilter()">조회하기</button>
+        <button class="btn sm ghost" onclick="resetCalFilter()">초기화</button>
+      </div>
+    </div>
+
+    <div class="card" style="padding:16px;">
+      <div class="cal-nav">
+        <button class="btn sm ghost" style="font-size:14px;" onclick="changeMonth(-1)">❮</button>
+        <div id="cal-month-title" style="font-weight:700; font-size:18px; color:var(--txt);"></div>
+        <button class="btn sm ghost" style="font-size:14px;" onclick="changeMonth(1)">❯</button>
+      </div>
+      <div id="cal-grid-container"></div>
+    </div>
+  </div>
+
+  <!-- 3. 좌석 정산 탭 (새로 생성됨) -->
+  <div class="page" id="page-seat">
+    <div class="page-title">좌석 정산</div>
+    <div class="card">
+      <div class="card-title" style="color:var(--primary); font-size:16px;">좌석 히트맵</div>
+      <div style="font-size:12px; color:var(--txt3); margin-top:-8px; margin-bottom:16px; background:var(--primary4); padding:8px; border-radius:6px; font-weight:600; text-align:center;">
+        📍 충무아트센터 대극장 (추후 좌석 정보 업데이트 예정)
+      </div>
+      
+      <div class="heatmap-wrap" id="heatmap-container" style="margin-top:10px;"></div>
+      
+      <div class="heatmap-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--bg4);"></div>0회</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--seat1);"></div>1회</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--seat2);"></div>2회</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--seat3);"></div>3회</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--seat4);"></div>4회</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--seat5);"></div>5회+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 정산 탭 -->
+  <div class="page" id="page-stats">
+    <div class="page-title">캐스트 정산</div>
+    <div class="card">
+      <div class="card-title">배우별 관람 횟수</div>
+      <table class="record-tb" style="width:100%; border-left:1px solid var(--brd); border-top:1px solid var(--brd);" id="stats-actors"></table>
+    </div>
+  </div>
+
+  <!-- 5. 설정 탭 -->
+  <div class="page" id="page-settings">
+    <div class="page-title">설정</div>
+    <div class="card">
+      <div class="card-title">데이터 동기화</div>
+      <div class="flex-between" style="margin-bottom:12px; border-bottom:1px solid var(--brd); padding-bottom:16px;">
+        <div>
+          <div style="font-size:13px; margin-bottom:6px; font-weight:700;">스케줄 업데이트</div>
+          <div id="set-sch-time" style="font-size:11px; color:var(--txt3);">확인 중...</div>
+        </div>
+        <button class="btn sm" onclick="fetchSchedule(true)" style="color:var(--txt);">새로고침</button>
+      </div>
+      <div class="flex-between" style="padding-top:8px;">
+        <div>
+          <div style="font-size:13px; margin-bottom:6px; font-weight:700;">이벤트 업데이트</div>
+          <div id="set-evt-time" style="font-size:11px; color:var(--txt3);">확인 중...</div>
+        </div>
+        <button class="btn sm" onclick="fetchEvents(true)" style="color:var(--txt);">새로고침</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">백업 및 복원</div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn" style="flex:1; color:var(--txt);" onclick="exportData()">JSON 백업</button>
+        <button class="btn prim" style="flex:1;" onclick="document.getElementById('import-file').click()">JSON 복원</button>
+        <input type="file" id="import-file" style="display:none" accept=".json" onchange="importData(event)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('record', this)"><span class="icon">📝</span>기록</button>
+  <button class="tab-btn" onclick="switchTab('calendar', this)"><span class="icon">📅</span>스케줄</button>
+  <button class="tab-btn" onclick="switchTab('seat', this)"><span class="icon">🪑</span>좌석 정산</button>
+  <button class="tab-btn" onclick="switchTab('stats', this)"><span class="icon">📊</span>정산</button>
+  <button class="tab-btn" onclick="switchTab('settings', this)"><span class="icon">⚙️</span>설정</button>
+</nav>
+
+<!-- 회차 기록 모달 -->
+<div class="overlay" id="modal-record" onclick="if(event.target===this) closeModal('modal-record')">
+  <div class="modal">
+    <div class="page-title" id="rm-title" style="font-size:18px;">회차 기록</div>
+    <input type="hidden" id="rm-id">
+    <input type="hidden" id="rm-create-time">
+    
+    <div style="display:flex; gap:10px;">
+      <div class="fg" style="flex:1;">
+        <label class="flbl">날짜</label>
+        <input type="date" id="rm-date" class="finput" onchange="autoFillCasting()">
+      </div>
+      <div class="fg" style="width:100px;">
+        <label class="flbl">시간</label>
+        <select id="rm-time" class="fselect" onchange="onTimeChange()">
+          <option value="낮">낮</option><option value="밤">밤</option>
+        </select>
+      </div>
+    </div>
+    
+    <label class="flbl" style="margin-top:10px; margin-bottom:8px; border-top:1px solid var(--brd); padding-top:16px;">캐스팅 정보</label>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;" id="rm-cast-container"></div>
+    
+    <div class="fg" style="margin-top:16px;">
+      <label class="flbl">할인 권종</label>
+      <select id="rm-disc" class="fselect"></select>
+    </div>
+    
+    <div class="fg">
+      <label class="flbl">좌석 정보 (층 / 열 / 번호)</label>
+      <div style="display:flex; gap:10px;">
+        <select id="rm-zone" class="fselect" style="flex:1;">
+            <option value="">층 선택</option>
+            <option value="1층">1층</option>
+            <option value="2층">2층</option>
+            <option value="3층">3층</option>
+        </select>
+        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열 (예: A)">
+        <input type="number" id="rm-num" class="finput" style="flex:1;" placeholder="번호" min="1">
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="flbl">예매 내역/티켓 첨부 (선택)</label>
+      <div style="font-size:11px; color:var(--txt4); margin-top:-3px; margin-bottom:5px; font-weight:400;">* 첨부된 이미지는 기기 용량 보호를 위해 자동 압축됩니다.</div>
+      <input type="file" id="rm-receipt" accept="image/*" class="finput" style="padding:6px; font-size:12px; text-transform:none;" onchange="handleImageUpload(event)">
+      <div id="rm-receipt-preview" style="margin-top:10px; display:none; position:relative; width:max-content;">
+         <img id="rm-receipt-img" src="" style="max-height:120px; border-radius:6px; border:1px solid var(--brd);">
+         <button type="button" onclick="clearReceipt()" style="position:absolute; top:-8px; right:-8px; background:#ef4444; color:#fff; border:none; border-radius:50%; width:22px; height:22px; font-size:11px; font-weight:bold; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.2);">✕</button>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="flbl">메모</label>
+      <input type="text" id="rm-memo" class="finput" placeholder="메모를 입력하세요" style="text-transform:none;">
+    </div>
+    <div style="display:flex; gap:10px; margin-top:30px;">
+      <button class="btn" style="flex:1;" onclick="closeModal('modal-record')">취소</button>
+      <button class="btn prim" style="flex:1;" onclick="saveRecord()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 상세 팝업 -->
+<div class="overlay center" id="modal-detail" onclick="if(event.target===this) closeModal('modal-detail')">
+  <div class="modal center">
+    <div class="detail-header">
+      <div class="detail-date-title" id="dt-title"></div>
+      <button class="btn sm ghost" onclick="closeModal('modal-detail')" style="font-size:18px; padding:0 6px; color:var(--txt);">✕</button>
+    </div>
+    <div class="detail-info-row">
+      <span class="dt-label">CAST</span>
+      <span id="dt-cast" class="dt-value"></span>
+    </div>
+    <div class="detail-info-row">
+      <span class="dt-label">SEAT</span>
+      <span id="dt-seat" class="dt-value"></span>
+    </div>
+    <div class="detail-info-row" id="dt-event-row" style="display:none;">
+      <span class="dt-label">EVENT</span>
+      <span id="dt-event" class="dt-value" style="color:var(--primary);"></span>
+    </div>
+    
+    <div class="detail-info-row" id="dt-details-row" style="display:none; margin-bottom:16px;">
+      <span class="dt-label">TICKET</span>
+      <div class="dt-value">
+        <button type="button" class="btn-ticket" onclick="openReceiptViewer()" title="티켓/내역서 보기">
+           <span style="font-size:18px; margin-top:-2px;">🎫</span>
+        </button>
+      </div>
+    </div>
+    
+    <div id="dt-minimap"></div>
+    
+    <div style="display:flex; gap:10px; margin-top:24px;">
+      <button class="btn" style="flex:1; color:var(--txt);" id="dt-btn-edit">수정</button>
+      <button class="btn" style="flex:1; background:#ef4444; color:#fff; font-weight:700; border:none;" id="dt-btn-delete">삭제</button>
+    </div>
+  </div>
+</div>
+
+<!-- 티켓 뷰어 -->
+<div class="overlay center" id="modal-image-viewer" onclick="if(event.target===this) closeModal('modal-image-viewer')" style="z-index:300;">
+  <div style="position:relative; max-width:90vw; max-height:90vh; display:flex; justify-content:center; align-items:center;">
+     <button onclick="closeModal('modal-image-viewer')" style="position:absolute; top:-15px; right:-15px; background:var(--bg2); border:1px solid var(--brd); color:var(--txt); width:36px; height:36px; border-radius:50%; cursor:pointer; font-weight:bold; box-shadow:0 4px 12px rgba(0,0,0,0.2);">✕</button>
+     <img id="viewer-img" src="" style="max-width:100%; max-height:85vh; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.5); object-fit:contain;">
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 1. EXTENSIBILITY CONFIGURATION 
+// ============================================================
+const CONFIG = {
+  SHOW_NAME: "디어 에반 핸슨",
+  STORAGE_KEY: "evan_tracker_v1",
+  
+  ROLES: [
+    { id: "cast1", label: "에반 핸슨", actors: ["박강현", "임규형", "나현우"] },
+    { id: "cast2", label: "하이디 핸슨", actors: ["김선영", "신영숙"] },
+    { id: "cast3", label: "코너 머피", actors: ["조민호", "김수호"] },
+    { id: "cast4", label: "조이 머피", actors: ["강지혜", "장민제"] },
+    { id: "cast5", label: "래리 머피", actors: ["장현성", "정동근"] },
+    { id: "cast6", label: "신시아 머피", actors: ["안시하", "임민영"] },
+    { id: "cast7", label: "재러드 클라인먼", actors: ["김강진", "윤현선"] },
+    { id: "cast8", label: "알라나 벡", actors: ["강은세", "염희진"] }
+  ],
+  
+  EVENTS: [], // events.json에서 로드됨
+  
+  DISCOUNTS: [
+    { label: "없음", value: "" },
+    { label: "오프닝 할인", value: "오프닝 할인" },
+    { label: "조기예매 할인", value: "조예할" },
+    { label: "재관람 할인", value: "재관할" },
+    { label: "타임세일", value: "타임세일" }
+  ]
+};
+
+// 추후 업데이트될 충무아트센터 좌석표 뼈대 (현재는 임시 더미 데이터)
+const THEATER_ZONES = [
+  {
+    name: '1층',
+    rows: [
+      { id: '1', map: [1,2,3, 'a', 4,5,6,7, 'a', 8,9,10] },
+      { id: '2', map: [1,2,3, 'a', 4,5,6,7, 'a', 8,9,10] }
+    ]
+  }
+];
+
+// ============================================================
+// 2. STATE MANAGEMENT
+// ============================================================
+let state = {
+  records: [], 
+  schedule: [],
+  events: []
+};
+
+let calFilters = {};
+CONFIG.ROLES.forEach((r, idx) => { calFilters[`cast${idx+1}`] = []; });
+
+let currentReceiptBase64 = "";
+let currentViewReceipt = "";
+
+function loadState() {
+  const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
+  if(saved) {
+    const parsed = JSON.parse(saved);
+    state.records = parsed.records || [];
+    if (parsed.schedule && parsed.schedule.length > 0) state.schedule = parsed.schedule;
+  }
+}
+
+function saveState() { localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(state)); }
+function uuid() { return Math.random().toString(36).substr(2, 9); }
+function todayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+
+// ============================================================
+// 3. UI NAVIGATION
+// ============================================================
+function switchTab(tabId, btnEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + tabId).classList.add('active');
+  btnEl.classList.add('active');
+  
+  if(tabId === 'record') renderRecords();
+  if(tabId === 'calendar') { renderCalFilters(); renderCalendar(); }
+  if(tabId === 'seat') renderSeatStats();
+  if(tabId === 'stats') renderActorStats();
+}
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// ============================================================
+// IMAGE UPLOAD & COMPRESSION
+// ============================================================
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 800; 
+      let width = img.width;
+      let height = img.height;
+
+      if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      currentReceiptBase64 = canvas.toDataURL('image/jpeg', 0.7); 
+      document.getElementById('rm-receipt-img').src = currentReceiptBase64;
+      document.getElementById('rm-receipt-preview').style.display = 'block';
+    }
+    img.src = event.target.result;
+  }
+  reader.readAsDataURL(file);
+}
+
+function clearReceipt() {
+  currentReceiptBase64 = "";
+  document.getElementById('rm-receipt').value = "";
+  document.getElementById('rm-receipt-preview').style.display = 'none';
+}
+
+function openReceiptViewer() {
+  if(!currentViewReceipt) return;
+  document.getElementById('viewer-img').src = currentViewReceipt;
+  openModal('modal-image-viewer');
+}
+
+// 이벤트 판별 헬퍼 함수
+const getEventName = (d) => {
+  const evs = state.events.filter(e => d >= e.startDate && d <= e.endDate);
+  return evs.map(e => e.name).join(', ') || '-';
+};
+
+// ============================================================
+// 4. TAB 1: RECORD 
+// ============================================================
+function renderRecords() {
+  let sorted = [...state.records].sort((a,b) => {
+    return a.date.localeCompare(b.date) || a.time.localeCompare(b.time) || (a.createTime || 0) - (b.createTime || 0);
+  });
+  
+  const todayD = todayStr();
+  const closestRecord = sorted.find(r => r.date >= todayD);
+  const closestId = closestRecord ? closestRecord.id : null;
+
+  let tbHtml = sorted.map(r => {
+    let casts = [];
+    for(let i=1; i<=8; i++) {
+        if(r[`cast${i}`]) casts.push(r[`cast${i}`]);
+    }
+    const castStr = casts.length > 0 ? casts.join(' · ') : '-';
+    
+    let seatStr = '-';
+    if (r.seatZone && r.seatRow !== "" && r.seatNum !== "") seatStr = `${r.seatZone} ${r.seatRow}-${r.seatNum}`;
+    else if (r.seatZone && r.seatRow !== "") seatStr = `${r.seatZone} ${r.seatRow}`;
+    else if (r.seatZone) seatStr = r.seatZone;
+
+    const dispDisc = r.discount || '-';
+    const evName = getEventName(r.date);
+    
+    const isClosest = (r.id === closestId);
+    const rowClass = isClosest ? 'hover-row closest-row' : 'hover-row';
+    const badgeHtml = isClosest ? `<div class="next-badge">NEXT</div>` : '';
+
+    return `<tr class="${rowClass}">
+      <td onclick="openDetailModal('${r.id}')" style="cursor:pointer; text-decoration:underline; text-underline-offset:2px; color:var(--txt); font-weight:700;">
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          ${badgeHtml}
+          <div>${r.date.substring(5).replace('-','.')}</div>
+        </div>
+      </td>
+      <td><div style="font-weight:600;">${r.time}</div></td>
+      <td style="font-weight:600; color:var(--primary); white-space:normal; word-break:keep-all; line-height:1.4; font-size:11px; min-width:120px;">
+        ${castStr}
+      </td>
+      <td><div style="font-weight:600;">${seatStr}</div></td>
+      <td style="font-size:11px; color:var(--txt3);">${dispDisc}</td>
+      <td style="font-size:11px; color:var(--txt2); font-weight:600;">${evName}</td>
+      <td onclick="event.stopPropagation();">
+        <div style="display:flex; gap:4px; justify-content:center;">
+          <button class="btn sm ghost" onclick="editRecord('${r.id}')" style="padding:4px; font-size:14px;" title="수정">✎</button>
+          <button class="btn sm ghost" onclick="deleteRecord('${r.id}')" style="padding:4px; color:#ef4444; font-size:14px;" title="삭제">✕</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  
+  if(!tbHtml) tbHtml = `<tr><td colspan="7" style="padding:60px 0; color:var(--txt4); font-size:14px;">관극 기록이 없습니다</td></tr>`;
+  document.getElementById('record-tbody').innerHTML = tbHtml;
+}
+
+function initRecordForm() {
+  document.getElementById('rm-cast-container').innerHTML = CONFIG.ROLES.map((role, idx) => `
+    <div class="fg" style="margin-bottom:6px;">
+      <label class="flbl" style="font-size:11px; color:var(--txt3);">${role.label}</label>
+      <select id="rm-cast${idx+1}" class="fselect" style="padding:8px 10px; font-size:12px;">
+        <option value="">선택</option>
+        ${role.actors.map(a => `<option value="${a}">${a}</option>`).join('')}
+      </select>
+    </div>
+  `).join('');
+  document.getElementById('rm-disc').innerHTML = CONFIG.DISCOUNTS.map(d => `<option value="${d.value}">${d.label}</option>`).join('');
+}
+
+function autoFillCasting() {
+  const date = document.getElementById('rm-date').value;
+  const timeSelect = document.getElementById('rm-time');
+  if (!date || !state.schedule) return;
+  
+  const matches = state.schedule.filter(s => s.date === date);
+  if (matches.length > 0) {
+    const cur = timeSelect.value;
+    timeSelect.innerHTML = '<option value="">선택</option>';
+    matches.sort((a,b)=>a.time.localeCompare(b.time)).forEach(s => {
+      const o = document.createElement('option');
+      o.value = s.time; o.textContent = s.time;
+      timeSelect.appendChild(o);
+    });
+    
+    const setCasts = (m) => {
+      for(let i=1; i<=8; i++) {
+        const el = document.getElementById(`rm-cast${i}`);
+        if(el) el.value = m[`cast${i}`] || '';
+      }
+    };
+
+    if (matches.length === 1) {
+      timeSelect.value = matches[0].time;
+      setCasts(matches[0]);
+    } else if (cur) {
+      timeSelect.value = cur;
+      const m = matches.find(s => s.time === cur);
+      if (m) setCasts(m);
+    }
+  } else {
+    timeSelect.innerHTML = `<option value="낮">낮</option><option value="밤">밤</option>`;
+  }
+}
+
+function onTimeChange() {
+  const date = document.getElementById('rm-date').value;
+  const time = document.getElementById('rm-time').value;
+  if (!date || !time || !state.schedule) return;
+  const m = state.schedule.find(s => s.date === date && s.time === time);
+  if (m) {
+    for(let i=1; i<=8; i++) {
+      const el = document.getElementById(`rm-cast${i}`);
+      if(el) el.value = m[`cast${i}`] || '';
+    }
+  }
+}
+
+function openRecordModal(date = '', isEdit = false) {
+  document.getElementById('rm-title').textContent = "회차 기록 추가";
+  document.getElementById('rm-id').value = "";
+  document.getElementById('rm-create-time').value = Date.now(); 
+  document.getElementById('rm-date').value = date || todayStr();
+  
+  if (!isEdit) autoFillCasting();
+
+  document.getElementById('rm-disc').value = "";
+  document.getElementById('rm-zone').value = "";
+  document.getElementById('rm-row').value = "";
+  document.getElementById('rm-num').value = "";
+  document.getElementById('rm-memo').value = "";
+  
+  clearReceipt();
+  openModal('modal-record');
+}
+
+function saveRecord() {
+  const id = document.getElementById('rm-id').value || uuid();
+  const cTime = document.getElementById('rm-create-time').value;
+
+  const record = {
+    id: id,
+    createTime: parseInt(cTime) || Date.now(),
+    date: document.getElementById('rm-date').value,
+    time: document.getElementById('rm-time').value,
+    discount: document.getElementById('rm-disc').value,
+    seatZone: document.getElementById('rm-zone').value,
+    seatRow: document.getElementById('rm-row').value.toUpperCase(),
+    seatNum: document.getElementById('rm-num').value,
+    receipt: currentReceiptBase64,
+    memo: document.getElementById('rm-memo').value
+  };
+
+  for(let i=1; i<=8; i++) {
+      record[`cast${i}`] = document.getElementById(`rm-cast${i}`).value;
+  }
+
+  const existingIdx = state.records.findIndex(r => r.id === id);
+  if(existingIdx >= 0) state.records[existingIdx] = record;
+  else state.records.push(record);
+
+  saveState(); 
+  closeModal('modal-record'); 
+  renderRecords(); 
+  renderCalendar(); 
+  renderSeatStats();
+  renderActorStats();
+}
+
+function editRecord(id) {
+  const r = state.records.find(x => x.id === id);
+  if(!r) return;
+  
+  openRecordModal('', true);
+  document.getElementById('rm-title').textContent = "회차 기록 수정";
+  document.getElementById('rm-id').value = r.id;
+  document.getElementById('rm-create-time').value = r.createTime || Date.now();
+  document.getElementById('rm-date').value = r.date;
+  
+  autoFillCasting();
+  const timeSelect = document.getElementById('rm-time');
+  if (!timeSelect.querySelector(`option[value="${r.time}"]`)) {
+    timeSelect.innerHTML += `<option value="${r.time}">${r.time}</option>`;
+  }
+  
+  document.getElementById('rm-time').value = r.time || '';
+  
+  for(let i=1; i<=8; i++) {
+      const el = document.getElementById(`rm-cast${i}`);
+      if(el) el.value = r[`cast${i}`] || '';
+  }
+  
+  document.getElementById('rm-disc').value = r.discount || '';
+  document.getElementById('rm-zone').value = r.seatZone || "";
+  document.getElementById('rm-row').value = r.seatRow || "";
+  document.getElementById('rm-num').value = r.seatNum || "";
+  document.getElementById('rm-memo').value = r.memo || "";
+
+  if (r.receipt) {
+    currentReceiptBase64 = r.receipt;
+    document.getElementById('rm-receipt-img').src = currentReceiptBase64;
+    document.getElementById('rm-receipt-preview').style.display = 'block';
+  } else {
+    clearReceipt();
+  }
+}
+
+function deleteRecord(id) {
+  if(confirm("기록을 삭제하시겠습니까?")) {
+    state.records = state.records.filter(r => r.id !== id);
+    saveState(); 
+    renderRecords(); 
+    renderCalendar(); 
+    renderSeatStats(); 
+    renderActorStats();
+  }
+}
+
+// ---------------------------
+// 상세 정보 팝업
+// ---------------------------
+function openDetailModal(id) {
+  const r = state.records.find(x => x.id === id);
+  if(!r) return;
+
+  const d = new Date(r.date + 'T00:00:00');
+  const dow = ['일','월','화','수','목','금','토'][d.getDay()];
+  
+  document.getElementById('dt-title').textContent = `${r.date} (${dow}) ${r.time}`;
+  
+  let casts = [];
+  for(let i=1; i<=8; i++) {
+      if(r[`cast${i}`]) casts.push(r[`cast${i}`]);
+  }
+  document.getElementById('dt-cast').innerHTML = casts.length > 0 ? casts.join(' <span style="color:var(--brd2);">|</span> ') : '-';
+  
+  let seatStr = '-';
+  if (r.seatZone) {
+    seatStr = `${r.seatZone}`;
+    if (r.seatRow != null && r.seatRow !== "") seatStr += ` ${r.seatRow}열`;
+    if (r.seatNum != null && r.seatNum !== "") seatStr += ` ${r.seatNum}번`;
+  }
+  document.getElementById('dt-seat').textContent = seatStr;
+  
+  const detailsRow = document.getElementById('dt-details-row');
+  if (r.receipt) {
+    currentViewReceipt = r.receipt;
+    detailsRow.style.display = 'flex';
+  } else {
+    currentViewReceipt = "";
+    detailsRow.style.display = 'none';
+  }
+
+  const evName = getEventName(r.date);
+  const eventRow = document.getElementById('dt-event-row');
+  if (evName !== '-') {
+    document.getElementById('dt-event').textContent = evName;
+    eventRow.style.display = 'flex';
+  } else {
+    eventRow.style.display = 'none';
+  }
+
+  document.getElementById('dt-minimap').innerHTML = renderMiniMap(r.seatZone, r.seatRow, parseInt(r.seatNum));
+
+  document.getElementById('dt-btn-edit').onclick = () => { closeModal('modal-detail'); editRecord(id); };
+  document.getElementById('dt-btn-delete').onclick = () => { closeModal('modal-detail'); deleteRecord(id); };
+
+  openModal('modal-detail');
+}
+
+function renderMiniMap(selZone, selRow, selNum) {
+  if (THEATER_ZONES.length === 0) return '';
+  
+  let hmHtml = '<div class="mini-hm-container">';
+  THEATER_ZONES.forEach(z => {
+    hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; margin-bottom:10px;">`;
+    hmHtml += `<div style="font-size:11px; font-weight:700; color:var(--txt3); margin-bottom:8px;">${z.name}</div>`;
+    hmHtml += `<div class="zone-col" style="gap:2px;">`;
+    
+    z.rows.forEach(rowInfo => {
+      hmHtml += `<div class="mini-seat-row"><div class="mini-row-label">${rowInfo.id}</div>`;
+      rowInfo.map.forEach(col => {
+        if (col === 'a') {
+           hmHtml += `<div class="mini-seat-aisle"></div>`;
+        } else if (col === null) {
+           hmHtml += `<div class="mini-seat-cell hidden"></div>`;
+        } else {
+           const isSel = (z.name === selZone && rowInfo.id === selRow && col === selNum);
+           hmHtml += `<div class="mini-seat-cell ${isSel ? 'highlight' : ''}"></div>`;
+        }
+      });
+      hmHtml += `</div>`;
+    });
+    hmHtml += `</div></div>`;
+  });
+  hmHtml += '</div>';
+  return hmHtml;
+}
+
+// ============================================================
+// 5. TAB 2: CALENDAR 
+// ============================================================
+let curYear = new Date().getFullYear();
+let curMonth = new Date().getMonth(); 
+
+function changeMonth(diff) {
+  curMonth += diff;
+  if(curMonth > 11) { curMonth = 0; curYear++; }
+  if(curMonth < 0) { curMonth = 11; curYear--; }
+  renderCalendar();
+}
+
+function renderCalFilters() {
+  let html = '';
+  CONFIG.ROLES.forEach((role, idx) => {
+    const roleKey = `cast${idx+1}`;
+    html += `<div class="cal-filter-group">
+      <div class="cal-filter-label">${role.label}</div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">`;
+    role.actors.forEach(actor => {
+      const isActive = calFilters[roleKey] && calFilters[roleKey].includes(actor);
+      html += `<button class="cal-filter-btn ${isActive ? 'active' : ''}" onclick="toggleCalFilter('${roleKey}', '${actor}')">${actor}</button>`;
+    });
+    html += `</div></div>`;
+  });
+  document.getElementById('cal-filter-wrap').innerHTML = html;
+}
+
+function toggleCalFilter(roleKey, actor) {
+  if (!calFilters[roleKey]) calFilters[roleKey] = [];
+  const idx = calFilters[roleKey].indexOf(actor);
+  if (idx > -1) calFilters[roleKey].splice(idx, 1);
+  else calFilters[roleKey].push(actor);
+  renderCalFilters(); 
+}
+
+function applyCalFilter() { renderCalendar(); }
+function resetCalFilter() { 
+  calFilters = {};
+  CONFIG.ROLES.forEach((r, idx) => { calFilters[`cast${idx+1}`] = []; });
+  renderCalFilters(); renderCalendar(); 
+}
+
+function renderCalendar() {
+  document.getElementById('cal-month-title').textContent = `${curYear}년 ${curMonth+1}월`;
+  
+  const firstDay = new Date(curYear, curMonth, 1).getDay();
+  const daysInMonth = new Date(curYear, curMonth+1, 0).getDate();
+  const totalCells = firstDay + daysInMonth;
+  const weeks = Math.ceil(totalCells / 7);
+  const monthStr = `${curYear}-${String(curMonth+1).padStart(2,'0')}`;
+  const monthStart = `${monthStr}-01`;
+  const monthEnd = `${monthStr}-${String(daysInMonth).padStart(2,'0')}`;
+
+  const evts = state.events && state.events.length ? state.events : [];
+  const segments = [];
+  
+  evts.forEach(ev => { 
+    if (ev.endDate < monthStart || ev.startDate > monthEnd) return;
+    const clampedStart = ev.startDate < monthStart ? monthStart : ev.startDate;
+    const clampedEnd   = ev.endDate   > monthEnd   ? monthEnd   : ev.endDate;
+    const startCell = firstDay + parseInt(clampedStart.slice(8)) - 1;
+    const endCell   = firstDay + parseInt(clampedEnd.slice(8))   - 1;
+    
+    for (let w = Math.floor(startCell/7); w <= Math.floor(endCell/7); w++) {
+      const sc = Math.max(startCell, w*7) % 7;
+      const ec = Math.min(endCell,   w*7+6) % 7;
+      const used = segments.filter(s => s.week === w);
+      let row = 0;
+      while (row < 3) {
+        const conflict = used.filter(s => s.row === row).some(s => !(ec < s.startCol || sc > s.endCol));
+        if (!conflict) break;
+        row++;
+      }
+      if (row < 3) segments.push({ week: w, startCol: sc, endCol: ec, color: ev.color, name: ev.name, url: ev.url, row });
+    }
+  });
+
+  const dow = ['일','월','화','수','목','금','토'];
+  let html = `<div class="cal-grid">`;
+  dow.forEach(d => html += `<div class="cal-dow">${d}</div>`);
+  html += `</div>`; 
+  
+  const isAnyFilterActive = Object.values(calFilters).some(arr => arr.length > 0);
+
+  for(let w=0; w<weeks; w++) {
+    const wSegs = segments.filter(s => s.week === w);
+    const maxRow = wSegs.length ? Math.max(...wSegs.map(s => s.row)) + 1 : 0;
+    const evHeight = maxRow * 18; 
+
+    html += `<div class="cal-grid" style="margin-top:-1px;">`;
+    for(let col=0; col<7; col++) {
+      const cell = w * 7 + col;
+      const day = cell - firstDay + 1;
+      
+      if(cell < firstDay || day > daysInMonth) {
+        html += `<div class="cal-day empty"></div>`;
+        continue;
+      }
+      
+      const dateStr = `${monthStr}-${String(day).padStart(2,'0')}`;
+      const isToday = dateStr === todayStr();
+      const isSun = new Date(curYear, curMonth, day).getDay() === 0;
+      const isSat = new Date(curYear, curMonth, day).getDay() === 6;
+      
+      let dayItems = [];
+      (state.schedule || []).filter(s => s.date === dateStr).forEach(s => {
+        let item = { time: s.time, isBooked: false, records: [] };
+        for(let i=1; i<=8; i++) item[`cast${i}`] = s[`cast${i}`];
+        dayItems.push(item);
+      });
+      
+      state.records.filter(r => r.date === dateStr).forEach(r => {
+        let existing = dayItems.find(i => i.time === r.time);
+        if (existing) { 
+            existing.records.push(r);
+            for(let i=1; i<=8; i++) existing[`cast${i}`] = r[`cast${i}`];
+        } else { 
+            let item = { time: r.time, isBooked: false, records: [r] };
+            for(let i=1; i<=8; i++) item[`cast${i}`] = r[`cast${i}`];
+            dayItems.push(item); 
+        }
+      });
+
+      dayItems = dayItems.filter(i => {
+         let keepForRecord = true;
+         if (i.records && i.records.length > 0) {
+            i.isBooked = true;
+            const hasSeat = i.records.some(r => r.seatZone && r.seatZone.trim() !== "");
+            i.isUnseated = !hasSeat; 
+         } else {
+            const inSchedule = state.schedule && state.schedule.some(s => s.date === dateStr && s.time === i.time);
+            if (!inSchedule) keepForRecord = false;
+         }
+         
+         if (!keepForRecord) return false;
+
+         if (isAnyFilterActive) {
+           let matchCount = 0;
+           let activeRoleCount = 0;
+           Object.keys(calFilters).forEach((roleKey, idx) => {
+             const selectedActors = calFilters[roleKey];
+             if (selectedActors.length > 0) {
+               activeRoleCount++;
+               const currentCast = i[`cast${idx + 1}`];
+               if (currentCast && selectedActors.includes(currentCast)) matchCount++;
+             }
+           });
+           if (matchCount < activeRoleCount) return false; 
+         }
+         return true;
+      });
+
+      dayItems.sort((a,b) => a.time.localeCompare(b.time));
+
+      let chipsHtml = dayItems.map(i => {
+        let cls = i.isBooked ? (i.isUnseated ? 'unseated' : 'booked') : '';
+        let casts = [];
+        for(let c=1; c<=8; c++) if(i[`cast${c}`]) casts.push(i[`cast${c}`]);
+        
+        return `<div class="cs-chip ${cls}">
+          <div class="cs-time">${i.time}</div>
+          <div class="cs-cast">${casts.length > 0 ? casts.join('·') : '-'}</div>
+        </div>`;
+      }).join('');
+
+      html += `<div class="cal-day ${isToday ? 'today' : ''} ${isSun ? 'sun' : ''} ${isSat ? 'sat' : ''}" onclick="openRecordModal('${dateStr}')">
+        <span class="cal-day-num">${day}</span>
+        <div style="height:${evHeight}px; flex-shrink:0; width:100%;"></div>
+        ${chipsHtml}
+      </div>`;
+    }
+
+    if (maxRow > 0) {
+      html += `<div style="position:absolute; top:24px; left:0; right:0; pointer-events:none;">`;
+      for (let row = 0; row < maxRow; row++) {
+        html += `<div style="position:relative; height:16px; margin-bottom:2px;">`;
+        wSegs.filter(s => s.row === row).forEach(s => {
+          const leftPct  = (s.startCol / 7 * 100).toFixed(2);
+          const widthPct = ((s.endCol - s.startCol + 1) / 7 * 100).toFixed(2);
+          const clickAction = s.url ? `onclick="window.open('${s.url}', '_blank'); event.stopPropagation();"` : '';
+          const pointerStyle = s.url ? 'pointer-events:auto; cursor:pointer;' : 'pointer-events:auto;';
+
+          html += `<div ${clickAction} style="position:absolute; left:${leftPct}%; width:calc(${widthPct}% - 4px); margin:0 2px; height:16px; background:${s.color}; border-radius:4px; display:flex; align-items:center; padding:0 6px; overflow:hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); ${pointerStyle}">
+            <span style="font-size:10px; font-weight:700; color:#fff; white-space:nowrap; text-shadow:0 0 2px rgba(0,0,0,0.5);">${s.name}</span>
+          </div>`;
+        });
+        html += `</div>`;
+      }
+      html += `</div>`;
+    }
+    html += `</div>`;
+  }
+  document.getElementById('cal-grid-container').innerHTML = html;
+}
+
+// ============================================================
+// 6. TAB 3 & 4: STATS & SEATS
+// ============================================================
+function getValidRecords() {
+  let validRecords = [];
+  let grouped = {};
+
+  state.records.forEach(r => {
+    let k = r.date + '_' + r.time;
+    if (!grouped[k]) grouped[k] = [];
+    grouped[k].push(r);
+  });
+
+  for (let k in grouped) {
+    let grp = grouped[k];
+    if (grp.length === 1) {
+      validRecords.push(grp[0]);
+    } else {
+      let seated = grp.find(x => x.seatRow !== "" && x.seatNum !== "");
+      validRecords.push(seated || grp[0]);
+    }
+  }
+  return validRecords;
+}
+
+function renderActorStats() {
+  const validRecords = getValidRecords();
+  
+  let actorStatsHtml = `<tr>
+    <th style="width:30%;">배역</th>
+    <th style="width:40%;">배우</th>
+    <th style="width:30%;">관람 횟수</th>
+  </tr>`;
+  
+  CONFIG.ROLES.forEach((role, idx) => {
+    const castKey = `cast${idx+1}`;
+    role.actors.forEach((actor, aIdx) => {
+      const myCnt = validRecords.filter(r => r[castKey] === actor).length;
+      const totalCnt = (state.schedule || []).filter(s => s[castKey] === actor).length;
+      
+      actorStatsHtml += `<tr>`;
+      if (aIdx === 0) actorStatsHtml += `<td rowspan="${role.actors.length}" style="font-weight:700; color:var(--txt); vertical-align:middle; background:var(--bg3); border-right:1px solid var(--brd);">${role.label}</td>`;
+      actorStatsHtml += `<td style="font-weight:600; color:var(--txt2);">${actor}</td>
+      <td>
+        <span style="color:var(--primary); font-weight:700; font-size:14px;">${myCnt}</span>
+        <span style="color:var(--txt4); font-weight:400; font-size:11px;"> / ${totalCnt}</span>
+      </td></tr>`;
+    });
+  });
+  document.getElementById('stats-actors').innerHTML = actorStatsHtml;
+}
+
+function renderSeatStats() {
+  const validRecords = getValidRecords();
+  let seatMap = {};
+  
+  validRecords.forEach(r => {
+    if(r.seatZone && r.seatRow !== "" && r.seatNum !== "") {
+      const k = `${r.seatZone}-${r.seatRow.toUpperCase()}-${r.seatNum}`;
+      seatMap[k] = (seatMap[k] || 0) + 1;
+    }
+  });
+
+  const getHeatClass = (cnt) => {
+    if(cnt >= 5) return 'v5';
+    if(cnt >= 4) return 'v4';
+    if(cnt >= 3) return 'v3';
+    if(cnt >= 2) return 'v2';
+    if(cnt >= 1) return 'v1';
+    return '';
+  };
+
+  let hmHtml = '';
+  if(THEATER_ZONES.length === 0) {
+      hmHtml = '<div style="padding:40px; text-align:center; color:var(--txt4);">좌석 정보가 아직 등록되지 않았습니다.</div>';
+  } else {
+    THEATER_ZONES.forEach(z => { 
+      hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; margin-bottom:20px; width:100%; background:var(--bg2); padding:16px; border-radius:8px; border:1px solid var(--brd);">`;
+      hmHtml += `<div style="font-size:13px; font-weight:800; color:var(--txt); margin-bottom:16px;">${z.name}</div>`;
+      hmHtml += `<div class="zone-col">`;
+      
+      z.rows.forEach(rowInfo => {
+        hmHtml += `<div class="seat-row"><div class="row-label">${rowInfo.id}</div>`;
+        rowInfo.map.forEach(col => {
+          if (col === 'a') {
+             hmHtml += `<div class="seat-aisle"></div>`;
+          } else if (col === null) {
+             hmHtml += `<div class="seat-cell hidden"></div>`;
+          } else {
+             const k = `${z.name}-${rowInfo.id}-${col}`;
+             const cnt = seatMap[k] || 0;
+             hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" title="${z.name} ${rowInfo.id}열 ${col}번: ${cnt}회"></div>`;
+          }
+        });
+        hmHtml += `</div>`;
+      });
+      hmHtml += `</div></div>`; 
+    });
+  }
+  
+  document.getElementById('heatmap-container').innerHTML = hmHtml;
+}
+
+// ============================================================
+// 7. SETTINGS & BACKUP
+// ============================================================
+async function fetchSchedule(manual = false) {
+  const statusEl = document.getElementById('set-sch-time');
+  if (statusEl) statusEl.textContent = '불러오는 중...';
+  try {
+    const res = await fetch('./schedule.json?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    state.schedule = data; saveState();
+    const now = new Date().toLocaleString('ko-KR', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' });
+    if (statusEl) statusEl.textContent = now;
+    if (manual) alert(`스케줄 ${data.length}개 업데이트 완료`);
+    renderCalendar();
+  } catch (e) {
+    if (statusEl) statusEl.textContent = '캐시/내장 데이터 사용 중';
+    if (manual) alert('오프라인 상태이거나 schedule.json 파일이 없습니다.');
+  }
+}
+
+async function fetchEvents(manual = false) {
+  const statusEl = document.getElementById('set-evt-time');
+  if (statusEl) statusEl.textContent = '불러오는 중...';
+  try {
+    const res = await fetch('./events.json?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    state.events = data; saveState();
+    const now = new Date().toLocaleString('ko-KR', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' });
+    if (statusEl) statusEl.textContent = now;
+    if (manual) alert(`이벤트 ${data.length}개 업데이트 완료`);
+    renderCalendar();
+    renderRecords();
+  } catch (e) {
+    if (statusEl) statusEl.textContent = '캐시/내장 데이터 사용 중';
+    if (manual) alert('오프라인 상태이거나 events.json 파일이 없습니다.');
+  }
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `${CONFIG.SHOW_NAME}_백업_${todayStr()}.json`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if(data.records) {
+        if(confirm("현재 데이터를 덮어쓰시겠습니까?")) { state = data; saveState(); location.reload(); }
+      } else { alert("올바른 백업 파일이 아닙니다."); }
+    } catch(err) { alert("파일 읽기 오류"); }
+  };
+  reader.readAsText(file); e.target.value = '';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.onload = () => {
+  initRecordForm();
+  loadState();
+  
+  fetchSchedule(false);
+  fetchEvents(false);
+  renderCalendar();
+  
+  switchTab('record', document.querySelector('.tab-btn')); 
+};
+
+</script>
+
+</body>
+</html>
