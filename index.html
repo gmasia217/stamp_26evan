@@ -135,7 +135,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cs-chip.booked .cs-cast { color:var(--txt); }
 .cs-chip.unseated { background:var(--bg4); border-color:var(--brd2); }
 
-/* HEATMAP & MINIMAP (정렬 및 스크롤 개선 적용) */
+/* HEATMAP & MINIMAP (정렬 및 지그재그 반칸 개선) */
 .heatmap-wrap { width:100%; padding-bottom:15px; }
 .mini-hm-container { 
   display: block; 
@@ -165,10 +165,12 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .row-label { font-size:9px; width:14px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; flex-shrink:0; }
 .seat-cell { width:14px; height:14px; background:var(--bg4); border-radius:3px; border:1px solid transparent; flex-shrink:0; cursor:pointer; }
 .seat-aisle { width:10px; flex-shrink:0; }
+.seat-half { width:5.5px; height:14px; flex-shrink:0; pointer-events:none; } /* 지그재그 용 반칸 */
 
 .mini-seat-row { display:flex; gap:2px; justify-content:center; align-items:center; }
 .mini-seat-cell { width:12px; height:12px; background:var(--bg4); border-radius:2px; flex-shrink:0; border:1px solid transparent; cursor:pointer; }
 .mini-seat-aisle { width:8px; flex-shrink:0; }
+.mini-seat-half { width:5px; height:12px; flex-shrink:0; pointer-events:none; } /* 지그재그 용 반칸 */
 .mini-row-label { font-size:8px; width:14px; text-align:center; color:var(--txt4); margin-right:4px; line-height:10px; font-weight:600;}
 
 .seat-cell.v1 { background:var(--seat1); border-color:var(--seat1); } 
@@ -491,8 +493,8 @@ const CONFIG = {
     { id: "cast3", label: "코너 머피", actors: ["조민호", "김수호"] },
     { id: "cast4", label: "조이 머피", actors: ["강지혜", "장민제"] },
     { id: "cast5", label: "래리 머피", actors: ["장현성", "정동근"] },
-    { id: "cast6", label: "신시아 머피", actors: ["안시하", "임민영"] },
-    { id: "cast7", label: "재러드 클라인먼", actors: ["김강진", "윤현선"] },
+    { id: "cast6", label: "신시아 머피", actors: ["안시하", "임민영", "새봄"] },
+    { id: "cast7", label: "재러드 클라인먼", actors: ["김강진", "윤현선", "박건우"] },
     { id: "cast8", label: "알라나 벡", actors: ["강은세", "염희진"] }
   ],
   
@@ -515,15 +517,24 @@ function range(start, end) {
 }
 function padLeft(arr, total) { return [...Array(total - arr.length).fill(null), ...arr]; }
 function padRight(arr, total) { return [...arr, ...Array(total - arr.length).fill(null)]; }
-function padBoth(arr, total) {
-  let pad = (total - arr.length) / 2;
-  return [...Array(Math.floor(pad)).fill(null), ...arr, ...Array(Math.ceil(pad)).fill(null)];
-}
 function mapToBlock(arr, blockName) {
   return arr.map(n => n !== null ? { b: blockName, n: n } : null);
 }
+function centerInBlock(arr, targetWidth) {
+  let diff = targetWidth - arr.length;
+  let res = [...arr];
+  let nulls = Math.floor(diff / 2);
+  let needsHalf = diff % 2 !== 0;
 
-// 충무아트센터 대극장 정밀 좌석표 (B구역 지그재그 패턴 및 구역별 1번부터 시작 적용)
+  let leftPads = Array(nulls).fill(null);
+  let rightPads = Array(nulls).fill(null);
+  
+  // 지그재그 반칸 처리 ('h')
+  if (needsHalf) res = ['h', ...res, 'h'];
+  return [...leftPads, ...res, ...rightPads];
+}
+
+// 충무아트센터 대극장 정밀 좌석표 (B구역 지그재그 및 C구역 일렬 정렬 완벽 적용)
 const THEATER_ZONES = [
   {
     name: '1층',
@@ -531,12 +542,17 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=21; r++) {
         let L, C, R;
-        let cMax = (r % 2 !== 0) ? 17 : 16; // 지그재그 홀수 17, 짝수 16
+        let cMax = (r % 2 !== 0) ? 17 : 16;
+        
         if(r<=3) { L = padLeft(range(1,7), 9); C = range(1, cMax); R = padRight(range(1,7), 9); }
         else if(r===4) { L = padLeft(range(1,8), 9); C = range(1, cMax); R = padRight(range(1,8), 9); }
         else if(r<=20) { L = range(1,9); C = range(1, cMax); R = range(1,9); }
         else if(r===21) { L = padLeft(range(1,6), 9); C = range(1, cMax); R = padRight(range(1,7), 9); } 
-        L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
+        
+        L = mapToBlock(L, 'A구역'); 
+        C = centerInBlock(mapToBlock(C, 'B구역'), 17); // B구역 최대폭 17 고정 -> C구역 일렬 정렬
+        R = mapToBlock(R, 'C구역');
+        
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
       return rows;
@@ -548,14 +564,19 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=11; r++) {
         let L, C, R;
-        let cMax = (r % 2 !== 0) ? 16 : 15; // 지그재그 홀수 16, 짝수 15
+        let cMax = (r % 2 !== 0) ? 16 : 15;
+        
         if(r<=6) { L = range(1,9); C = range(1, cMax); R = range(1,9); }
         else if(r===7) { L = padLeft(range(1,7), 9); C = range(1, cMax); R = padRight(range(1,6), 9); }
         else if(r===8) { L = Array(9).fill(null); C = range(1, 14); R = Array(9).fill(null); }
         else if(r===9) { L = Array(9).fill(null); C = range(1, 13); R = Array(9).fill(null); }
         else if(r===10) { L = Array(9).fill(null); C = range(1, 12); R = Array(9).fill(null); }
         else if(r===11) { L = Array(9).fill(null); C = range(1, 11); R = Array(9).fill(null); }
-        L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
+        
+        L = mapToBlock(L, 'A구역'); 
+        C = centerInBlock(mapToBlock(C, 'B구역'), 16); // 2층 B구역 최대폭 16 고정
+        R = mapToBlock(R, 'C구역');
+        
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
       return rows;
@@ -566,9 +587,9 @@ const THEATER_ZONES = [
     rows: (() => {
       let rows = [];
       for(let r=1; r<=8; r++) {
-        let cMax = (r % 2 !== 0) ? 16 : 15; // 지그재그 홀수 16, 짝수 15
+        let cMax = (r % 2 !== 0) ? 16 : 15;
         let L = mapToBlock(range(1,9), 'A구역');
-        let C = mapToBlock(range(1, cMax), 'B구역');
+        let C = centerInBlock(mapToBlock(range(1, cMax), 'B구역'), 16); // 3층 B구역 최대폭 16 고정
         let R = mapToBlock(range(1,9), 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
@@ -606,7 +627,7 @@ function openSeatHistoryModal(zone, block, row, num) {
         r.seatZone === zone && 
         (r.seatBlock || '') === (block || '') && 
         r.seatRow === row && 
-        r.seatNum === num
+        r.seatNum === String(num) // 숫자/문자열 타입 보정
     ).sort((a,b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
 
     document.getElementById('sh-seat-title').textContent = `${zone} ${block ? block+' ' : ''}${row}열 ${num}번`;
@@ -1033,6 +1054,8 @@ function renderMiniMap(selZone, selBlock, selRow, selNum) {
       rowInfo.map.forEach(colObj => {
         if (colObj === 'a') {
            hmHtml += `<div class="mini-seat-aisle"></div>`;
+        } else if (colObj === 'h') {
+           hmHtml += `<div class="mini-seat-half"></div>`;
         } else if (colObj === null) {
            hmHtml += `<div class="mini-seat-cell hidden"></div>`;
         } else {
@@ -1380,6 +1403,8 @@ function renderSeatStats() {
         rowInfo.map.forEach(colObj => {
           if (colObj === 'a') {
              hmHtml += `<div class="seat-aisle"></div>`;
+          } else if (colObj === 'h') {
+             hmHtml += `<div class="seat-half"></div>`;
           } else if (colObj === null) {
              hmHtml += `<div class="seat-cell hidden"></div>`;
           } else {
