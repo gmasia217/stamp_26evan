@@ -42,7 +42,7 @@ body {
    2. 캡처 래퍼 및 전체 배경 (연하늘색)
    ========================================== */
 .capture-wrapper {
-    width: 1450px; /* 전체 캡처를 위한 넉넉한 고정 넓이 */
+    width: 1680px; /* 전체 가로 비율 넓게 조정 */
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
@@ -50,8 +50,10 @@ body {
 
 .capture-board {
     width: 100%;
-    padding: 60px; /* 연하늘색 여백 공간 */
-    background-color: #eaf4fb; /* 맥북 컨셉용 깔끔한 연하늘색 배경 */
+    height: auto; 
+    min-height: 1000px;
+    padding: 60px; 
+    background-color: #eaf4fb;
     box-sizing: border-box;
 }
 
@@ -60,18 +62,19 @@ body {
    ========================================== */
 .mac-window {
     width: 100%;
+    height: 100%;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* 테두리 둥글기 유지 */
+    overflow: hidden; 
 }
 
 /* 브라우저 상단 헤더 */
 .mac-header {
     height: 54px;
-    background-color: #174ca2; /* 시안과 유사한 파란색 헤더 */
+    background-color: #174ca2; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -79,64 +82,31 @@ body {
     position: relative;
 }
 
-.mac-left-controls {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.mac-buttons {
-    display: flex;
-    gap: 8px;
-}
+.mac-left-controls { display: flex; align-items: center; gap: 20px; }
+.mac-buttons { display: flex; gap: 8px; }
 .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
 .mac-btn.close { background-color: #ff5f56; }
 .mac-btn.minimize { background-color: #ffbd2e; }
 .mac-btn.maximize { background-color: #27c93f; }
 
-.mac-nav-icons {
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: bold;
-    display: flex;
-    gap: 15px;
-    opacity: 0.8;
-}
+.mac-nav-icons { color: #ffffff; font-size: 14px; font-weight: bold; display: flex; gap: 15px; opacity: 0.8; }
 
 /* 주소창 */
 .mac-address-bar {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ffffff;
-    padding: 6px 20px;
-    border-radius: 18px;
-    font-size: 13px;
-    color: #475569;
-    font-weight: 700;
-    width: 400px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: absolute; left: 50%; transform: translateX(-50%);
+    background: #ffffff; padding: 6px 20px; border-radius: 18px;
+    font-size: 13px; color: #475569; font-weight: 700; width: 400px;
+    display: flex; justify-content: space-between; align-items: center;
 }
-
-.mac-address-bar .star-icon {
-    font-size: 16px;
-    color: #cbd5e1;
-}
-
-.mac-right-controls .hamburger-menu {
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: bold;
-}
+.mac-address-bar .star-icon { font-size: 16px; color: #cbd5e1; }
+.mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
 
 /* 브라우저 내용 (흰색 바탕) */
 .mac-body {
     display: flex;
+    flex: 1;
     padding: 50px 60px;
-    gap: 40px;
-    height: 1150px;
+    gap: 60px; /* 메인 영역과 사이드 여백 넓게 */
     box-sizing: border-box;
 }
 
@@ -144,48 +114,48 @@ body {
    4. 캐스팅 및 좌우 레이아웃
    ========================================== */
 .board-main {
-    flex: 1;
+    flex: 2; /* 왼쪽 캐스팅 보드를 넓게 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .board-side {
-    width: 400px; /* 좌석표 안 잘리게 너비 증가 */
+    width: 500px; /* 좌석표 크기 확대를 위한 영역 확충 */
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    justify-content: space-between; /* 말풍선 위로, 좌석표 아래 꽉 채우기 */
     gap: 20px;
 }
 
 .board-row { display: flex; width: 100%; }
-.top-row { justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
-.middle-row { justify-content: space-between; align-items: flex-end; }
-.bottom-row { justify-content: space-between; align-items: flex-end; margin-top: 10px; }
+.top-row { justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
+.middle-row { justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+.bottom-row { justify-content: space-between; align-items: flex-end; margin-top: 20px; }
 
-.board-logo { width: 300px; object-fit: contain; }
+.board-logo { width: 220px; object-fit: contain; } /* 로고 더 작게 수정 */
 
 /* 배역 스티커 UI */
 .role-group { display: flex; flex-direction: column; align-items: center; }
 
 .role-badge {
-    background: #f1f5f9; /* 흰색 바탕 위에 부드러운 회색/파란색 조화 */
+    background: #f1f5f9; 
     color: #174ca2;
-    padding: 6px 14px;
+    padding: 8px 18px; /* 더 크고 시원하게 */
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 16px; /* 캐스트 이름 더 크게 */
     font-weight: 700;
     margin-bottom: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.actor-list { display: flex; gap: 12px; }
+.actor-list { display: flex; gap: 15px; }
 .actor-item { display: flex; flex-direction: column; align-items: center; }
 
 .actor-img {
-    width: 85px; 
-    height: 100px;
+    width: 110px; /* 캐스트 사진 더 크게 */
+    height: 130px;
     object-fit: contain;
     filter: 
         drop-shadow(2px 0px 0px white) 
@@ -193,104 +163,95 @@ body {
         drop-shadow(0px 2px 0px white) 
         drop-shadow(0px -2px 0px white) 
         drop-shadow(0px 6px 8px rgba(0,0,0,0.2));
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .actor-count {
     background: white;
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 8px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     font-weight: 700;
     transform: rotate(-3deg);
-    margin-top: -12px;
+    margin-top: -15px;
     z-index: 2;
 }
-.actor-count .my-count { color: #e11d48; font-size: 18px; }
-.actor-count .total-count { color: #94a3b8; font-size: 12px; }
+.actor-count .my-count { color: #e11d48; font-size: 22px; } /* 숫자 확대 */
+.actor-count .total-count { color: #94a3b8; font-size: 14px; }
 
 /* ==========================================
    5. SNS 카드 및 텍스트 꾸미기
    ========================================== */
 .sns-card {
-    background: #ffffff;
-    border-radius: 12px;
-    width: 320px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    transform: rotate(2deg);
-    border: 1px solid #e2e8f0;
+    background: #ffffff; border-radius: 12px; width: 340px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: rotate(2deg); border: 1px solid #e2e8f0;
 }
-
-.sns-header { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; }
-.sns-profile { width: 24px; height: 24px; border-radius: 50%; margin-right: 10px; }
-.sns-name { font-weight: 700; font-size: 13px; color: #0f172a; flex: 1; }
+.sns-header { display: flex; align-items: center; padding: 14px 18px; border-bottom: 1px solid #f1f5f9; }
+.sns-profile { width: 26px; height: 26px; border-radius: 50%; margin-right: 12px; }
+.sns-name { font-weight: 700; font-size: 14px; color: #0f172a; flex: 1; }
 .sns-dots { color: #94a3b8; font-weight: bold; }
-.sns-body { padding: 25px 20px; text-align: center; }
-.sns-tag { color: #3b82f6; font-weight: 700; font-size: 16px; margin-bottom: 15px; text-align: left; }
-.sns-total .my-total { color: #e11d48; font-size: 45px; font-weight: 700; }
-.sns-total .overall-total { color: #64748b; font-size: 20px; font-weight: 600; }
-.sns-footer { padding: 12px 16px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 12px; font-weight: 600; }
+.sns-body { padding: 30px 20px; text-align: center; }
+.sns-tag { color: #3b82f6; font-weight: 700; font-size: 18px; margin-bottom: 15px; text-align: left; }
+.sns-total .my-total { color: #e11d48; font-size: 50px; font-weight: 700; }
+.sns-total .overall-total { color: #64748b; font-size: 22px; font-weight: 600; }
+.sns-footer { padding: 14px 18px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 13px; font-weight: 600; }
 
 .decorative-text {
-    color: #174ca2;
-    font-size: 18px;
-    font-weight: 700;
-    opacity: 0.7;
-    text-align: right;
-    margin-right: 30px;
-    margin-bottom: 20px;
-    line-height: 1.4;
-    transform: rotate(-2deg);
+    color: #174ca2; font-size: 20px; font-weight: 700; opacity: 0.7;
+    text-align: right; margin-right: 30px; margin-bottom: 20px; line-height: 1.4; transform: rotate(-2deg);
 }
 
 /* ==========================================
    6. 말풍선
    ========================================== */
-.speech-bubbles { display: flex; flex-direction: column; gap: 15px; width: 100%; align-items: flex-end; }
+.speech-bubbles { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; margin-bottom: auto; }
 .bubble {
     position: relative; background: #f8fafc; border: 1px solid #e2e8f0;
-    padding: 12px 20px; border-radius: 20px; font-size: 15px; font-weight: 700; color: #1e293b;
+    padding: 16px 24px; border-radius: 20px; font-size: 18px; font-weight: 700; color: #1e293b;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: fit-content;
 }
 .bubble-right::after {
     content: ''; position: absolute; bottom: -10px; right: 20px;
     border-width: 10px 10px 0 0; border-style: solid; border-color: #f8fafc transparent transparent transparent;
 }
-.bubble-left { align-self: flex-start; border-radius: 20px 20px 20px 0; color: #334155; line-height: 1.4; }
+.bubble-left { align-self: flex-start; border-radius: 20px 20px 20px 0; color: #334155; line-height: 1.5; }
 .bubble-left::after {
     content: ''; position: absolute; bottom: 0; left: -10px;
     border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #f8fafc transparent transparent;
 }
 
 /* ==========================================
-   7. 미니 좌석표 (안 잘리도록 크기 완벽 조정)
+   7. 미니 좌석표 (가로 공간 채우기 및 크기 확대)
    ========================================== */
 .seat-map-board {
     background: #ffffff;
     border: 3px solid #174ca2;
-    padding: 15px 25px; /* 내부 여백 조절 */
-    border-radius: 8px;
+    padding: 25px 30px; 
+    border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    width: 100%;
-    box-sizing: border-box; /* 패딩 포함 크기 유지 */
+    width: 100%; /* 부모(500px) 너비에 맞게 꽉 채움 */
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .seat-map-header {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 15px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;
+    margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;
 }
-.seat-map-header .close-btn { color: #94a3b8; font-weight: bold; }
+.seat-map-header .close-btn { color: #94a3b8; font-weight: bold; font-size: 16px; }
 
-.seat-floor { margin-bottom: 15px; }
-.floor-title { text-align: center; font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px; }
+.seat-floor { margin-bottom: 20px; }
+.floor-title { text-align: center; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 10px; }
 
-.f-zone-col { display: flex; flex-direction: column; gap: 2px; align-items: center; }
+.f-zone-col { display: flex; flex-direction: column; gap: 3px; align-items: center; }
 .f-seat-row { display: flex; gap: 2px; justify-content: center; }
 
-/* 🌟 너비를 6px로 콤팩트하게 줄여서 넓은 열도 완벽히 들어가도록 수정 */
-.f-seat-cell { width: 6px; height: 6px; border-radius: 1.5px; border: 1px solid #cbd5e1; box-sizing: border-box;}
-.f-seat-aisle { width: 4px; flex-shrink: 0; }
-.f-seat-half { width: 3px; height: 6px; pointer-events: none; }
+/* 🌟 좌석표 더 크게 (8px) 늘려서 아래 빈 공간 없애기 */
+.f-seat-cell { width: 8px; height: 8px; border-radius: 2px; border: 1px solid #cbd5e1; box-sizing: border-box;}
+.f-seat-aisle { width: 6px; flex-shrink: 0; }
+.f-seat-half { width: 4px; height: 8px; pointer-events: none; }
 .f-seat-cell.hidden { border-color: transparent; background: transparent; }
 
 /* 히트맵 컬러 */
@@ -301,10 +262,10 @@ body {
 .f-seat-cell.c4 { background: #083870; border-color: #083870; }
 
 .seat-legend {
-    display: flex; justify-content: center; gap: 10px; font-size: 10px; color: #64748b; font-weight: 700;
-    margin-top: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0;
+    display: flex; justify-content: center; gap: 15px; font-size: 12px; color: #64748b; font-weight: 700;
+    margin-top: 15px; padding-top: 15px; border-top: 1px solid #e2e8f0;
 }
-.leg-box { display: inline-block; width: 8px; height: 8px; border-radius: 1.5px; margin-right: 4px; vertical-align: middle; }
+.leg-box { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
 .leg-box.c1 { background: #78c6f5; }
 .leg-box.c2 { background: #4ba6e6; }
 .leg-box.c3 { background: #2682cc; }
