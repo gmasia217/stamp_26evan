@@ -17,7 +17,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap');
 
 :root {
-  /* 블루 & 화이트 테마 */
+  /* 블루 & 화이트 테마 - 쨍한 하늘색 원색 느낌으로 변경 */
   --bg: #f0f4f8; 
   --bg2: #ffffff; 
   --bg3: #f8fafc; 
@@ -30,16 +30,16 @@
   --txt4: #64748b; 
   --dim: #94a3b8;
   
-  --primary: #0284c7; 
-  --primary2: #38bdf8;
-  --primary3: #e0f2fe; 
-  --primary4: #f0f9ff;
+  --primary: #009ceb; /* 좀 더 쨍하고 선명한 하늘색 */
+  --primary2: #0087cc;
+  --primary3: #dcf2ff; 
+  --primary4: #f0faff;
   
-  --seat1: #bae6fd; 
-  --seat2: #7dd3fc; 
-  --seat3: #38bdf8; 
-  --seat4: #0ea5e9; 
-  --seat5: #0284c7;
+  --seat1: #cceeff; 
+  --seat2: #80d4ff; 
+  --seat3: #33bbff; 
+  --seat4: #00a2ed; 
+  --seat5: #007ac2;
   
   --tab-h: 60px;
 }
@@ -66,7 +66,7 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 /* BUTTONS */
 .btn { background:transparent; border:1px solid var(--brd2); color:var(--txt2); padding:8px 14px; cursor:pointer; font-family:inherit; font-size:13px; border-radius:6px; transition:all 0.2s; font-weight:600; }
 .btn:active { border-color:var(--primary); color:var(--primary); background:var(--primary4); }
-.btn.prim { background:var(--primary); border-color:var(--primary); color:#fff; font-weight:700; box-shadow: 0 4px 10px rgba(2,132,199,0.2); }
+.btn.prim { background:var(--primary); border-color:var(--primary); color:#fff; font-weight:700; box-shadow: 0 4px 10px rgba(0,156,235,0.2); }
 .btn.prim:active { background:var(--primary2); border-color:var(--primary2); }
 .btn.sm { padding:4px 10px; font-size:11px; }
 .btn.ghost { background:transparent; border-color:transparent; color:var(--txt4); }
@@ -110,7 +110,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cal-filter-group { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
 .cal-filter-label { font-size:12px; color:var(--txt2); width:85px; font-weight:700; white-space:nowrap; }
 .cal-filter-btn { background:var(--bg2); border:1px solid var(--brd); color:var(--txt3); padding:4px 10px; border-radius:20px; font-size:12px; cursor:pointer; transition:all 0.2s; font-weight:600; white-space:nowrap; }
-.cal-filter-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; box-shadow: 0 2px 5px rgba(2,132,199,0.3); }
+.cal-filter-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; box-shadow: 0 2px 5px rgba(0,156,235,0.3); }
 
 .cal-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
 .cal-grid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:1px; position:relative; background:var(--brd); border:1px solid var(--brd); border-radius:8px; overflow:hidden;}
@@ -455,9 +455,9 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
       <button class="btn sm ghost" onclick="closeModal('modal-seat-history')" style="font-size:18px; padding:0 6px; color:var(--txt);">✕</button>
     </div>
     <div id="sh-seat-title" style="font-size:13px; font-weight:700; color:var(--txt3); margin-bottom:12px; text-align:center;"></div>
-    <div class="twrap" style="margin:0; padding:0; max-height:40vh; overflow-y:auto;">
+    <div class="twrap" style="margin:0; padding:0; max-height:40vh; overflow-x:auto; overflow-y:auto;">
       <table class="record-tb" style="width:100%;">
-        <thead><tr><th>날짜</th><th>시간</th><th>에반</th><th>코너</th></tr></thead>
+        <thead><tr><th>날짜</th><th>시간</th><th>에반</th><th>하이디</th><th>코너</th><th>조이</th><th>래리</th><th>신시아</th><th>재러드</th><th>알라나</th></tr></thead>
         <tbody id="sh-tbody"></tbody>
       </table>
     </div>
@@ -605,13 +605,19 @@ function openSeatHistoryModal(zone, block, row, num) {
     
     let html = '';
     if(records.length === 0) {
-        html = `<tr><td colspan="4" style="padding:20px; color:var(--txt4);">이 좌석에서의 관람 기록이 없습니다.</td></tr>`;
+        html = `<tr><td colspan="10" style="padding:20px; color:var(--txt4);">이 좌석에서의 관람 기록이 없습니다.</td></tr>`;
     } else {
         html = records.map(r => `<tr>
             <td style="font-weight:600; color:var(--txt);">${r.date.substring(5).replace('-','.')}</td>
             <td style="color:var(--txt2);">${r.time}</td>
-            <td style="color:var(--primary); font-weight:600;">${r.cast1 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast1 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast2 || '-'}</td>
             <td style="color:var(--txt2); font-weight:600;">${r.cast3 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast4 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast5 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast6 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast7 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast8 || '-'}</td>
         </tr>`).join('');
     }
     document.getElementById('sh-tbody').innerHTML = html;
@@ -742,7 +748,7 @@ function renderRecords() {
         </div>
       </td>
       <td><div style="font-weight:600;">${r.time}</div></td>
-      <td style="color:var(--primary); font-weight:700;">${r.cast1 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast1 || '-'}</td>
       <td style="color:var(--txt2); font-weight:600;">${r.cast2 || '-'}</td>
       <td style="color:var(--txt2); font-weight:600;">${r.cast3 || '-'}</td>
       <td style="color:var(--txt2); font-weight:600;">${r.cast4 || '-'}</td>
@@ -778,7 +784,6 @@ function initRecordForm() {
   `).join('');
   document.getElementById('rm-disc').innerHTML = CONFIG.DISCOUNTS.map(d => `<option value="${d.value}">${d.label}</option>`).join('');
   
-  // 페어별 정산 선택용 select 옵션 추가
   const p1 = document.getElementById('pair-role1');
   const p2 = document.getElementById('pair-role2');
   let roleOptions = CONFIG.ROLES.map((role, idx) => `<option value="cast${idx+1}">${role.label.split(' ')[0]}</option>`).join('');
@@ -1359,7 +1364,6 @@ function renderSeatStats() {
              const k = `${z.name}-${colObj.b}-${rowInfo.id}-${colObj.n}`;
              const cnt = seatMap[k] || 0;
              const tooltipText = `${z.name} ${colObj.b} ${rowInfo.id}열 ${colObj.n}번<br>관람: ${cnt}회`;
-             // 클릭 시 팝업 열기 & 마우스 오버 시 툴팁 보이기
              hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" 
                             onmouseenter="showSeatTooltip(event, '${tooltipText}')" 
                             onmouseleave="hideSeatTooltip()" 
