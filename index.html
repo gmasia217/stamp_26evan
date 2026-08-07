@@ -17,7 +17,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap');
 
 :root {
-  /* 블루 & 화이트 (라이트 모드) 테마 */
+  /* 블루 & 화이트 테마 */
   --bg: #f0f4f8; 
   --bg2: #ffffff; 
   --bg3: #f8fafc; 
@@ -30,7 +30,7 @@
   --txt4: #64748b; 
   --dim: #94a3b8;
   
-  --primary: #0284c7; /* 메인 블루 */
+  --primary: #0284c7; 
   --primary2: #38bdf8;
   --primary3: #e0f2fe; 
   --primary4: #f0f9ff;
@@ -72,13 +72,12 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 .btn.ghost { background:transparent; border-color:transparent; color:var(--txt4); }
 .flex-between { display:flex; justify-content:space-between; align-items:center; }
 
-/* TABLE (기록 탭) */
+/* TABLE (기록 탭 등) */
 .twrap { overflow-x:auto; margin:0 -16px; padding:0 16px; -webkit-overflow-scrolling: touch; }
 table.record-tb { width:max-content; min-width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--brd); border-left:0; border-top:0; background:var(--bg2); }
 .record-tb th, .record-tb td { padding:10px 8px; border-bottom:1px solid var(--brd); border-right:1px solid var(--brd); text-align:center; white-space:nowrap; font-size:12px; vertical-align:middle; transition: background 0.2s; }
 .record-tb thead th { background:var(--bg3); font-size:11px; color:var(--txt3); font-weight:700; border-top:1px solid var(--brd); letter-spacing:0.02em; position:sticky; top:0; z-index:10; }
 .hover-row:hover { background-color: var(--primary4); }
-
 .closest-row td { background-color: var(--primary4) !important; }
 .next-badge { display: inline-block; font-size: 9px; background: var(--primary); color: #fff; padding: 2px 5px; border-radius: 4px; margin-bottom: 4px; font-weight: 800; letter-spacing: 0.5px; }
 
@@ -88,14 +87,14 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .fg { margin-bottom:12px; }
 .flbl { display:block; font-size:12px; color:var(--txt2); margin-bottom:5px; font-weight:700; }
 
-/* OVERLAY & MODAL ANIMATION */
+/* OVERLAY & MODAL */
 .overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,.6); z-index:200; justify-content:center; align-items:flex-end; backdrop-filter: blur(2px); }
 .overlay.show { display:flex; }
 .modal { background:var(--bg2); border-top:3px solid var(--primary); width:100%; max-width:520px; max-height:90vh; overflow-y:auto; padding:24px 20px; border-radius:20px 20px 0 0; animation:slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 25px rgba(0,0,0,0.1); }
 @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
 
 .overlay.center { align-items:center; padding:20px; z-index:250; }
-.modal.center { border-radius:16px; border:1px solid var(--brd); border-top:3px solid var(--primary); animation:popIn 0.2s ease; margin:auto; width:100%; max-width:400px; padding:20px; }
+.modal.center { border-radius:16px; border:1px solid var(--brd); border-top:3px solid var(--primary); animation:popIn 0.2s ease; margin:auto; width:100%; max-width:450px; padding:20px; }
 @keyframes popIn { from { transform:scale(0.95); opacity:0; } to { transform:scale(1); opacity:1; } }
 
 .detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom:1px solid var(--brd); padding-bottom:12px; }
@@ -104,7 +103,6 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .dt-label { color: var(--txt3); font-weight: 700; margin-right: 12px; width: 65px; font-size:12px; margin-top:2px; }
 .dt-value { color: var(--txt); font-weight: 600; flex:1; line-height:1.4; }
 
-/* TICKET BUTTON */
 .btn-ticket { width:36px; height:36px; border-radius:50%; background:var(--bg2); border:1px solid var(--primary); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s; color:var(--primary); }
 .btn-ticket:hover { background:var(--primary4); transform:scale(1.05); }
 
@@ -134,20 +132,37 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cs-chip.booked .cs-cast { color:var(--txt); }
 .cs-chip.unseated { background:var(--bg4); border-color:var(--brd2); }
 
-/* HEATMAP & MINIMAP */
-.heatmap-wrap { display:flex; flex-direction:column; gap:10px; align-items:flex-start; width:100%; padding-bottom:15px; }
-.mini-hm-container { display:flex; flex-direction:column; gap:20px; align-items:center; margin:16px 0; border:1px solid var(--brd); padding:20px; border-radius:8px; background:var(--bg3); overflow-x:auto;}
+/* HEATMAP & MINIMAP (정렬 및 스크롤 개선 적용) */
+.heatmap-wrap { width:100%; padding-bottom:15px; }
+.mini-hm-container { 
+  display: block; 
+  text-align: center; 
+  overflow-x: auto; 
+  white-space: nowrap; 
+  margin: 16px 0; 
+  border: 1px solid var(--brd); 
+  padding: 20px; 
+  border-radius: 8px; 
+  background: var(--bg3); 
+}
+.zone-col { 
+  display: inline-flex; 
+  flex-direction: column; 
+  gap: 3px; 
+  align-items: flex-start; 
+  margin: 0 auto;
+  text-align: left;
+}
 
-.zone-col { display:flex; flex-direction:column; gap:3px; align-items:flex-start; width:max-content; }
 .seat-row { display:flex; gap:3px; align-items:center; }
-.row-label { font-size:9px; width:12px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; flex-shrink:0; }
+.row-label { font-size:9px; width:14px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; flex-shrink:0; }
 .seat-cell { width:14px; height:14px; background:var(--bg4); border-radius:3px; border:1px solid transparent; flex-shrink:0; cursor:pointer; }
 .seat-aisle { width:10px; flex-shrink:0; }
 
 .mini-seat-row { display:flex; gap:2px; justify-content:center; align-items:center; }
-.mini-seat-cell { width:12px; height:12px; background:var(--bg4); border-radius:2px; flex-shrink:0; border:1px solid transparent; }
+.mini-seat-cell { width:12px; height:12px; background:var(--bg4); border-radius:2px; flex-shrink:0; border:1px solid transparent; cursor:pointer; }
 .mini-seat-aisle { width:8px; flex-shrink:0; }
-.mini-row-label { font-size:8px; width:12px; text-align:center; color:var(--txt4); margin-right:4px; line-height:10px; font-weight:600;}
+.mini-row-label { font-size:8px; width:14px; text-align:center; color:var(--txt4); margin-right:4px; line-height:10px; font-weight:600;}
 
 .seat-cell.v1 { background:var(--seat1); border-color:var(--seat1); } 
 .seat-cell.v2 { background:var(--seat2); border-color:var(--seat2); }
@@ -197,7 +212,6 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 <div id="app">
   <!-- 1. 기록 탭 -->
   <div class="page active" id="page-record">
-    <!-- 로고 크기 증가 및 간격 축소 -->
     <div style="text-align:center; margin-bottom:8px; position:relative;">
       <img src="evan_logo.png" alt="디어 에반 핸슨" style="height:80px; object-fit:contain;">
     </div>
@@ -212,7 +226,14 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
           <tr>
             <th>날짜</th>
             <th>시간</th>
-            <th>캐스트</th>
+            <th>에반</th>
+            <th>하이디</th>
+            <th>코너</th>
+            <th>조이</th>
+            <th>래리</th>
+            <th>신시아</th>
+            <th>재러드</th>
+            <th>알라나</th>
             <th>좌석</th>
             <th>할인</th>
             <th>이벤트</th>
@@ -227,7 +248,6 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   <!-- 2. 스케줄 탭 -->
   <div class="page" id="page-calendar">
     <div class="page-title">스케줄</div>
-    
     <div class="card" style="padding:16px 12px;">
       <div id="cal-filter-wrap"></div>
       <div style="margin-top:12px; text-align:right;">
@@ -235,7 +255,6 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
         <button class="btn sm ghost" onclick="resetCalFilter()">초기화</button>
       </div>
     </div>
-
     <div class="card" style="padding:16px;">
       <div class="cal-nav">
         <button class="btn sm ghost" style="font-size:14px;" onclick="changeMonth(-1)">❮</button>
@@ -262,12 +281,23 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
     </div>
   </div>
 
-  <!-- 4. 정산 탭 -->
+  <!-- 4. 캐스트 정산 탭 -->
   <div class="page" id="page-stats">
     <div class="page-title">캐스트 정산</div>
     <div class="card">
       <div class="card-title">배우별 관람 횟수</div>
       <table class="record-tb" style="width:100%; border-left:1px solid var(--brd); border-top:1px solid var(--brd);" id="stats-actors"></table>
+    </div>
+    <div class="card">
+      <div class="card-title">페어별 관람 횟수</div>
+      <div class="flex-between" style="margin-bottom:12px; gap:8px;">
+        <select id="pair-role1" class="fselect" onchange="renderPairStats()"></select>
+        <span style="font-weight:700; color:var(--dim);">X</span>
+        <select id="pair-role2" class="fselect" onchange="renderPairStats()"></select>
+      </div>
+      <div class="twrap" style="margin:0; padding:0;">
+        <table class="record-tb" style="width:100%; border-left:1px solid var(--brd); border-top:1px solid var(--brd);" id="stats-pairs"></table>
+      </div>
     </div>
   </div>
 
@@ -306,11 +336,11 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   <button class="tab-btn active" onclick="switchTab('record', this)"><span class="icon">📝</span>기록</button>
   <button class="tab-btn" onclick="switchTab('calendar', this)"><span class="icon">📅</span>스케줄</button>
   <button class="tab-btn" onclick="switchTab('seat', this)"><span class="icon">🪑</span>좌석 정산</button>
-  <button class="tab-btn" onclick="switchTab('stats', this)"><span class="icon">📊</span>정산</button>
+  <button class="tab-btn" onclick="switchTab('stats', this)"><span class="icon">📊</span>캐스트 정산</button>
   <button class="tab-btn" onclick="switchTab('settings', this)"><span class="icon">⚙️</span>설정</button>
 </nav>
 
-<!-- 회차 기록 모달 -->
+<!-- 회차 기록 추가 모달 -->
 <div class="overlay" id="modal-record" onclick="if(event.target===this) closeModal('modal-record')">
   <div class="modal">
     <div class="page-title" id="rm-title" style="font-size:18px;">회차 기록</div>
@@ -339,17 +369,22 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
     </div>
     
     <div class="fg">
-      <label class="flbl">좌석 정보 (층 / 열 / 번호)</label>
-      <div style="display:flex; gap:10px;">
-        <select id="rm-zone" class="fselect" style="flex:1;">
-            <option value="">층 선택</option>
+      <label class="flbl">좌석 정보 (층 / 구역 / 열 / 번호)</label>
+      <div style="display:flex; gap:8px;">
+        <select id="rm-zone" class="fselect" style="padding:10px 6px;">
+            <option value="">층</option>
             <option value="1층">1층</option>
             <option value="2층">2층</option>
             <option value="3층">3층</option>
         </select>
-        <!-- 열 플레이스홀더를 충무에 맞게 변경 -->
-        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열 (예: 5)">
-        <input type="number" id="rm-num" class="finput" style="flex:1;" placeholder="번호" min="1">
+        <select id="rm-block" class="fselect" style="padding:10px 6px;">
+            <option value="">구역</option>
+            <option value="A구역">A구역</option>
+            <option value="B구역">B구역</option>
+            <option value="C구역">C구역</option>
+        </select>
+        <input type="text" id="rm-row" class="finput" style="padding:10px 6px; text-transform:uppercase;" placeholder="열(예:5)">
+        <input type="number" id="rm-num" class="finput" style="padding:10px 6px;" placeholder="번호" min="1">
       </div>
     </div>
 
@@ -412,6 +447,23 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   </div>
 </div>
 
+<!-- 좌석 이력 조회 팝업 -->
+<div class="overlay center" id="modal-seat-history" onclick="if(event.target===this) closeModal('modal-seat-history')">
+  <div class="modal center">
+    <div class="detail-header" style="margin-bottom:12px;">
+      <div class="detail-date-title" style="font-size:16px;">이 좌석에서 관람한 회차</div>
+      <button class="btn sm ghost" onclick="closeModal('modal-seat-history')" style="font-size:18px; padding:0 6px; color:var(--txt);">✕</button>
+    </div>
+    <div id="sh-seat-title" style="font-size:13px; font-weight:700; color:var(--txt3); margin-bottom:12px; text-align:center;"></div>
+    <div class="twrap" style="margin:0; padding:0; max-height:40vh; overflow-y:auto;">
+      <table class="record-tb" style="width:100%;">
+        <thead><tr><th>날짜</th><th>시간</th><th>에반</th><th>코너</th></tr></thead>
+        <tbody id="sh-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <!-- 티켓 뷰어 -->
 <div class="overlay center" id="modal-image-viewer" onclick="if(event.target===this) closeModal('modal-image-viewer')" style="z-index:300;">
   <div style="position:relative; max-width:90vw; max-height:90vh; display:flex; justify-content:center; align-items:center;">
@@ -439,7 +491,7 @@ const CONFIG = {
     { id: "cast8", label: "알라나 벡", actors: ["강은세", "염희진"] }
   ],
   
-  EVENTS: [], // events.json에서 로드됨
+  EVENTS: [], 
   
   DISCOUNTS: [
     { label: "없음", value: "" },
@@ -450,7 +502,7 @@ const CONFIG = {
   ]
 };
 
-// 유틸리티 함수: 좌석 배열 생성 및 정렬용
+// 유틸리티 함수: 좌석 배열 생성 및 구역(A,B,C) 맵핑용
 function range(start, end) {
   let arr = [];
   for(let i=start; i<=end; i++) arr.push(i);
@@ -462,8 +514,11 @@ function padBoth(arr, total) {
   let pad = (total - arr.length) / 2;
   return [...Array(Math.floor(pad)).fill(null), ...arr, ...Array(Math.ceil(pad)).fill(null)];
 }
+function mapToBlock(arr, blockName) {
+  return arr.map(n => n !== null ? { b: blockName, n: n } : null);
+}
 
-// 충무아트센터 대극장 정밀 좌석표
+// 충무아트센터 대극장 정밀 좌석표 (구역 정보 완벽 맵핑)
 const THEATER_ZONES = [
   {
     name: '1층',
@@ -471,11 +526,11 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=21; r++) {
         let L, C, R;
-        // 충무아트센터 1층 좌석 구조 (연번 1~35번)
         if(r<=3) { L = padLeft(range(1,7), 9); C = range(8,24); R = padRight(range(25,31), 9); }
         else if(r===4) { L = padLeft(range(1,8), 9); C = range(9,25); R = padRight(range(26,33), 9); }
         else if(r<=20) { L = range(1,9); C = range(10,26); R = range(27,35); }
-        else if(r===21) { L = padLeft(range(4,9), 9); C = range(10,26); R = padRight(range(27,33), 9); } // 휠체어석 등 여백 처리
+        else if(r===21) { L = padLeft(range(4,9), 9); C = range(10,26); R = padRight(range(27,33), 9); } 
+        L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
       return rows;
@@ -487,13 +542,13 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=11; r++) {
         let L, C, R;
-        // 충무아트센터 2층 좌석 구조 (중앙 블록이 밑으로 갈수록 좁아짐)
         if(r<=6) { L = range(1,9); C = range(10,25); R = range(26,34); }
         else if(r===7) { L = padLeft(range(3,9), 9); C = range(10,25); R = padRight(range(26,31), 9); }
         else if(r===8) { L = Array(9).fill(null); C = padBoth(range(11,24), 16); R = Array(9).fill(null); }
         else if(r===9) { L = Array(9).fill(null); C = padBoth(range(12,23), 16); R = Array(9).fill(null); }
         else if(r===10) { L = Array(9).fill(null); C = padBoth(range(13,22), 16); R = Array(9).fill(null); }
         else if(r===11) { L = Array(9).fill(null); C = padBoth(range(14,21), 16); R = Array(9).fill(null); }
+        L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
       return rows;
@@ -504,8 +559,10 @@ const THEATER_ZONES = [
     rows: (() => {
       let rows = [];
       for(let r=1; r<=8; r++) {
-        // 충무아트센터 3층 좌석 구조 (직사각형 형태)
-        rows.push({ id: String(r), map: [...range(1,9), 'a', ...range(10,25), 'a', ...range(26,34)] });
+        let L = mapToBlock(range(1,9), 'A구역');
+        let C = mapToBlock(range(10,25), 'B구역');
+        let R = mapToBlock(range(26,34), 'C구역');
+        rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
       return rows;
     })()
@@ -513,7 +570,7 @@ const THEATER_ZONES = [
 ];
 
 // ============================================================
-// 좌석 커스텀 툴팁 기능 설정
+// 좌석 툴팁 및 팝업 (관람 회차)
 // ============================================================
 let seatTooltipEl = null;
 function initTooltip() {
@@ -521,13 +578,6 @@ function initTooltip() {
         seatTooltipEl = document.createElement('div');
         seatTooltipEl.id = 'custom-tooltip';
         document.body.appendChild(seatTooltipEl);
-        
-        // 모바일 환경 등에서 다른 곳을 터치하면 툴팁 닫기
-        document.addEventListener('touchstart', (e) => {
-            if (!e.target.classList.contains('seat-cell')) {
-                hideSeatTooltip();
-            }
-        });
     }
 }
 function showSeatTooltip(e, text) {
@@ -535,7 +585,6 @@ function showSeatTooltip(e, text) {
     seatTooltipEl.innerHTML = text;
     seatTooltipEl.style.display = 'block';
     const rect = e.target.getBoundingClientRect();
-    // 툴팁 위치 계산 (좌석 요소의 상단 중앙)
     seatTooltipEl.style.left = (rect.left + rect.width / 2) + 'px';
     seatTooltipEl.style.top = rect.top + 'px';
 }
@@ -543,15 +592,36 @@ function hideSeatTooltip() {
     if(seatTooltipEl) seatTooltipEl.style.display = 'none';
 }
 
+function openSeatHistoryModal(zone, block, row, num) {
+    hideSeatTooltip();
+    const records = getValidRecords().filter(r => 
+        r.seatZone === zone && 
+        (r.seatBlock || '') === (block || '') && 
+        r.seatRow === row && 
+        r.seatNum === num
+    ).sort((a,b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+
+    document.getElementById('sh-seat-title').textContent = `${zone} ${block ? block+' ' : ''}${row}열 ${num}번`;
+    
+    let html = '';
+    if(records.length === 0) {
+        html = `<tr><td colspan="4" style="padding:20px; color:var(--txt4);">이 좌석에서의 관람 기록이 없습니다.</td></tr>`;
+    } else {
+        html = records.map(r => `<tr>
+            <td style="font-weight:600; color:var(--txt);">${r.date.substring(5).replace('-','.')}</td>
+            <td style="color:var(--txt2);">${r.time}</td>
+            <td style="color:var(--primary); font-weight:600;">${r.cast1 || '-'}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.cast3 || '-'}</td>
+        </tr>`).join('');
+    }
+    document.getElementById('sh-tbody').innerHTML = html;
+    openModal('modal-seat-history');
+}
+
 // ============================================================
 // 2. STATE MANAGEMENT
 // ============================================================
-let state = {
-  records: [], 
-  schedule: [],
-  events: []
-};
-
+let state = { records: [], schedule: [], events: [] };
 let calFilters = {};
 CONFIG.ROLES.forEach((r, idx) => { calFilters[`cast${idx+1}`] = []; });
 
@@ -583,7 +653,7 @@ function switchTab(tabId, btnEl) {
   if(tabId === 'record') renderRecords();
   if(tabId === 'calendar') { renderCalFilters(); renderCalendar(); }
   if(tabId === 'seat') renderSeatStats();
-  if(tabId === 'stats') renderActorStats();
+  if(tabId === 'stats') { renderActorStats(); renderPairStats(); }
 }
 function openModal(id) { document.getElementById(id).classList.add('show'); }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
@@ -608,7 +678,6 @@ function handleImageUpload(e) {
         height *= MAX_WIDTH / width;
         width = MAX_WIDTH;
       }
-
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext('2d');
@@ -635,7 +704,6 @@ function openReceiptViewer() {
   openModal('modal-image-viewer');
 }
 
-// 이벤트 판별 헬퍼 함수
 const getEventName = (d) => {
   const evs = state.events.filter(e => d >= e.startDate && d <= e.endDate);
   return evs.map(e => e.name).join(', ') || '-';
@@ -654,16 +722,10 @@ function renderRecords() {
   const closestId = closestRecord ? closestRecord.id : null;
 
   let tbHtml = sorted.map(r => {
-    let casts = [];
-    for(let i=1; i<=8; i++) {
-        if(r[`cast${i}`]) casts.push(r[`cast${i}`]);
-    }
-    const castStr = casts.length > 0 ? casts.join(' · ') : '-';
-    
     let seatStr = '-';
-    if (r.seatZone && r.seatRow !== "" && r.seatNum !== "") seatStr = `${r.seatZone} ${r.seatRow}-${r.seatNum}`;
-    else if (r.seatZone && r.seatRow !== "") seatStr = `${r.seatZone} ${r.seatRow}`;
-    else if (r.seatZone) seatStr = r.seatZone;
+    if (r.seatZone && r.seatRow !== "" && r.seatNum !== "") seatStr = `${r.seatZone} ${r.seatBlock ? r.seatBlock+' ' : ''}${r.seatRow}열 ${r.seatNum}번`;
+    else if (r.seatZone && r.seatRow !== "") seatStr = `${r.seatZone} ${r.seatBlock ? r.seatBlock+' ' : ''}${r.seatRow}열`;
+    else if (r.seatZone) seatStr = `${r.seatZone} ${r.seatBlock || ''}`.trim();
 
     const dispDisc = r.discount || '-';
     const evName = getEventName(r.date);
@@ -680,9 +742,14 @@ function renderRecords() {
         </div>
       </td>
       <td><div style="font-weight:600;">${r.time}</div></td>
-      <td style="font-weight:600; color:var(--primary); white-space:normal; word-break:keep-all; line-height:1.4; font-size:11px; min-width:120px;">
-        ${castStr}
-      </td>
+      <td style="color:var(--primary); font-weight:700;">${r.cast1 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast2 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast3 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast4 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast5 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast6 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast7 || '-'}</td>
+      <td style="color:var(--txt2); font-weight:600;">${r.cast8 || '-'}</td>
       <td><div style="font-weight:600;">${seatStr}</div></td>
       <td style="font-size:11px; color:var(--txt3);">${dispDisc}</td>
       <td style="font-size:11px; color:var(--txt2); font-weight:600;">${evName}</td>
@@ -695,7 +762,7 @@ function renderRecords() {
     </tr>`;
   }).join('');
   
-  if(!tbHtml) tbHtml = `<tr><td colspan="7" style="padding:60px 0; color:var(--txt4); font-size:14px;">관극 기록이 없습니다</td></tr>`;
+  if(!tbHtml) tbHtml = `<tr><td colspan="14" style="padding:60px 0; color:var(--txt4); font-size:14px;">관극 기록이 없습니다</td></tr>`;
   document.getElementById('record-tbody').innerHTML = tbHtml;
 }
 
@@ -710,6 +777,13 @@ function initRecordForm() {
     </div>
   `).join('');
   document.getElementById('rm-disc').innerHTML = CONFIG.DISCOUNTS.map(d => `<option value="${d.value}">${d.label}</option>`).join('');
+  
+  // 페어별 정산 선택용 select 옵션 추가
+  const p1 = document.getElementById('pair-role1');
+  const p2 = document.getElementById('pair-role2');
+  let roleOptions = CONFIG.ROLES.map((role, idx) => `<option value="cast${idx+1}">${role.label.split(' ')[0]}</option>`).join('');
+  if(p1) { p1.innerHTML = roleOptions; p1.value = "cast1"; }
+  if(p2) { p2.innerHTML = roleOptions; p2.value = "cast3"; }
 }
 
 function autoFillCasting() {
@@ -770,6 +844,7 @@ function openRecordModal(date = '', isEdit = false) {
 
   document.getElementById('rm-disc').value = "";
   document.getElementById('rm-zone').value = "";
+  document.getElementById('rm-block').value = "";
   document.getElementById('rm-row').value = "";
   document.getElementById('rm-num').value = "";
   document.getElementById('rm-memo').value = "";
@@ -789,6 +864,7 @@ function saveRecord() {
     time: document.getElementById('rm-time').value,
     discount: document.getElementById('rm-disc').value,
     seatZone: document.getElementById('rm-zone').value,
+    seatBlock: document.getElementById('rm-block').value,
     seatRow: document.getElementById('rm-row').value.toUpperCase(),
     seatNum: document.getElementById('rm-num').value,
     receipt: currentReceiptBase64,
@@ -809,6 +885,7 @@ function saveRecord() {
   renderCalendar(); 
   renderSeatStats();
   renderActorStats();
+  renderPairStats();
 }
 
 function editRecord(id) {
@@ -836,6 +913,7 @@ function editRecord(id) {
   
   document.getElementById('rm-disc').value = r.discount || '';
   document.getElementById('rm-zone').value = r.seatZone || "";
+  document.getElementById('rm-block').value = r.seatBlock || "";
   document.getElementById('rm-row').value = r.seatRow || "";
   document.getElementById('rm-num').value = r.seatNum || "";
   document.getElementById('rm-memo').value = r.memo || "";
@@ -857,6 +935,7 @@ function deleteRecord(id) {
     renderCalendar(); 
     renderSeatStats(); 
     renderActorStats();
+    renderPairStats();
   }
 }
 
@@ -881,6 +960,7 @@ function openDetailModal(id) {
   let seatStr = '-';
   if (r.seatZone) {
     seatStr = `${r.seatZone}`;
+    if (r.seatBlock) seatStr += ` ${r.seatBlock}`;
     if (r.seatRow != null && r.seatRow !== "") seatStr += ` ${r.seatRow}열`;
     if (r.seatNum != null && r.seatNum !== "") seatStr += ` ${r.seatNum}번`;
   }
@@ -904,7 +984,7 @@ function openDetailModal(id) {
     eventRow.style.display = 'none';
   }
 
-  document.getElementById('dt-minimap').innerHTML = renderMiniMap(r.seatZone, r.seatRow, parseInt(r.seatNum));
+  document.getElementById('dt-minimap').innerHTML = renderMiniMap(r.seatZone, r.seatBlock, r.seatRow, parseInt(r.seatNum));
 
   document.getElementById('dt-btn-edit').onclick = () => { closeModal('modal-detail'); editRecord(id); };
   document.getElementById('dt-btn-delete').onclick = () => { closeModal('modal-detail'); deleteRecord(id); };
@@ -912,7 +992,7 @@ function openDetailModal(id) {
   openModal('modal-detail');
 }
 
-function renderMiniMap(selZone, selRow, selNum) {
+function renderMiniMap(selZone, selBlock, selRow, selNum) {
   if (THEATER_ZONES.length === 0) return '';
   
   let hmHtml = '<div class="mini-hm-container">';
@@ -923,13 +1003,13 @@ function renderMiniMap(selZone, selRow, selNum) {
     
     z.rows.forEach(rowInfo => {
       hmHtml += `<div class="mini-seat-row"><div class="mini-row-label">${rowInfo.id}</div>`;
-      rowInfo.map.forEach(col => {
-        if (col === 'a') {
+      rowInfo.map.forEach(colObj => {
+        if (colObj === 'a') {
            hmHtml += `<div class="mini-seat-aisle"></div>`;
-        } else if (col === null) {
+        } else if (colObj === null) {
            hmHtml += `<div class="mini-seat-cell hidden"></div>`;
         } else {
-           const isSel = (z.name === selZone && rowInfo.id === selRow && col === selNum);
+           const isSel = (z.name === selZone && (selBlock==='' || colObj.b === selBlock) && rowInfo.id === selRow && colObj.n === selNum);
            hmHtml += `<div class="mini-seat-cell ${isSel ? 'highlight' : ''}"></div>`;
         }
       });
@@ -1190,13 +1270,60 @@ function renderActorStats() {
   document.getElementById('stats-actors').innerHTML = actorStatsHtml;
 }
 
+function renderPairStats() {
+  const r1Key = document.getElementById('pair-role1').value;
+  const r2Key = document.getElementById('pair-role2').value;
+  
+  if(!r1Key || !r2Key || r1Key === r2Key) {
+      document.getElementById('stats-pairs').innerHTML = `<tr><td style="padding:20px; color:var(--txt4);">서로 다른 배역을 선택해주세요.</td></tr>`;
+      return;
+  }
+  
+  const role1 = CONFIG.ROLES.find(r => r.id === r1Key);
+  const role2 = CONFIG.ROLES.find(r => r.id === r2Key);
+  
+  const validRecords = getValidRecords();
+  let pairsHtml = `<tr>
+    <th style="width:70%;">페어 (${role1.label.split(' ')[0]} X ${role2.label.split(' ')[0]})</th>
+    <th style="width:30%;">관람 횟수</th>
+  </tr>`;
+  
+  let pairData = [];
+  role1.actors.forEach(act1 => {
+      role2.actors.forEach(act2 => {
+          const totalCnt = (state.schedule || []).filter(s => s[r1Key] === act1 && s[r2Key] === act2).length;
+          if(totalCnt > 0) {
+              const myCnt = validRecords.filter(r => r[r1Key] === act1 && r[r2Key] === act2).length;
+              pairData.push({ pairName: `${act1} X ${act2}`, myCnt, totalCnt });
+          }
+      });
+  });
+  
+  pairData.sort((a,b) => b.myCnt - a.myCnt);
+  
+  if(pairData.length === 0) {
+      pairsHtml += `<tr><td colspan="2" style="padding:20px; color:var(--txt4);">스케줄에 해당 페어 조합이 없습니다.</td></tr>`;
+  } else {
+      pairData.forEach(p => {
+          pairsHtml += `<tr>
+            <td style="font-weight:600; color:var(--txt2);">${p.pairName}</td>
+            <td>
+              <span style="color:var(--primary); font-weight:700; font-size:14px;">${p.myCnt}</span>
+              <span style="color:var(--txt4); font-weight:400; font-size:11px;"> / ${p.totalCnt}</span>
+            </td>
+          </tr>`;
+      });
+  }
+  document.getElementById('stats-pairs').innerHTML = pairsHtml;
+}
+
 function renderSeatStats() {
   const validRecords = getValidRecords();
   let seatMap = {};
   
   validRecords.forEach(r => {
     if(r.seatZone && r.seatRow !== "" && r.seatNum !== "") {
-      const k = `${r.seatZone}-${r.seatRow.toUpperCase()}-${r.seatNum}`;
+      const k = `${r.seatZone}-${r.seatBlock || ''}-${r.seatRow.toUpperCase()}-${r.seatNum}`;
       seatMap[k] = (seatMap[k] || 0) + 1;
     }
   });
@@ -1215,31 +1342,28 @@ function renderSeatStats() {
       hmHtml = '<div style="padding:40px; text-align:center; color:var(--txt4);">좌석 정보가 아직 등록되지 않았습니다.</div>';
   } else {
     THEATER_ZONES.forEach(z => { 
-      // 바깥쪽 고정 테두리 박스 (100%)
       hmHtml += `<div style="margin-bottom:20px; width:100%; background:var(--bg2); padding:16px; border-radius:8px; border:1px solid var(--brd);">`;
       hmHtml += `<div style="font-size:13px; font-weight:800; color:var(--txt); margin-bottom:12px;">${z.name}</div>`;
       
-      // 안쪽 스크롤 전용 박스
-      hmHtml += `<div style="overflow-x:auto; padding-bottom:10px; width:100%;">`;
-      // 왼쪽 정렬된 좌석 컨테이너
+      hmHtml += `<div class="mini-hm-container">`;
       hmHtml += `<div class="zone-col">`;
       
       z.rows.forEach(rowInfo => {
         hmHtml += `<div class="seat-row"><div class="row-label">${rowInfo.id}</div>`;
-        rowInfo.map.forEach(col => {
-          if (col === 'a') {
+        rowInfo.map.forEach(colObj => {
+          if (colObj === 'a') {
              hmHtml += `<div class="seat-aisle"></div>`;
-          } else if (col === null) {
+          } else if (colObj === null) {
              hmHtml += `<div class="seat-cell hidden"></div>`;
           } else {
-             const k = `${z.name}-${rowInfo.id}-${col}`;
+             const k = `${z.name}-${colObj.b}-${rowInfo.id}-${colObj.n}`;
              const cnt = seatMap[k] || 0;
-             const tooltipText = `${z.name} ${rowInfo.id}열 ${col}번<br>관람: ${cnt}회`;
-             // 마우스 오버 및 터치 시 툴팁 표시
+             const tooltipText = `${z.name} ${colObj.b} ${rowInfo.id}열 ${colObj.n}번<br>관람: ${cnt}회`;
+             // 클릭 시 팝업 열기 & 마우스 오버 시 툴팁 보이기
              hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" 
-                            onmouseover="showSeatTooltip(event, '${tooltipText}')" 
-                            onmouseout="hideSeatTooltip()" 
-                            onclick="showSeatTooltip(event, '${tooltipText}')"></div>`;
+                            onmouseenter="showSeatTooltip(event, '${tooltipText}')" 
+                            onmouseleave="hideSeatTooltip()" 
+                            onclick="openSeatHistoryModal('${z.name}', '${colObj.b}', '${rowInfo.id}', '${colObj.n}')"></div>`;
           }
         });
         hmHtml += `</div>`;
@@ -1266,6 +1390,8 @@ async function fetchSchedule(manual = false) {
     if (statusEl) statusEl.textContent = now;
     if (manual) alert(`스케줄 ${data.length}개 업데이트 완료`);
     renderCalendar();
+    renderActorStats();
+    renderPairStats();
   } catch (e) {
     if (statusEl) statusEl.textContent = '캐시/내장 데이터 사용 중';
     if (manual) alert('오프라인 상태이거나 schedule.json 파일이 없습니다.');
