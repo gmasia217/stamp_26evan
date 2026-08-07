@@ -1,8 +1,14 @@
 /* finale.css */
 
+/* ==========================================
+   1. 기본 폰트 및 중앙 UI
+   ========================================== */
+* {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important;
+}
+
 body {
-    background-color: #334155; /* 미리보기 영역 바깥 배경 */
-    font-family: 'Pretendard', sans-serif;
+    background-color: #334155; 
     margin: 0;
     padding: 20px;
     display: flex;
@@ -20,7 +26,7 @@ body {
     margin-bottom: 30px;
 }
 
-.ui-container h1 { color: #174ca2; margin-bottom: 10px; margin-top: 0; }
+.ui-container h1 { color: #174ca2; margin-bottom: 10px; margin-top: 0; font-weight: 700; }
 .ui-container p { color: #64748b; margin-bottom: 25px; }
 
 .btn {
@@ -33,31 +39,110 @@ body {
 .btn.ghost:hover { background: #cbd5e1; }
 
 /* ==========================================
-   캡처 래퍼 및 보드 베이스
+   2. 캡처 래퍼 및 전체 배경 (연하늘색)
    ========================================== */
 .capture-wrapper {
-    width: 1400px; /* 고해상도 캡처를 위한 고정 넓이 보장 */
+    width: 1450px; /* 전체 캡처를 위한 넉넉한 고정 넓이 */
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 
 .capture-board {
-    width: 1400px;
-    height: 960px; /* 시안 비율에 맞춘 높이 */
+    width: 100%;
+    padding: 60px; /* 연하늘색 여백 공간 */
+    background-color: #eaf4fb; /* 맥북 컨셉용 깔끔한 연하늘색 배경 */
     box-sizing: border-box;
-    display: flex;
-    padding: 40px 50px;
-    gap: 40px;
-    
-    /* 모눈종이 패턴 */
-    background-color: #8bbceb;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
-    background-size: 30px 30px;
 }
 
+/* ==========================================
+   3. 맥북 브라우저 윈도우 스타일
+   ========================================== */
+.mac-window {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 테두리 둥글기 유지 */
+}
+
+/* 브라우저 상단 헤더 */
+.mac-header {
+    height: 54px;
+    background-color: #174ca2; /* 시안과 유사한 파란색 헤더 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: relative;
+}
+
+.mac-left-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.mac-buttons {
+    display: flex;
+    gap: 8px;
+}
+.mac-btn { width: 12px; height: 12px; border-radius: 50%; }
+.mac-btn.close { background-color: #ff5f56; }
+.mac-btn.minimize { background-color: #ffbd2e; }
+.mac-btn.maximize { background-color: #27c93f; }
+
+.mac-nav-icons {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    gap: 15px;
+    opacity: 0.8;
+}
+
+/* 주소창 */
+.mac-address-bar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 6px 20px;
+    border-radius: 18px;
+    font-size: 13px;
+    color: #475569;
+    font-weight: 700;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mac-address-bar .star-icon {
+    font-size: 16px;
+    color: #cbd5e1;
+}
+
+.mac-right-controls .hamburger-menu {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 브라우저 내용 (흰색 바탕) */
+.mac-body {
+    display: flex;
+    padding: 50px 60px;
+    gap: 40px;
+    height: 1150px;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   4. 캐스팅 및 좌우 레이아웃
+   ========================================== */
 .board-main {
     flex: 1;
     display: flex;
@@ -66,7 +151,7 @@ body {
 }
 
 .board-side {
-    width: 360px;
+    width: 400px; /* 좌석표 안 잘리게 너비 증가 */
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -74,69 +159,32 @@ body {
     gap: 20px;
 }
 
-/* ==========================================
-   좌측 영역 그리드 로직
-   ========================================== */
-.board-row {
-    display: flex;
-    width: 100%;
-}
+.board-row { display: flex; width: 100%; }
+.top-row { justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+.middle-row { justify-content: space-between; align-items: flex-end; }
+.bottom-row { justify-content: space-between; align-items: flex-end; margin-top: 10px; }
 
-.top-row {
-    justify-content: space-between;
-    align-items: flex-end; /* 로고와 에반 핸슨 하단 정렬 */
-    margin-bottom: 10px;
-}
+.board-logo { width: 300px; object-fit: contain; }
 
-.board-logo {
-    width: 300px; /* 지적하신 대로 로고 크기 축소 */
-    object-fit: contain;
-}
-
-.middle-row {
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-.bottom-row {
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 10px;
-}
-
-/* ==========================================
-   배역 스티커 UI
-   ========================================== */
-.role-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+/* 배역 스티커 UI */
+.role-group { display: flex; flex-direction: column; align-items: center; }
 
 .role-badge {
-    background: rgba(255, 255, 255, 0.7);
+    background: #f1f5f9; /* 흰색 바탕 위에 부드러운 회색/파란색 조화 */
     color: #174ca2;
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     margin-bottom: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.actor-list {
-    display: flex;
-    gap: 12px;
-}
-
-.actor-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+.actor-list { display: flex; gap: 12px; }
+.actor-item { display: flex; flex-direction: column; align-items: center; }
 
 .actor-img {
-    width: 85px; /* 공간 확보를 위해 살짝 축소 */
+    width: 85px; 
     height: 100px;
     object-fit: contain;
     filter: 
@@ -152,19 +200,17 @@ body {
     background: white;
     padding: 4px 12px;
     border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     font-weight: 700;
     transform: rotate(-3deg);
     margin-top: -12px;
     z-index: 2;
 }
-
 .actor-count .my-count { color: #e11d48; font-size: 18px; }
 .actor-count .total-count { color: #94a3b8; font-size: 12px; }
 
 /* ==========================================
-   SNS 카드 UI
+   5. SNS 카드 및 텍스트 꾸미기
    ========================================== */
 .sns-card {
     background: #ffffff;
@@ -172,6 +218,7 @@ body {
     width: 320px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     transform: rotate(2deg);
+    border: 1px solid #e2e8f0;
 }
 
 .sns-header { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; }
@@ -180,17 +227,15 @@ body {
 .sns-dots { color: #94a3b8; font-weight: bold; }
 .sns-body { padding: 25px 20px; text-align: center; }
 .sns-tag { color: #3b82f6; font-weight: 700; font-size: 16px; margin-bottom: 15px; text-align: left; }
-.sns-total { font-family: 'IBM Plex Sans KR', sans-serif; }
 .sns-total .my-total { color: #e11d48; font-size: 45px; font-weight: 700; }
 .sns-total .overall-total { color: #64748b; font-size: 20px; font-weight: 600; }
 .sns-footer { padding: 12px 16px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 12px; font-weight: 600; }
 
 .decorative-text {
-    font-family: 'IBM Plex Sans KR', sans-serif;
     color: #174ca2;
     font-size: 18px;
-    font-weight: 600;
-    opacity: 0.6;
+    font-weight: 700;
+    opacity: 0.7;
     text-align: right;
     margin-right: 30px;
     margin-bottom: 20px;
@@ -199,59 +244,41 @@ body {
 }
 
 /* ==========================================
-   우측 말풍선 및 미니 좌석표
+   6. 말풍선
    ========================================== */
-.speech-bubbles {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    align-items: flex-end;
-}
-
+.speech-bubbles { display: flex; flex-direction: column; gap: 15px; width: 100%; align-items: flex-end; }
 .bubble {
-    position: relative;
-    background: #ffffff;
-    padding: 12px 20px;
-    border-radius: 20px;
-    font-size: 15px;
-    font-weight: 700;
-    color: #1e293b;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    max-width: fit-content;
+    position: relative; background: #f8fafc; border: 1px solid #e2e8f0;
+    padding: 12px 20px; border-radius: 20px; font-size: 15px; font-weight: 700; color: #1e293b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: fit-content;
 }
-
 .bubble-right::after {
     content: ''; position: absolute; bottom: -10px; right: 20px;
-    border-width: 10px 10px 0 0; border-style: solid; border-color: #ffffff transparent transparent transparent;
+    border-width: 10px 10px 0 0; border-style: solid; border-color: #f8fafc transparent transparent transparent;
 }
-
 .bubble-left { align-self: flex-start; border-radius: 20px 20px 20px 0; color: #334155; line-height: 1.4; }
 .bubble-left::after {
     content: ''; position: absolute; bottom: 0; left: -10px;
-    border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #ffffff transparent transparent;
+    border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #f8fafc transparent transparent;
 }
 
-/* 좌석표 렌더링 컨테이너 */
+/* ==========================================
+   7. 미니 좌석표 (안 잘리도록 크기 완벽 조정)
+   ========================================== */
 .seat-map-board {
     background: #ffffff;
     border: 3px solid #174ca2;
-    padding: 15px 20px;
+    padding: 15px 25px; /* 내부 여백 조절 */
     border-radius: 8px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box; /* 패딩 포함 크기 유지 */
 }
 
 .seat-map-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;
 }
-
 .seat-map-header .close-btn { color: #94a3b8; font-weight: bold; }
 
 .seat-floor { margin-bottom: 15px; }
@@ -259,12 +286,14 @@ body {
 
 .f-zone-col { display: flex; flex-direction: column; gap: 2px; align-items: center; }
 .f-seat-row { display: flex; gap: 2px; justify-content: center; }
-.f-seat-cell { width: 7px; height: 7px; border-radius: 1.5px; border: 1px solid #cbd5e1; }
-.f-seat-aisle { width: 6px; flex-shrink: 0; }
-.f-seat-half { width: 3px; height: 7px; pointer-events: none; }
+
+/* 🌟 너비를 6px로 콤팩트하게 줄여서 넓은 열도 완벽히 들어가도록 수정 */
+.f-seat-cell { width: 6px; height: 6px; border-radius: 1.5px; border: 1px solid #cbd5e1; box-sizing: border-box;}
+.f-seat-aisle { width: 4px; flex-shrink: 0; }
+.f-seat-half { width: 3px; height: 6px; pointer-events: none; }
 .f-seat-cell.hidden { border-color: transparent; background: transparent; }
 
-/* 🌟 히트맵 컬러 */
+/* 히트맵 컬러 */
 .f-seat-cell.c0 { background: #f8fafc; border-color: #e2e8f0; }
 .f-seat-cell.c1 { background: #78c6f5; border-color: #78c6f5; }
 .f-seat-cell.c2 { background: #4ba6e6; border-color: #4ba6e6; }
@@ -272,7 +301,7 @@ body {
 .f-seat-cell.c4 { background: #083870; border-color: #083870; }
 
 .seat-legend {
-    display: flex; justify-content: center; gap: 10px; font-size: 10px; color: #64748b; font-weight: 600;
+    display: flex; justify-content: center; gap: 10px; font-size: 10px; color: #64748b; font-weight: 700;
     margin-top: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0;
 }
 .leg-box { display: inline-block; width: 8px; height: 8px; border-radius: 1.5px; margin-right: 4px; vertical-align: middle; }
