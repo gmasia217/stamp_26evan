@@ -1,0 +1,379 @@
+/* finale.css */
+
+/* ==========================================
+   1. 기본 설정 및 사용자 UI (화면 중앙)
+   ========================================== */
+body {
+    background-color: #f1f5f9;
+    font-family: 'Pretendard', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.ui-container {
+    text-align: center;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    z-index: 10;
+}
+
+.ui-container h1 {
+    color: #174ca2;
+    margin-bottom: 10px;
+}
+
+.ui-container p {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0 5px;
+}
+
+.btn.prim {
+    background: #174ca2;
+    color: white;
+    box-shadow: 0 4px 10px rgba(23,76,162,0.2);
+}
+
+.btn.prim:hover { background: #123e85; }
+.btn.ghost { background: #e2e8f0; color: #475569; }
+.btn.ghost:hover { background: #cbd5e1; }
+
+/* ==========================================
+   2. 캡처 보드 뼈대 및 모눈종이 배경
+   ========================================== */
+.capture-board {
+    position: absolute;
+    left: -9999px; /* 실제 화면에서는 보이지 않도록 밖으로 밀어냄 */
+    top: 0;
+    width: 1200px;
+    height: 800px;
+    box-sizing: border-box;
+    display: flex;
+    padding: 40px;
+    gap: 40px;
+    
+    /* 파란색 테마 및 CSS를 이용한 모눈종이 패턴 생성 */
+    background-color: #8bbceb;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+    background-size: 30px 30px; /* 모눈 한 칸의 크기 */
+    overflow: hidden;
+}
+
+.board-left {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.board-logo {
+    width: 380px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+/* ==========================================
+   3. 캐스트 스티커 보드
+   ========================================== */
+.cast-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.role-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.6);
+    color: #174ca2;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.actor-list {
+    display: flex;
+    gap: 20px;
+}
+
+.multi-roles {
+    display: flex;
+    gap: 40px;
+}
+
+.role-group {
+    display: flex;
+    gap: 15px;
+}
+
+.actor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* 🌟 스티커 하얀 테두리 효과 (drop-shadow 여러 겹 사용) */
+.actor-img {
+    width: 110px; /* 누끼 사진 크기 조절 */
+    height: auto;
+    filter: 
+        drop-shadow(2px 0px 0px white) 
+        drop-shadow(-2px 0px 0px white) 
+        drop-shadow(0px 2px 0px white) 
+        drop-shadow(0px -2px 0px white) 
+        drop-shadow(0px 8px 10px rgba(0,0,0,0.25));
+    margin-bottom: 5px;
+    transition: transform 0.2s;
+}
+
+.actor-count {
+    background: white;
+    padding: 4px 10px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    transform: rotate(-3deg); /* 살짝 삐뚤게 붙인 느낌 */
+}
+
+.actor-count .my-count {
+    color: #e11d48; /* 빨간색 펜 느낌 */
+    font-size: 18px;
+}
+
+.actor-count .total-count {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+/* ==========================================
+   4. SNS 총 관람 횟수 카드
+   ========================================== */
+.sns-card {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 320px;
+    margin-top: auto; /* 영역 최하단으로 밀어냄 */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+    transform: rotate(2deg); /* 스크랩북 느낌 */
+}
+
+.sns-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sns-profile {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.sns-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: #0f172a;
+    flex: 1;
+}
+
+.sns-dots {
+    color: #94a3b8;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.sns-body {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.sns-tag {
+    color: #3b82f6;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.sns-total {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.sns-total .my-total {
+    color: #e11d48;
+    font-size: 45px;
+    font-weight: 700;
+}
+
+.sns-total .overall-total {
+    color: #64748b;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* ==========================================
+   5. 말풍선 (CSS 도형 그리기)
+   ========================================== */
+.speech-bubbles {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.bubble {
+    position: relative;
+    background: #ffffff;
+    padding: 12px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    max-width: fit-content;
+}
+
+/* 오른쪽 말풍선 꼬리 */
+.bubble-right::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+}
+
+/* 왼쪽 말풍선 꼬리 (편지 내용) */
+.bubble-left {
+    align-self: flex-start;
+    border-radius: 20px 20px 20px 0;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #334155;
+}
+
+.bubble-left::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    border-width: 0 10px 15px 0;
+    border-style: solid;
+    border-color: transparent #ffffff transparent transparent;
+}
+
+/* ==========================================
+   6. 미니 좌석표 (우측 하단)
+   ========================================== */
+.seat-map-board {
+    background: #ffffff;
+    border: 3px solid #174ca2; /* 다크블루 테두리 */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 320px;
+}
+
+.seat-floor {
+    margin-bottom: 20px;
+}
+
+.floor-title {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.f-zone-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+}
+
+.f-seat-row {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+}
+
+.f-seat-cell {
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    border: 1px solid #cbd5e1;
+}
+
+.f-seat-aisle { width: 5px; flex-shrink: 0; }
+.f-seat-half { width: 3px; height: 6px; pointer-events: none; }
+.f-seat-cell.hidden { border-color: transparent; background: transparent; }
+
+/* 🌟 히트맵 컬러 (DEH 블루 테마) */
+.f-seat-cell.c0 { background: #f8fafc; border-color: #e2e8f0; } /* 0회 (빈자리) */
+.f-seat-cell.c1 { background: #78c6f5; border-color: #78c6f5; }
+.f-seat-cell.c2 { background: #4ba6e6; border-color: #4ba6e6; }
+.f-seat-cell.c3 { background: #2682cc; border-color: #2682cc; }
+.f-seat-cell.c4 { background: #083870; border-color: #083870; }
+
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 600;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.leg-box {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 1px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.leg-box.c1 { background: #78c6f5; }
+.leg-box.c2 { background: #4ba6e6; }
+.leg-box.c3 { background: #2682cc; }
+.leg-box.c4 { background: #083870; }
