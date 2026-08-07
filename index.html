@@ -291,6 +291,13 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   <!-- 4. 캐스트 정산 탭 -->
   <div class="page" id="page-stats">
     <div class="page-title">캐스트 정산</div>
+    
+    <!-- ✨ 새로 추가된 정산 보드 이동 버튼 -->
+    <button class="btn prim" onclick="location.href='finale.html'" style="width: 100%; margin-bottom: 16px; font-size: 15px; padding: 12px;">
+      정산 보드 이미지로 저장하기 📸
+    </button>
+    <!-- 버튼 끝 -->
+
     <div class="card">
       <div class="card-title">배우별 관람 횟수</div>
       <table class="record-tb" style="width:100%; border-left:1px solid var(--brd); border-top:1px solid var(--brd);" id="stats-actors"></table>
