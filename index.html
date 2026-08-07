@@ -141,9 +141,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   display: block; 
   overflow-x: auto; 
   white-space: nowrap; 
-  margin: 16px 0; 
   border: 1px solid var(--brd); 
-  padding: 20px 0;
   border-radius: 8px; 
   background: var(--bg2); 
   -webkit-overflow-scrolling: touch;
@@ -533,10 +531,10 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=21; r++) {
         let L, C, R;
-        if(r<=3) { L = padLeft(range(1,7), 9); C = range(8,24); R = padRight(range(25,31), 9); }
-        else if(r===4) { L = padLeft(range(1,8), 9); C = range(9,25); R = padRight(range(26,33), 9); }
-        else if(r<=20) { L = range(1,9); C = range(10,26); R = range(27,35); }
-        else if(r===21) { L = padLeft(range(4,9), 9); C = range(10,26); R = padRight(range(27,33), 9); } 
+        if(r<=3) { L = padLeft(range(1,7), 9); C = range(1,17); R = padRight(range(1,7), 9); }
+        else if(r===4) { L = padLeft(range(1,8), 9); C = range(1,17); R = padRight(range(1,8), 9); }
+        else if(r<=20) { L = range(1,9); C = range(1,17); R = range(1,9); }
+        else if(r===21) { L = padLeft(range(1,6), 9); C = range(1,17); R = padRight(range(1,7), 9); } 
         L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
@@ -549,12 +547,12 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=11; r++) {
         let L, C, R;
-        if(r<=6) { L = range(1,9); C = range(10,25); R = range(26,34); }
-        else if(r===7) { L = padLeft(range(3,9), 9); C = range(10,25); R = padRight(range(26,31), 9); }
-        else if(r===8) { L = Array(9).fill(null); C = padBoth(range(11,24), 16); R = Array(9).fill(null); }
-        else if(r===9) { L = Array(9).fill(null); C = padBoth(range(12,23), 16); R = Array(9).fill(null); }
-        else if(r===10) { L = Array(9).fill(null); C = padBoth(range(13,22), 16); R = Array(9).fill(null); }
-        else if(r===11) { L = Array(9).fill(null); C = padBoth(range(14,21), 16); R = Array(9).fill(null); }
+        if(r<=6) { L = range(1,9); C = range(1,16); R = range(1,9); }
+        else if(r===7) { L = padLeft(range(1,7), 9); C = range(1,16); R = padRight(range(1,6), 9); }
+        else if(r===8) { L = Array(9).fill(null); C = padBoth(range(1,14), 16); R = Array(9).fill(null); }
+        else if(r===9) { L = Array(9).fill(null); C = padBoth(range(1,12), 16); R = Array(9).fill(null); }
+        else if(r===10) { L = Array(9).fill(null); C = padBoth(range(1,10), 16); R = Array(9).fill(null); }
+        else if(r===11) { L = Array(9).fill(null); C = padBoth(range(1,8), 16); R = Array(9).fill(null); }
         L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
@@ -567,8 +565,8 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=8; r++) {
         let L = mapToBlock(range(1,9), 'A구역');
-        let C = mapToBlock(range(10,25), 'B구역');
-        let R = mapToBlock(range(26,34), 'C구역');
+        let C = mapToBlock(range(1,16), 'B구역');
+        let R = mapToBlock(range(1,9), 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
       return rows;
@@ -1014,7 +1012,7 @@ function openDetailModal(id) {
 
   openModal('modal-detail');
   
-  // 모달 안의 미니맵 가운데 스크롤 정렬
+  // 모달 안의 미니맵도 가운데 스크롤 정렬 지원
   setTimeout(() => {
     document.querySelectorAll('#dt-minimap .mini-hm-container').forEach(el => {
         if (el.scrollWidth > el.clientWidth) {
