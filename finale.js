@@ -1,6 +1,6 @@
-// ============================================================
+// finale.js
+
 // 1. 기본 설정 및 좌석 맵 데이터
-// ============================================================
 const CONFIG = {
     ROLES: [
         { id: "cast1", label: "에반 핸슨", actors: ["박강현", "임규형", "나현우"] },
@@ -14,17 +14,10 @@ const CONFIG = {
     ]
 };
 
-// 좌석 맵 배열 생성을 위한 유틸리티 함수
-function range(start, end) {
-    let arr = [];
-    for(let i=start; i<=end; i++) arr.push(i);
-    return arr;
-}
+function range(start, end) { let arr = []; for(let i=start; i<=end; i++) arr.push(i); return arr; }
 function padLeft(arr, total) { return [...Array(total - arr.length).fill(null), ...arr]; }
 function padRight(arr, total) { return [...arr, ...Array(total - arr.length).fill(null)]; }
-function mapToBlock(arr, blockName) {
-    return arr.map(n => n !== null ? { b: blockName, n: n } : null);
-}
+function mapToBlock(arr, blockName) { return arr.map(n => n !== null ? { b: blockName, n: n } : null); }
 function centerInBlock(arr, targetWidth) {
     let diff = targetWidth - arr.length;
     let res = [...arr];
@@ -32,11 +25,10 @@ function centerInBlock(arr, targetWidth) {
     let needsHalf = diff % 2 !== 0;
     let leftPads = Array(nulls).fill(null);
     let rightPads = Array(nulls).fill(null);
-    if (needsHalf) res = ['h', ...res, 'h']; // 지그재그 반칸 처리
+    if (needsHalf) res = ['h', ...res, 'h'];
     return [...leftPads, ...res, ...rightPads];
 }
 
-// 충무아트센터 대극장 정밀 좌석표
 const THEATER_ZONES = [
     {
         name: '1층',
@@ -99,7 +91,7 @@ const THEATER_ZONES = [
 // ============================================================
 // 2. 데이터 불러오기 및 필터링
 // ============================================================
-let state = { records: [] };
+let state = { records: [], schedule: [] };
 
 function loadData() {
     const savedData = localStorage.getItem('evan_tracker_v1');
@@ -135,24 +127,40 @@ function getValidRecords() {
 // ============================================================
 function renderStats() {
     const validRecords = getValidRecords();
+    const scheduleRecords = state.schedule || []; // 스케줄 데이터 가져오기
     
-    // 1. 총 관람 횟수
+    // 1. 총 관람 횟수 & 전체 스케줄 횟수
     const totalCount = validRecords.length;
+    const totalScheduleCount = scheduleRecords.length;
+    
     const totalEl = document.getElementById('board-total');
     if (totalEl) totalEl.textContent = totalCount;
 
-    // 2. 배우별 관람 횟수
+    // 🌟 전체 스케줄 총 횟수도 스케줄 데이터 길이에 맞춰 자동 반영
+    const overallTotalEl = document.getElementById('board-total-schedule');
+    if (overallTotalEl) overallTotalEl.textContent = `/ ${totalScheduleCount}`;
+
+    // 2. 배우별 관람 횟수 및 배우별 전체 회차 자동 계산
     CONFIG.ROLES.forEach((role, idx) => {
         const castKey = `cast${idx + 1}`;
         role.actors.forEach(actor => {
             const count = validRecords.filter(r => r[castKey] === actor).length;
+            // 🌟 해당 배우가 스케줄 데이터에 존재하는 총 횟수를 동적으로 계산
+            const totalCnt = scheduleRecords.filter(s => s[castKey] === actor).length; 
+            
             const safeActorId = actor.replace(/\s+/g, '');
             const actorEl = document.getElementById(`count-${safeActorId}`);
+            const actorTotalEl = document.getElementById(`total-${safeActorId}`);
+            
             if (actorEl) {
                 actorEl.textContent = count > 0 ? count : '0';
-                // 횟수가 0이면 텍스트 색상을 회색으로 변경하는 등 시각적 처리도 가능합니다.
                 if(count === 0) actorEl.style.color = '#94a3b8';
-                else actorEl.style.color = '#ef4444'; // 1회 이상이면 빨간색
+                else actorEl.style.color = '#ef4444'; 
+            }
+            
+            if (actorTotalEl) {
+                // 스윙처럼 총 회차가 1번뿐인 배우도 정확한 숫자로 반영됨
+                actorTotalEl.textContent = `/ ${totalCnt}`;
             }
         });
     });
@@ -164,7 +172,6 @@ function renderStats() {
 function renderFinaleSeatMap(validRecords) {
     let seatMap = {};
     
-    // 좌석 빈도수 계산
     validRecords.forEach(r => {
         if(r.seatZone && r.seatRow !== "" && r.seatNum !== "") {
             const k = `${r.seatZone}-${r.seatBlock || ''}-${r.seatRow.toUpperCase()}-${r.seatNum}`;
@@ -172,18 +179,16 @@ function renderFinaleSeatMap(validRecords) {
         }
     });
 
-    // 횟수별 클래스 부여 함수
     const getHeatClass = (cnt) => {
         if(cnt >= 4) return 'c4';
         if(cnt === 3) return 'c3';
         if(cnt === 2) return 'c2';
         if(cnt === 1) return 'c1';
-        return 'c0'; // 0회 관람 (기본 빈 좌석)
+        return 'c0'; 
     };
 
     THEATER_ZONES.forEach((z) => {
         let hmHtml = '<div class="f-zone-col">';
-        
         z.rows.forEach(rowInfo => {
             hmHtml += `<div class="f-seat-row">`;
             rowInfo.map.forEach(colObj => {
@@ -203,7 +208,6 @@ function renderFinaleSeatMap(validRecords) {
         });
         hmHtml += `</div>`;
         
-        // HTML에 정의해둔 1F, 2F, 3F 컨테이너에 각각 주입
         const targetId = z.name === '1층' ? 'seat-grid-1f' : (z.name === '2층' ? 'seat-grid-2f' : 'seat-grid-3f');
         const targetEl = document.getElementById(targetId);
         if (targetEl) targetEl.innerHTML = hmHtml;
@@ -217,14 +221,13 @@ function downloadFinaleBoard() {
     const captureArea = document.getElementById('finale-capture-area');
     const btn = document.getElementById('download-btn');
     
-    // 캡처 중 버튼 텍스트 변경
     const originalText = btn.innerHTML;
     btn.innerHTML = '이미지 생성 중... ⏳';
     btn.disabled = true;
 
     html2canvas(captureArea, {
-        scale: 2,           // 고화질 렌더링
-        useCORS: true,      // 폰트 깨짐 방지
+        scale: 2,           
+        useCORS: true,      
         backgroundColor: null 
     }).then(canvas => {
         let imgData = canvas.toDataURL("image/png");
@@ -234,7 +237,6 @@ function downloadFinaleBoard() {
         link.href = imgData;
         link.click();
         
-        // 원상복구
         btn.innerHTML = originalText;
         btn.disabled = false;
     }).catch(err => {
@@ -245,7 +247,6 @@ function downloadFinaleBoard() {
     });
 }
 
-// 페이지가 로드되면 데이터를 불러오고 화면에 계산값을 꽂아넣습니다.
 window.onload = () => {
     loadData();
     renderStats();
