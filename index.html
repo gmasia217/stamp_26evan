@@ -135,7 +135,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cs-chip.booked .cs-cast { color:var(--txt); }
 .cs-chip.unseated { background:var(--bg4); border-color:var(--brd2); }
 
-/* HEATMAP & MINIMAP (정렬 및 스크롤) */
+/* HEATMAP & MINIMAP (정렬 및 스크롤 개선 적용) */
 .heatmap-wrap { width:100%; padding-bottom:15px; }
 .mini-hm-container { 
   display: block; 
@@ -161,7 +161,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   text-align: left;
 }
 
-.seat-row { display:flex; gap:3px; align-items:center; }
+.seat-row { display:flex; gap:3px; align-items:center; justify-content:center; }
 .row-label { font-size:9px; width:14px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; flex-shrink:0; }
 .seat-cell { width:14px; height:14px; background:var(--bg4); border-radius:3px; border:1px solid transparent; flex-shrink:0; cursor:pointer; }
 .seat-aisle { width:10px; flex-shrink:0; }
@@ -523,7 +523,7 @@ function mapToBlock(arr, blockName) {
   return arr.map(n => n !== null ? { b: blockName, n: n } : null);
 }
 
-// 충무아트센터 대극장 정밀 좌석표 (구역 정보 완벽 맵핑)
+// 충무아트센터 대극장 정밀 좌석표 (B구역 지그재그 패턴 및 구역별 1번부터 시작 적용)
 const THEATER_ZONES = [
   {
     name: '1층',
@@ -531,10 +531,11 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=21; r++) {
         let L, C, R;
-        if(r<=3) { L = padLeft(range(1,7), 9); C = range(1,17); R = padRight(range(1,7), 9); }
-        else if(r===4) { L = padLeft(range(1,8), 9); C = range(1,17); R = padRight(range(1,8), 9); }
-        else if(r<=20) { L = range(1,9); C = range(1,17); R = range(1,9); }
-        else if(r===21) { L = padLeft(range(1,6), 9); C = range(1,17); R = padRight(range(1,7), 9); } 
+        let cMax = (r % 2 !== 0) ? 17 : 16; // 지그재그 홀수 17, 짝수 16
+        if(r<=3) { L = padLeft(range(1,7), 9); C = range(1, cMax); R = padRight(range(1,7), 9); }
+        else if(r===4) { L = padLeft(range(1,8), 9); C = range(1, cMax); R = padRight(range(1,8), 9); }
+        else if(r<=20) { L = range(1,9); C = range(1, cMax); R = range(1,9); }
+        else if(r===21) { L = padLeft(range(1,6), 9); C = range(1, cMax); R = padRight(range(1,7), 9); } 
         L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
@@ -547,12 +548,13 @@ const THEATER_ZONES = [
       let rows = [];
       for(let r=1; r<=11; r++) {
         let L, C, R;
-        if(r<=6) { L = range(1,9); C = range(1,16); R = range(1,9); }
-        else if(r===7) { L = padLeft(range(1,7), 9); C = range(1,16); R = padRight(range(1,6), 9); }
-        else if(r===8) { L = Array(9).fill(null); C = padBoth(range(1,14), 16); R = Array(9).fill(null); }
-        else if(r===9) { L = Array(9).fill(null); C = padBoth(range(1,12), 16); R = Array(9).fill(null); }
-        else if(r===10) { L = Array(9).fill(null); C = padBoth(range(1,10), 16); R = Array(9).fill(null); }
-        else if(r===11) { L = Array(9).fill(null); C = padBoth(range(1,8), 16); R = Array(9).fill(null); }
+        let cMax = (r % 2 !== 0) ? 16 : 15; // 지그재그 홀수 16, 짝수 15
+        if(r<=6) { L = range(1,9); C = range(1, cMax); R = range(1,9); }
+        else if(r===7) { L = padLeft(range(1,7), 9); C = range(1, cMax); R = padRight(range(1,6), 9); }
+        else if(r===8) { L = Array(9).fill(null); C = range(1, 14); R = Array(9).fill(null); }
+        else if(r===9) { L = Array(9).fill(null); C = range(1, 13); R = Array(9).fill(null); }
+        else if(r===10) { L = Array(9).fill(null); C = range(1, 12); R = Array(9).fill(null); }
+        else if(r===11) { L = Array(9).fill(null); C = range(1, 11); R = Array(9).fill(null); }
         L = mapToBlock(L, 'A구역'); C = mapToBlock(C, 'B구역'); R = mapToBlock(R, 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
@@ -564,8 +566,9 @@ const THEATER_ZONES = [
     rows: (() => {
       let rows = [];
       for(let r=1; r<=8; r++) {
+        let cMax = (r % 2 !== 0) ? 16 : 15; // 지그재그 홀수 16, 짝수 15
         let L = mapToBlock(range(1,9), 'A구역');
-        let C = mapToBlock(range(1,16), 'B구역');
+        let C = mapToBlock(range(1, cMax), 'B구역');
         let R = mapToBlock(range(1,9), 'C구역');
         rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
       }
@@ -1011,15 +1014,7 @@ function openDetailModal(id) {
   document.getElementById('dt-btn-delete').onclick = () => { closeModal('modal-detail'); deleteRecord(id); };
 
   openModal('modal-detail');
-  
-  // 모달 안의 미니맵도 가운데 스크롤 정렬 지원
-  setTimeout(() => {
-    document.querySelectorAll('#dt-minimap .mini-hm-container').forEach(el => {
-        if (el.scrollWidth > el.clientWidth) {
-            el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
-        }
-    });
-  }, 50);
+  centerScrollContainers();
 }
 
 function renderMiniMap(selZone, selBlock, selRow, selNum) {
