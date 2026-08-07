@@ -110,8 +110,8 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 
 /* CALENDAR */
 .cal-filter-group { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-.cal-filter-label { font-size:12px; color:var(--txt2); width:55px; font-weight:700; }
-.cal-filter-btn { background:var(--bg2); border:1px solid var(--brd); color:var(--txt3); padding:4px 10px; border-radius:20px; font-size:12px; cursor:pointer; transition:all 0.2s; font-weight:600;}
+.cal-filter-label { font-size:12px; color:var(--txt2); width:85px; font-weight:700; white-space:nowrap; }
+.cal-filter-btn { background:var(--bg2); border:1px solid var(--brd); color:var(--txt3); padding:4px 10px; border-radius:20px; font-size:12px; cursor:pointer; transition:all 0.2s; font-weight:600; white-space:nowrap; }
 .cal-filter-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; box-shadow: 0 2px 5px rgba(2,132,199,0.3); }
 
 .cal-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
@@ -135,13 +135,13 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cs-chip.unseated { background:var(--bg4); border-color:var(--brd2); }
 
 /* HEATMAP & MINIMAP */
-.heatmap-wrap { display:flex; flex-direction:column; gap:30px; align-items:center; overflow-x:auto; padding-bottom:15px; }
+.heatmap-wrap { display:flex; flex-direction:column; gap:10px; align-items:flex-start; width:100%; padding-bottom:15px; }
 .mini-hm-container { display:flex; flex-direction:column; gap:20px; align-items:center; margin:16px 0; border:1px solid var(--brd); padding:20px; border-radius:8px; background:var(--bg3); overflow-x:auto;}
 
-.zone-col { display:flex; flex-direction:column; gap:3px; align-items:center; }
+.zone-col { display:flex; flex-direction:column; gap:3px; align-items:flex-start; width:max-content; }
 .seat-row { display:flex; gap:3px; align-items:center; }
-.row-label { font-size:9px; width:12px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; }
-.seat-cell { width:14px; height:14px; background:var(--bg4); border-radius:3px; border:1px solid transparent; flex-shrink:0; }
+.row-label { font-size:9px; width:12px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; flex-shrink:0; }
+.seat-cell { width:14px; height:14px; background:var(--bg4); border-radius:3px; border:1px solid transparent; flex-shrink:0; cursor:pointer; }
 .seat-aisle { width:10px; flex-shrink:0; }
 
 .mini-seat-row { display:flex; gap:2px; justify-content:center; align-items:center; }
@@ -157,10 +157,39 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .seat-cell.hidden, .mini-seat-cell.hidden { background:transparent; border-color:transparent; pointer-events:none; }
 .mini-seat-cell.highlight { background: var(--seat4); border-color: var(--seat5); transform:scale(1.2); }
 
-.heatmap-legend { display:flex; gap:12px; justify-content:center; margin-top:10px; flex-wrap:wrap; padding:10px; background:var(--bg3); border-radius:8px; }
+.heatmap-legend { display:flex; gap:12px; justify-content:center; margin-top:10px; flex-wrap:wrap; padding:10px; background:var(--bg3); border-radius:8px; width:100%; box-sizing:border-box; }
 .legend-item { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2); font-weight:600; }
 .legend-dot { width:14px; height:14px; border-radius:3px; }
 
+/* Custom Tooltip */
+#custom-tooltip {
+  position: fixed;
+  background: rgba(15, 23, 42, 0.9);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+  transform: translate(-50%, -100%);
+  margin-top: -8px;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
+  line-height: 1.4;
+}
+#custom-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(15, 23, 42, 0.9) transparent transparent transparent;
+}
 </style>
 </head>
 <body>
@@ -168,8 +197,9 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 <div id="app">
   <!-- 1. 기록 탭 -->
   <div class="page active" id="page-record">
-    <div style="text-align:center; margin-bottom:20px; position:relative;">
-      <img src="evan_logo.png" alt="디어 에반 핸슨" style="height:60px; object-fit:contain;">
+    <!-- 로고 크기 증가 및 간격 축소 -->
+    <div style="text-align:center; margin-bottom:8px; position:relative;">
+      <img src="evan_logo.png" alt="디어 에반 핸슨" style="height:80px; object-fit:contain;">
     </div>
     
     <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:12px;">
@@ -216,17 +246,11 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
     </div>
   </div>
 
-  <!-- 3. 좌석 정산 탭 (새로 생성됨) -->
+  <!-- 3. 좌석 정산 탭 -->
   <div class="page" id="page-seat">
     <div class="page-title">좌석 정산</div>
-    <div class="card">
-      <div class="card-title" style="color:var(--primary); font-size:16px;">좌석 히트맵</div>
-      <div style="font-size:12px; color:var(--txt3); margin-top:-8px; margin-bottom:16px; background:var(--primary4); padding:8px; border-radius:6px; font-weight:600; text-align:center;">
-        📍 충무아트센터 대극장 (추후 좌석 정보 업데이트 예정)
-      </div>
-      
-      <div class="heatmap-wrap" id="heatmap-container" style="margin-top:10px;"></div>
-      
+    <div class="card" style="padding-bottom:8px;">
+      <div class="heatmap-wrap" id="heatmap-container"></div>
       <div class="heatmap-legend">
         <div class="legend-item"><div class="legend-dot" style="background:var(--bg4);"></div>0회</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--seat1);"></div>1회</div>
@@ -323,7 +347,8 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
             <option value="2층">2층</option>
             <option value="3층">3층</option>
         </select>
-        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열">
+        <!-- 열 플레이스홀더를 충무에 맞게 변경 -->
+        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열 (예: 5)">
         <input type="number" id="rm-num" class="finput" style="flex:1;" placeholder="번호" min="1">
       </div>
     </div>
@@ -486,6 +511,37 @@ const THEATER_ZONES = [
     })()
   }
 ];
+
+// ============================================================
+// 좌석 커스텀 툴팁 기능 설정
+// ============================================================
+let seatTooltipEl = null;
+function initTooltip() {
+    if(!seatTooltipEl) {
+        seatTooltipEl = document.createElement('div');
+        seatTooltipEl.id = 'custom-tooltip';
+        document.body.appendChild(seatTooltipEl);
+        
+        // 모바일 환경 등에서 다른 곳을 터치하면 툴팁 닫기
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.classList.contains('seat-cell')) {
+                hideSeatTooltip();
+            }
+        });
+    }
+}
+function showSeatTooltip(e, text) {
+    initTooltip();
+    seatTooltipEl.innerHTML = text;
+    seatTooltipEl.style.display = 'block';
+    const rect = e.target.getBoundingClientRect();
+    // 툴팁 위치 계산 (좌석 요소의 상단 중앙)
+    seatTooltipEl.style.left = (rect.left + rect.width / 2) + 'px';
+    seatTooltipEl.style.top = rect.top + 'px';
+}
+function hideSeatTooltip() {
+    if(seatTooltipEl) seatTooltipEl.style.display = 'none';
+}
 
 // ============================================================
 // 2. STATE MANAGEMENT
@@ -1159,8 +1215,13 @@ function renderSeatStats() {
       hmHtml = '<div style="padding:40px; text-align:center; color:var(--txt4);">좌석 정보가 아직 등록되지 않았습니다.</div>';
   } else {
     THEATER_ZONES.forEach(z => { 
-      hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; margin-bottom:20px; width:100%; background:var(--bg2); padding:16px; border-radius:8px; border:1px solid var(--brd);">`;
-      hmHtml += `<div style="font-size:13px; font-weight:800; color:var(--txt); margin-bottom:16px;">${z.name}</div>`;
+      // 바깥쪽 고정 테두리 박스 (100%)
+      hmHtml += `<div style="margin-bottom:20px; width:100%; background:var(--bg2); padding:16px; border-radius:8px; border:1px solid var(--brd);">`;
+      hmHtml += `<div style="font-size:13px; font-weight:800; color:var(--txt); margin-bottom:12px;">${z.name}</div>`;
+      
+      // 안쪽 스크롤 전용 박스
+      hmHtml += `<div style="overflow-x:auto; padding-bottom:10px; width:100%;">`;
+      // 왼쪽 정렬된 좌석 컨테이너
       hmHtml += `<div class="zone-col">`;
       
       z.rows.forEach(rowInfo => {
@@ -1173,12 +1234,17 @@ function renderSeatStats() {
           } else {
              const k = `${z.name}-${rowInfo.id}-${col}`;
              const cnt = seatMap[k] || 0;
-             hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" title="${z.name} ${rowInfo.id}열 ${col}번: ${cnt}회"></div>`;
+             const tooltipText = `${z.name} ${rowInfo.id}열 ${col}번<br>관람: ${cnt}회`;
+             // 마우스 오버 및 터치 시 툴팁 표시
+             hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" 
+                            onmouseover="showSeatTooltip(event, '${tooltipText}')" 
+                            onmouseout="hideSeatTooltip()" 
+                            onclick="showSeatTooltip(event, '${tooltipText}')"></div>`;
           }
         });
         hmHtml += `</div>`;
       });
-      hmHtml += `</div></div>`; 
+      hmHtml += `</div></div></div>`; 
     });
   }
   
