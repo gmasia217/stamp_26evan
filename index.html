@@ -17,29 +17,31 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap');
 
 :root {
-  /* 블루 & 화이트 테마 - 쨍한 하늘색 원색 느낌으로 변경 */
-  --bg: #f0f4f8; 
+  /* 로고 색상 기반의 선명한 블루 테마 */
+  --bg: #ebf4fa; 
   --bg2: #ffffff; 
-  --bg3: #f8fafc; 
+  --bg3: #f6fbff; 
   --bg4: #e2e8f0;
-  --brd: #cbd5e1; 
+  --brd: #c7dbe8; 
   --brd2: #94a3b8;
-  --txt: #0f172a; 
+  
+  --txt: #111111; /* HANSEN 블랙 */
   --txt2: #334155; 
   --txt3: #475569; 
   --txt4: #64748b; 
   --dim: #94a3b8;
   
-  --primary: #009ceb; /* 좀 더 쨍하고 선명한 하늘색 */
-  --primary2: #0087cc;
-  --primary3: #dcf2ff; 
-  --primary4: #f0faff;
+  --primary: #174ca2; /* EVAN 딥블루 */
+  --primary2: #5db4e5; /* DEAR 라이트블루 */
+  --primary3: #cdeaff; 
+  --primary4: #e8f5fd;
   
-  --seat1: #cceeff; 
-  --seat2: #80d4ff; 
-  --seat3: #33bbff; 
-  --seat4: #00a2ed; 
-  --seat5: #007ac2;
+  /* 좌석 히트맵 색상 (라이트블루 -> 딥블루 그라데이션) */
+  --seat1: #cdeaff; 
+  --seat2: #8bcff2; 
+  --seat3: #5db4e5; 
+  --seat4: #3381cc; 
+  --seat5: #174ca2;
   
   --tab-h: 60px;
 }
@@ -49,7 +51,7 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 #app { padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px)); }
 
 /* TAB BAR */
-.tab-bar { position:fixed; bottom:0; left:0; width:100%; height:calc(var(--tab-h) + env(safe-area-inset-bottom, 0px)); padding-bottom:env(safe-area-inset-bottom, 0px); background:var(--bg2); border-top:1px solid var(--brd); display:flex; z-index:100; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+.tab-bar { position:fixed; bottom:0; left:0; width:100%; height:calc(var(--tab-h) + env(safe-area-inset-bottom, 0px)); padding-bottom:env(safe-area-inset-bottom, 0px); background:var(--bg2); border-top:1px solid var(--brd); display:flex; z-index:100; box-shadow: 0 -2px 10px rgba(23,76,162,0.05); }
 .tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:none; border:none; cursor:pointer; color:var(--txt4); font-size:10px; transition:color 0.2s; font-weight:600;}
 .tab-btn.active { color:var(--primary); }
 .tab-btn .icon { font-size:20px; filter: grayscale(100%) opacity(0.6); transition:all 0.2s; }
@@ -60,13 +62,13 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 .page.active { display:block; }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 .page-title { font-family:'IBM Plex Sans KR', sans-serif; font-size:22px; font-weight:700; color:var(--primary); margin-bottom:16px; letter-spacing:-0.5px; }
-.card { background:var(--bg2); border:1px solid var(--brd); border-radius:12px; padding:16px; margin-bottom:16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.card { background:var(--bg2); border:1px solid var(--brd); border-radius:12px; padding:16px; margin-bottom:16px; box-shadow: 0 4px 15px rgba(23,76,162,0.03); }
 .card-title { font-size:14px; color:var(--txt); margin-bottom:12px; font-weight:700; letter-spacing:0.02em; }
 
 /* BUTTONS */
 .btn { background:transparent; border:1px solid var(--brd2); color:var(--txt2); padding:8px 14px; cursor:pointer; font-family:inherit; font-size:13px; border-radius:6px; transition:all 0.2s; font-weight:600; }
 .btn:active { border-color:var(--primary); color:var(--primary); background:var(--primary4); }
-.btn.prim { background:var(--primary); border-color:var(--primary); color:#fff; font-weight:700; box-shadow: 0 4px 10px rgba(0,156,235,0.2); }
+.btn.prim { background:var(--primary); border-color:var(--primary); color:#fff; font-weight:700; box-shadow: 0 4px 10px rgba(23,76,162,0.2); }
 .btn.prim:active { background:var(--primary2); border-color:var(--primary2); }
 .btn.sm { padding:4px 10px; font-size:11px; }
 .btn.ghost { background:transparent; border-color:transparent; color:var(--txt4); }
@@ -88,7 +90,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .flbl { display:block; font-size:12px; color:var(--txt2); margin-bottom:5px; font-weight:700; }
 
 /* OVERLAY & MODAL */
-.overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,.6); z-index:200; justify-content:center; align-items:flex-end; backdrop-filter: blur(2px); }
+.overlay { display:none; position:fixed; inset:0; background:rgba(17,17,17,.7); z-index:200; justify-content:center; align-items:flex-end; backdrop-filter: blur(2px); }
 .overlay.show { display:flex; }
 .modal { background:var(--bg2); border-top:3px solid var(--primary); width:100%; max-width:520px; max-height:90vh; overflow-y:auto; padding:24px 20px; border-radius:20px 20px 0 0; animation:slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 25px rgba(0,0,0,0.1); }
 @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
@@ -110,7 +112,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cal-filter-group { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
 .cal-filter-label { font-size:12px; color:var(--txt2); width:85px; font-weight:700; white-space:nowrap; }
 .cal-filter-btn { background:var(--bg2); border:1px solid var(--brd); color:var(--txt3); padding:4px 10px; border-radius:20px; font-size:12px; cursor:pointer; transition:all 0.2s; font-weight:600; white-space:nowrap; }
-.cal-filter-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; box-shadow: 0 2px 5px rgba(0,156,235,0.3); }
+.cal-filter-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; box-shadow: 0 2px 5px rgba(23,76,162,0.3); }
 
 .cal-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
 .cal-grid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:1px; position:relative; background:var(--brd); border:1px solid var(--brd); border-radius:8px; overflow:hidden;}
@@ -125,10 +127,11 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 
 .cs-chip { width:100%; text-align:left; padding:4px; border-radius:4px; margin-top:4px; background:transparent; border:1px solid transparent; }
 .cs-time { font-size:11px; font-weight:800; color:var(--txt); }
-.cs-time::before { content: '• '; color:var(--primary); }
+.cs-time::before { content: '• '; color:var(--primary2); }
 .cs-cast { font-size:10px; color:var(--txt3); margin-top:2px; padding-left:0; word-break:break-all; white-space:normal; line-height:1.2; font-weight:500;}
 .cs-chip.booked { background:var(--primary4); border-color:var(--primary2); }
 .cs-chip.booked .cs-time { color:var(--primary); }
+.cs-chip.booked .cs-time::before { color:var(--primary); }
 .cs-chip.booked .cs-cast { color:var(--txt); }
 .cs-chip.unseated { background:var(--bg4); border-color:var(--brd2); }
 
@@ -136,21 +139,26 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .heatmap-wrap { width:100%; padding-bottom:15px; }
 .mini-hm-container { 
   display: block; 
-  text-align: center; 
   overflow-x: auto; 
   white-space: nowrap; 
   margin: 16px 0; 
   border: 1px solid var(--brd); 
-  padding: 20px; 
+  padding: 20px 0; /* 좌우 여백을 내부 div로 위임 */
   border-radius: 8px; 
-  background: var(--bg3); 
+  background: var(--bg2); 
+  -webkit-overflow-scrolling: touch;
+}
+.hm-inner {
+  display: inline-block;
+  min-width: 100%;
+  text-align: center; /* PC 및 작은 좌석표 중앙 정렬 */
+  padding: 0 20px;
 }
 .zone-col { 
   display: inline-flex; 
   flex-direction: column; 
   gap: 3px; 
   align-items: flex-start; 
-  margin: 0 auto;
   text-align: left;
 }
 
@@ -172,14 +180,14 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .seat-cell.hidden, .mini-seat-cell.hidden { background:transparent; border-color:transparent; pointer-events:none; }
 .mini-seat-cell.highlight { background: var(--seat4); border-color: var(--seat5); transform:scale(1.2); }
 
-.heatmap-legend { display:flex; gap:12px; justify-content:center; margin-top:10px; flex-wrap:wrap; padding:10px; background:var(--bg3); border-radius:8px; width:100%; box-sizing:border-box; }
+.heatmap-legend { display:flex; gap:12px; justify-content:center; margin-top:10px; flex-wrap:wrap; padding:10px; background:var(--bg2); border:1px solid var(--brd); border-radius:8px; width:100%; box-sizing:border-box; }
 .legend-item { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2); font-weight:600; }
 .legend-dot { width:14px; height:14px; border-radius:3px; }
 
 /* Custom Tooltip */
 #custom-tooltip {
   position: fixed;
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(17, 17, 17, 0.9);
   color: #fff;
   padding: 6px 10px;
   border-radius: 6px;
@@ -203,7 +211,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: rgba(15, 23, 42, 0.9) transparent transparent transparent;
+  border-color: rgba(17, 17, 17, 0.9) transparent transparent transparent;
 }
 </style>
 </head>
@@ -268,16 +276,14 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   <!-- 3. 좌석 정산 탭 -->
   <div class="page" id="page-seat">
     <div class="page-title">좌석 정산</div>
-    <div class="card" style="padding-bottom:8px;">
-      <div class="heatmap-wrap" id="heatmap-container"></div>
-      <div class="heatmap-legend">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--bg4);"></div>0회</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--seat1);"></div>1회</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--seat2);"></div>2회</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--seat3);"></div>3회</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--seat4);"></div>4회</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--seat5);"></div>5회+</div>
-      </div>
+    <div class="heatmap-wrap" id="heatmap-container"></div>
+    <div class="heatmap-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--bg4);"></div>0회</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--seat1);"></div>1회</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--seat2);"></div>2회</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--seat3);"></div>3회</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--seat4);"></div>4회</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--seat5);"></div>5회+</div>
     </div>
   </div>
 
@@ -449,14 +455,14 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 
 <!-- 좌석 이력 조회 팝업 -->
 <div class="overlay center" id="modal-seat-history" onclick="if(event.target===this) closeModal('modal-seat-history')">
-  <div class="modal center">
+  <div class="modal center" style="max-width:500px; padding:24px 20px;">
     <div class="detail-header" style="margin-bottom:12px;">
       <div class="detail-date-title" style="font-size:16px;">이 좌석에서 관람한 회차</div>
       <button class="btn sm ghost" onclick="closeModal('modal-seat-history')" style="font-size:18px; padding:0 6px; color:var(--txt);">✕</button>
     </div>
-    <div id="sh-seat-title" style="font-size:13px; font-weight:700; color:var(--txt3); margin-bottom:12px; text-align:center;"></div>
+    <div id="sh-seat-title" style="font-size:14px; font-weight:700; color:var(--primary); margin-bottom:16px; text-align:center;"></div>
     <div class="twrap" style="margin:0; padding:0; max-height:40vh; overflow-x:auto; overflow-y:auto;">
-      <table class="record-tb" style="width:100%;">
+      <table class="record-tb" style="width:max-content; min-width:100%;">
         <thead><tr><th>날짜</th><th>시간</th><th>에반</th><th>하이디</th><th>코너</th><th>조이</th><th>래리</th><th>신시아</th><th>재러드</th><th>알라나</th></tr></thead>
         <tbody id="sh-tbody"></tbody>
       </table>
@@ -518,7 +524,7 @@ function mapToBlock(arr, blockName) {
   return arr.map(n => n !== null ? { b: blockName, n: n } : null);
 }
 
-// 충무아트센터 대극장 정밀 좌석표 (구역 정보 완벽 맵핑)
+// 충무아트센터 대극장 정밀 좌석표
 const THEATER_ZONES = [
   {
     name: '1층',
@@ -608,9 +614,9 @@ function openSeatHistoryModal(zone, block, row, num) {
         html = `<tr><td colspan="10" style="padding:20px; color:var(--txt4);">이 좌석에서의 관람 기록이 없습니다.</td></tr>`;
     } else {
         html = records.map(r => `<tr>
-            <td style="font-weight:600; color:var(--txt);">${r.date.substring(5).replace('-','.')}</td>
-            <td style="color:var(--txt2);">${r.time}</td>
-            <td style="color:var(--txt2); font-weight:600;">${r.cast1 || '-'}</td>
+            <td style="font-weight:700; color:var(--primary);">${r.date.substring(5).replace('-','.')}</td>
+            <td style="color:var(--txt2); font-weight:600;">${r.time}</td>
+            <td style="color:var(--primary); font-weight:700;">${r.cast1 || '-'}</td>
             <td style="color:var(--txt2); font-weight:600;">${r.cast2 || '-'}</td>
             <td style="color:var(--txt2); font-weight:600;">${r.cast3 || '-'}</td>
             <td style="color:var(--txt2); font-weight:600;">${r.cast4 || '-'}</td>
@@ -622,6 +628,17 @@ function openSeatHistoryModal(zone, block, row, num) {
     }
     document.getElementById('sh-tbody').innerHTML = html;
     openModal('modal-seat-history');
+}
+
+// 스크롤 중앙 정렬 헬퍼 함수
+function centerScrollContainers() {
+    setTimeout(() => {
+        document.querySelectorAll('.mini-hm-container').forEach(el => {
+            if (el.scrollWidth > el.clientWidth) {
+                el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+            }
+        });
+    }, 50);
 }
 
 // ============================================================
@@ -658,7 +675,7 @@ function switchTab(tabId, btnEl) {
   
   if(tabId === 'record') renderRecords();
   if(tabId === 'calendar') { renderCalFilters(); renderCalendar(); }
-  if(tabId === 'seat') renderSeatStats();
+  if(tabId === 'seat') { renderSeatStats(); centerScrollContainers(); }
   if(tabId === 'stats') { renderActorStats(); renderPairStats(); }
 }
 function openModal(id) { document.getElementById(id).classList.add('show'); }
@@ -748,7 +765,7 @@ function renderRecords() {
         </div>
       </td>
       <td><div style="font-weight:600;">${r.time}</div></td>
-      <td style="color:var(--txt2); font-weight:600;">${r.cast1 || '-'}</td>
+      <td style="color:var(--primary); font-weight:700;">${r.cast1 || '-'}</td>
       <td style="color:var(--txt2); font-weight:600;">${r.cast2 || '-'}</td>
       <td style="color:var(--txt2); font-weight:600;">${r.cast3 || '-'}</td>
       <td style="color:var(--txt2); font-weight:600;">${r.cast4 || '-'}</td>
@@ -1004,6 +1021,7 @@ function renderMiniMap(selZone, selBlock, selRow, selNum) {
   THEATER_ZONES.forEach(z => {
     hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; margin-bottom:10px;">`;
     hmHtml += `<div style="font-size:11px; font-weight:700; color:var(--txt3); margin-bottom:8px;">${z.name}</div>`;
+    hmHtml += `<div class="hm-inner">`;
     hmHtml += `<div class="zone-col" style="gap:2px;">`;
     
     z.rows.forEach(rowInfo => {
@@ -1020,7 +1038,7 @@ function renderMiniMap(selZone, selBlock, selRow, selNum) {
       });
       hmHtml += `</div>`;
     });
-    hmHtml += `</div></div>`;
+    hmHtml += `</div></div></div>`;
   });
   hmHtml += '</div>';
   return hmHtml;
@@ -1347,10 +1365,11 @@ function renderSeatStats() {
       hmHtml = '<div style="padding:40px; text-align:center; color:var(--txt4);">좌석 정보가 아직 등록되지 않았습니다.</div>';
   } else {
     THEATER_ZONES.forEach(z => { 
-      hmHtml += `<div style="margin-bottom:20px; width:100%; background:var(--bg2); padding:16px; border-radius:8px; border:1px solid var(--brd);">`;
-      hmHtml += `<div style="font-size:13px; font-weight:800; color:var(--txt); margin-bottom:12px;">${z.name}</div>`;
+      hmHtml += `<div style="margin-bottom:20px; width:100%; background:var(--bg2); padding:16px 0; border-radius:8px; border:1px solid var(--brd);">`;
+      hmHtml += `<div style="font-size:13px; font-weight:800; color:var(--txt); margin-bottom:12px; padding:0 16px;">${z.name}</div>`;
       
       hmHtml += `<div class="mini-hm-container">`;
+      hmHtml += `<div class="hm-inner">`;
       hmHtml += `<div class="zone-col">`;
       
       z.rows.forEach(rowInfo => {
@@ -1372,7 +1391,7 @@ function renderSeatStats() {
         });
         hmHtml += `</div>`;
       });
-      hmHtml += `</div></div></div>`; 
+      hmHtml += `</div></div></div></div>`; 
     });
   }
   
