@@ -1,273 +1,42 @@
-/* finale.css */
+/* finale.css - 와이드 비율 핵심 수정 */
 
-/* ==========================================
-   1. 기본 폰트 및 중앙 UI
-   ========================================== */
-* {
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important;
-}
-
-body {
-    background-color: #334155; 
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.ui-container {
-    text-align: center;
-    background: #ffffff;
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    z-index: 10;
-    margin-bottom: 30px;
-}
-
-.ui-container h1 { color: #174ca2; margin-bottom: 10px; margin-top: 0; font-weight: 700; }
-.ui-container p { color: #64748b; margin-bottom: 25px; }
-
-.btn {
-    padding: 12px 24px; border: none; border-radius: 8px;
-    font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; margin: 0 5px;
-}
-.btn.prim { background: #174ca2; color: white; }
-.btn.prim:hover { background: #123e85; }
-.btn.ghost { background: #e2e8f0; color: #475569; }
-.btn.ghost:hover { background: #cbd5e1; }
-
-/* ==========================================
-   2. 캡처 래퍼 및 전체 배경 (1920px 해상도 강제 고정)
-   ========================================== */
 .capture-wrapper {
-    width: 1920px; /* 16:9 와이드 비율의 핵심 */
+    width: 1920px; /* 16:9 와이드 비율 */
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 
 .capture-board {
     width: 100%;
-    padding: 60px; 
+    height: 1080px; 
+    padding: 40px 60px; /* 여백 줄임 */
     background-color: #eaf4fb;
     box-sizing: border-box;
-}
-
-/* ==========================================
-   3. 맥북 브라우저 윈도우 스타일 (16:9 비율 유지)
-   ========================================== */
-.mac-window {
-    width: 100%;
-    height: 1080px; /* 1920 x 1080 규격 강제 */
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     display: flex;
-    flex-direction: column;
-    overflow: hidden; 
+    gap: 40px;
 }
 
-/* 브라우저 상단 헤더 */
-.mac-header {
-    height: 54px;
-    background-color: #174ca2; 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    position: relative;
-    flex-shrink: 0;
-}
-
-.mac-left-controls { display: flex; align-items: center; gap: 20px; }
-.mac-buttons { display: flex; gap: 8px; }
-.mac-btn { width: 12px; height: 12px; border-radius: 50%; }
-.mac-btn.close { background-color: #ff5f56; }
-.mac-btn.minimize { background-color: #ffbd2e; }
-.mac-btn.maximize { background-color: #27c93f; }
-
-.mac-nav-icons { color: #ffffff; font-size: 14px; font-weight: bold; display: flex; gap: 15px; opacity: 0.8; }
-
-/* 주소창 */
-.mac-address-bar {
-    position: absolute; left: 50%; transform: translateX(-50%);
-    background: #ffffff; padding: 6px 20px; border-radius: 18px;
-    font-size: 13px; color: #475569; font-weight: 700; width: 400px;
-    display: flex; justify-content: space-between; align-items: center;
-}
-.mac-address-bar .star-icon { font-size: 16px; color: #cbd5e1; }
-.mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
-
-/* 브라우저 내용 */
 .mac-body {
     display: flex;
-    flex: 1;
-    padding: 50px 70px;
-    gap: 80px; /* 메인 영역과 좌석표 사이의 넓은 여백 */
-    box-sizing: border-box;
+    padding: 30px 40px; /* 내부 여백 줄임 */
+    gap: 50px;
 }
 
-/* ==========================================
-   4. 캐스팅 및 좌우 레이아웃
-   ========================================== */
-.board-main {
-    flex: 1; /* 가로 공간을 최대한 차지하도록 변경 */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.board-main { flex: 1.6; display: flex; flex-direction: column; justify-content: space-between; }
+.board-side { width: 650px; flex-shrink: 0; display: flex; flex-direction: column; gap: 30px; }
+
+/* 캐스트 사진과 이름 확대 */
+.actor-img { width: 130px; height: 160px; } 
+.actor-name { 
+    font-size: 18px; 
+    font-weight: 700; 
+    text-align: center; 
+    margin: 8px 0; 
+    line-height: 1.2;
+    color: #1e293b;
 }
 
-.board-side {
-    width: 550px; /* 좌석표 크기 대폭 확대 */
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.board-row { display: flex; width: 100%; }
-.top-row { justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
-.middle-row { justify-content: space-between; align-items: flex-end; margin-bottom: 15px; }
-.bottom-row { justify-content: space-between; align-items: flex-end; margin-top: 25px; }
-
-.board-logo { width: 250px; object-fit: contain; } /* 로고 축소 */
-
-/* 배역 스티커 UI */
-.role-group { display: flex; flex-direction: column; align-items: center; }
-
-.role-badge {
-    background: #f1f5f9; 
-    color: #174ca2;
-    padding: 10px 20px; 
-    border-radius: 20px;
-    font-size: 18px; /* 이름 크기 대폭 확대 */
-    font-weight: 700;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.actor-list { display: flex; gap: 20px; }
-.actor-item { display: flex; flex-direction: column; align-items: center; }
-
-.actor-img {
-    width: 150px; /* 캐스트 사진 폭 대폭 확대 */
-    height: auto; /* 🌟 모바일 캡처 버그 방지 (비율 유지) */
-    max-height: 160px; /* 무한정 늘어남 방지 */
-    object-fit: contain;
-    filter: 
-        drop-shadow(2px 0px 0px white) 
-        drop-shadow(-2px 0px 0px white) 
-        drop-shadow(0px 2px 0px white) 
-        drop-shadow(0px -2px 0px white) 
-        drop-shadow(0px 6px 8px rgba(0,0,0,0.2));
-    margin-bottom: 10px;
-    display: block; /* 렌더링 안정성 확보 */
-}
-
-.actor-count {
-    background: white;
-    padding: 6px 16px;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    font-weight: 700;
-    transform: rotate(-3deg);
-    margin-top: -10px;
-    z-index: 2;
-}
-.actor-count .my-count { color: #e11d48; font-size: 24px; }
-.actor-count .total-count { color: #94a3b8; font-size: 15px; }
-
-/* ==========================================
-   5. SNS 카드 및 텍스트 꾸미기
-   ========================================== */
-.sns-card {
-    background: #ffffff; border-radius: 12px; width: 360px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    transform: rotate(2deg); border: 1px solid #e2e8f0;
-}
-.sns-header { display: flex; align-items: center; padding: 14px 18px; border-bottom: 1px solid #f1f5f9; }
-.sns-profile { width: 28px; height: 28px; border-radius: 50%; margin-right: 12px; }
-.sns-name { font-weight: 700; font-size: 15px; color: #0f172a; flex: 1; }
-.sns-dots { color: #94a3b8; font-weight: bold; }
-.sns-body { padding: 30px 20px; text-align: center; }
-.sns-tag { color: #3b82f6; font-weight: 700; font-size: 20px; margin-bottom: 15px; text-align: left; }
-.sns-total .my-total { color: #e11d48; font-size: 55px; font-weight: 700; }
-.sns-total .overall-total { color: #64748b; font-size: 24px; font-weight: 600; }
-.sns-footer { padding: 14px 18px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 14px; font-weight: 600; }
-
-.decorative-text {
-    color: #174ca2; font-size: 22px; font-weight: 700; opacity: 0.7;
-    text-align: right; margin-right: 30px; margin-bottom: 20px; line-height: 1.4; transform: rotate(-2deg);
-}
-
-/* ==========================================
-   6. 말풍선
-   ========================================== */
-.speech-bubbles { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; margin-bottom: auto; }
-.bubble {
-    position: relative; background: #f8fafc; border: 1px solid #e2e8f0;
-    padding: 16px 24px; border-radius: 20px; font-size: 20px; font-weight: 700; color: #1e293b;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: fit-content;
-}
-.bubble-right::after {
-    content: ''; position: absolute; bottom: -10px; right: 20px;
-    border-width: 10px 10px 0 0; border-style: solid; border-color: #f8fafc transparent transparent transparent;
-}
-.bubble-left { align-self: flex-start; border-radius: 20px 20px 20px 0; color: #334155; line-height: 1.5; }
-.bubble-left::after {
-    content: ''; position: absolute; bottom: 0; left: -10px;
-    border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #f8fafc transparent transparent;
-}
-
-/* ==========================================
-   7. 미니 좌석표 (가로 공간 채우기 및 크기 확대)
-   ========================================== */
+/* 좌석표 */
 .seat-map-board {
-    background: #ffffff;
-    border: 3px solid #174ca2;
-    padding: 25px 30px; 
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    width: 100%; 
-    box-sizing: border-box; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 20px;
+    height: 100%; /* 여백 없이 꽉 채우기 */
 }
-
-.seat-map-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;
-}
-.seat-map-header .close-btn { color: #94a3b8; font-weight: bold; font-size: 18px; }
-
-.seat-floor { margin-bottom: 20px; }
-.floor-title { text-align: center; font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px; }
-
-.f-zone-col { display: flex; flex-direction: column; gap: 3px; align-items: center; }
-.f-seat-row { display: flex; gap: 3px; justify-content: center; }
-
-/* 🌟 좌석 맵 크기 대폭 상향 */
-.f-seat-cell { width: 9px; height: 9px; border-radius: 2px; border: 1px solid #cbd5e1; box-sizing: border-box;}
-.f-seat-aisle { width: 8px; flex-shrink: 0; }
-.f-seat-half { width: 4px; height: 9px; pointer-events: none; }
-.f-seat-cell.hidden { border-color: transparent; background: transparent; }
-
-/* 히트맵 컬러 */
-.f-seat-cell.c0 { background: #f8fafc; border-color: #e2e8f0; }
-.f-seat-cell.c1 { background: #78c6f5; border-color: #78c6f5; }
-.f-seat-cell.c2 { background: #4ba6e6; border-color: #4ba6e6; }
-.f-seat-cell.c3 { background: #2682cc; border-color: #2682cc; }
-.f-seat-cell.c4 { background: #083870; border-color: #083870; }
-
-.seat-legend {
-    display: flex; justify-content: center; gap: 15px; font-size: 13px; color: #64748b; font-weight: 700;
-    margin-top: 15px; padding-top: 15px; border-top: 1px solid #e2e8f0;
-}
-.leg-box { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
-.leg-box.c1 { background: #78c6f5; }
-.leg-box.c2 { background: #4ba6e6; }
-.leg-box.c3 { background: #2682cc; }
-.leg-box.c4 { background: #083870; }
