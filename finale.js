@@ -1,6 +1,5 @@
 // finale.js
 
-// 1. 기본 설정 및 좌석 맵 데이터
 const CONFIG = {
     ROLES: [
         { id: "cast1", label: "에반 핸슨", actors: ["박강현", "임규형", "나현우"] },
@@ -88,9 +87,6 @@ const THEATER_ZONES = [
     }
 ];
 
-// ============================================================
-// 2. 데이터 불러오기 및 필터링
-// ============================================================
 let state = { records: [], schedule: [] };
 
 function loadData() {
@@ -122,30 +118,23 @@ function getValidRecords() {
     return validRecords;
 }
 
-// ============================================================
-// 3. 통계 계산 및 화면 주입 (Data Injection)
-// ============================================================
 function renderStats() {
     const validRecords = getValidRecords();
-    const scheduleRecords = state.schedule || []; // 스케줄 데이터 가져오기
+    const scheduleRecords = state.schedule || []; 
     
-    // 1. 총 관람 횟수 & 전체 스케줄 횟수
     const totalCount = validRecords.length;
     const totalScheduleCount = scheduleRecords.length;
     
     const totalEl = document.getElementById('board-total');
     if (totalEl) totalEl.textContent = totalCount;
 
-    // 🌟 전체 스케줄 총 횟수도 스케줄 데이터 길이에 맞춰 자동 반영
     const overallTotalEl = document.getElementById('board-total-schedule');
     if (overallTotalEl) overallTotalEl.textContent = `/ ${totalScheduleCount}`;
 
-    // 2. 배우별 관람 횟수 및 배우별 전체 회차 자동 계산
     CONFIG.ROLES.forEach((role, idx) => {
         const castKey = `cast${idx + 1}`;
         role.actors.forEach(actor => {
             const count = validRecords.filter(r => r[castKey] === actor).length;
-            // 🌟 해당 배우가 스케줄 데이터에 존재하는 총 횟수를 동적으로 계산
             const totalCnt = scheduleRecords.filter(s => s[castKey] === actor).length; 
             
             const safeActorId = actor.replace(/\s+/g, '');
@@ -155,17 +144,15 @@ function renderStats() {
             if (actorEl) {
                 actorEl.textContent = count > 0 ? count : '0';
                 if(count === 0) actorEl.style.color = '#94a3b8';
-                else actorEl.style.color = '#ef4444'; 
+                else actorEl.style.color = '#e11d48'; 
             }
             
             if (actorTotalEl) {
-                // 스윙처럼 총 회차가 1번뿐인 배우도 정확한 숫자로 반영됨
                 actorTotalEl.textContent = `/ ${totalCnt}`;
             }
         });
     });
 
-    // 3. 미니 좌석표 렌더링
     renderFinaleSeatMap(validRecords);
 }
 
@@ -214,10 +201,9 @@ function renderFinaleSeatMap(validRecords) {
     });
 }
 
-// ============================================================
-// 4. 이미지 캡처 및 다운로드 로직
-// ============================================================
 function downloadFinaleBoard() {
+    window.scrollTo(0, 0);
+    
     const captureArea = document.getElementById('finale-capture-area');
     const btn = document.getElementById('download-btn');
     
