@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>디어 에반 핸슨 정산 보드</title>
-    
     <link rel="stylesheet" href="./finale.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
 
     <div class="ui-container">
         <h1>정산 보드 미리보기 💻</h1>
-        <p>미리보기 화면과 다운로드되는 이미지가 100% 동일하게 출력됩니다.</p>
+        <p>초광각(Ultra Wide) 비율로 변경되었으며, 배우별 사진 크기를 개별 조절할 수 있습니다.</p>
         <button class="btn prim" onclick="downloadFinaleBoard()" id="download-btn">
             이미지 저장하기 📸
         </button>
@@ -22,11 +20,14 @@
         </button>
     </div>
 
+    <!-- 미리보기 래퍼 (가로 스크롤 가능) -->
     <div class="capture-wrapper">
+        
+        <!-- 전체 캡처 영역 (2400px 초광각 와이드) -->
         <div id="finale-capture-area" class="capture-board">
             
             <div class="mac-window">
-                <!-- 브라우저 상단 헤더 -->
+                <!-- 브라우저 헤더 -->
                 <div class="mac-header">
                     <div class="mac-left-controls">
                         <div class="mac-buttons">
@@ -34,192 +35,30 @@
                             <span class="mac-btn minimize"></span>
                             <span class="mac-btn maximize"></span>
                         </div>
-                        <div class="mac-nav-icons">
-                            <span>❮</span>
-                            <span>❯</span>
-                            <span>↻</span>
-                        </div>
+                        <div class="mac-nav-icons"><span>❮</span><span>❯</span><span>↻</span></div>
                     </div>
                     <div class="mac-address-bar">
-                        <span class="address-text">DEAR EVAN HANSEN |</span>
-                        <span class="star-icon">☆</span>
+                        <span class="address-text">DEAR EVAN HANSEN |</span><span class="star-icon">☆</span>
                     </div>
-                    <div class="mac-right-controls">
-                        <span class="hamburger-menu">≡</span>
-                    </div>
+                    <div class="mac-right-controls"><span class="hamburger-menu">≡</span></div>
                 </div>
 
-                <!-- 브라우저 본문 내용 -->
                 <div class="mac-body">
                     
-                    <!-- 🌟 왼쪽: 조화롭게 재배치된 캐스팅 보드 -->
+                    <!-- 왼쪽 메인 영역 (캐스팅 보드) -->
                     <div class="board-main">
                         
-                        <!-- 1단: 로고 + 에반 -->
+                        <!-- 🌟 상단: 로고 + TOTAL 정산 박스 나란히 배치 -->
                         <div class="board-row top-row">
                             <div class="logo-wrap">
                                 <img src="./evan_logo.png" alt="DEAR EVAN HANSEN" class="board-logo">
                             </div>
-                            
-                            <div class="role-group">
-                                <div class="role-badge">🔍 에반 핸슨 Evan Hansen</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_박강현.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">박강현</div>
-                                        <div class="actor-count"><span class="my-count" id="count-박강현">0</span> <span class="total-count" id="total-박강현">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_임규형.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">임규형</div>
-                                        <div class="actor-count"><span class="my-count" id="count-임규형">0</span> <span class="total-count" id="total-임규형">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_나현우.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">나현우</div>
-                                        <div class="actor-count"><span class="my-count" id="count-나현우">0</span> <span class="total-count" id="total-나현우">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- 2단: 하이디 + 코너 + 조이 -->
-                        <div class="board-row middle-row">
-                            <div class="role-group">
-                                <div class="role-badge">🔍 하이디 핸슨 Heidi Hansen</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_하이디_김선영.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">김선영</div>
-                                        <div class="actor-count"><span class="my-count" id="count-김선영">0</span> <span class="total-count" id="total-김선영">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_하이디_신영숙.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">신영숙</div>
-                                        <div class="actor-count"><span class="my-count" id="count-신영숙">0</span> <span class="total-count" id="total-신영숙">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="role-group">
-                                <div class="role-badge">🔍 코너 머피 Connor Murphy</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_코너_조민호.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">조민호</div>
-                                        <div class="actor-count"><span class="my-count" id="count-조민호">0</span> <span class="total-count" id="total-조민호">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_코너_김수호.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">김수호</div>
-                                        <div class="actor-count"><span class="my-count" id="count-김수호">0</span> <span class="total-count" id="total-김수호">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="role-group">
-                                <div class="role-badge">🔍 조이 머피 Zoe Murphy</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_조이_강지혜.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">강지혜</div>
-                                        <div class="actor-count"><span class="my-count" id="count-강지혜">0</span> <span class="total-count" id="total-강지혜">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_조이_장민제.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">장민제</div>
-                                        <div class="actor-count"><span class="my-count" id="count-장민제">0</span> <span class="total-count" id="total-장민제">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 3단: 래리 + 신시아 + 알라나 -->
-                        <div class="board-row middle-row">
-                            <div class="role-group">
-                                <div class="role-badge">🔍 래리 머피 Larry Murphy</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_래리_장현성.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">장현성</div>
-                                        <div class="actor-count"><span class="my-count" id="count-장현성">0</span> <span class="total-count" id="total-장현성">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_래리_정동근.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">정동근</div>
-                                        <div class="actor-count"><span class="my-count" id="count-정동근">0</span> <span class="total-count" id="total-정동근">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="role-group">
-                                <div class="role-badge">🔍 신시아 머피 Cynthia Murphy</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_안시하.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">안시하</div>
-                                        <div class="actor-count"><span class="my-count" id="count-안시하">0</span> <span class="total-count" id="total-안시하">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_임민영.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">임민영</div>
-                                        <div class="actor-count"><span class="my-count" id="count-임민영">0</span> <span class="total-count" id="total-임민영">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_새봄.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">새봄</div>
-                                        <div class="actor-count"><span class="my-count" id="count-새봄">0</span> <span class="total-count" id="total-새봄">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="role-group">
-                                <div class="role-badge">🔍 알라나 벡 Alana Beck</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_알라나_강은세.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">강은세</div>
-                                        <div class="actor-count"><span class="my-count" id="count-강은세">0</span> <span class="total-count" id="total-강은세">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_알라나_염희진.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">염희진</div>
-                                        <div class="actor-count"><span class="my-count" id="count-염희진">0</span> <span class="total-count" id="total-염희진">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 4단: 재러드 + TOTAL 맥북 창 -->
-                        <div class="board-row bottom-row">
-                            <div class="role-group">
-                                <div class="role-badge">🔍 재러드 클라인먼 Jared Kleinman</div>
-                                <div class="actor-list">
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_김강진.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">김강진</div>
-                                        <div class="actor-count"><span class="my-count" id="count-김강진">0</span> <span class="total-count" id="total-김강진">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_윤현선.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">윤현선</div>
-                                        <div class="actor-count"><span class="my-count" id="count-윤현선">0</span> <span class="total-count" id="total-윤현선">/ 0</span></div>
-                                    </div>
-                                    <div class="actor-item">
-                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_박건우.png" class="actor-img" onerror="this.src='./evan_icon.jpg'"></div>
-                                        <div class="actor-name">박건우</div>
-                                        <div class="actor-count"><span class="my-count" id="count-박건우">0</span> <span class="total-count" id="total-박건우">/ 0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- TOTAL 박스를 오른쪽 정렬하여 공간 조화 -->
-                            <div class="mac-sub-window total-window" style="margin-left: auto;">
+                            <!-- 우측으로 밀착된 TOTAL 창 -->
+                            <div class="mac-sub-window total-window">
                                 <div class="mac-sub-header">
                                     <div class="mac-buttons">
-                                        <span class="mac-btn close"></span>
-                                        <span class="mac-btn minimize"></span>
-                                        <span class="mac-btn maximize"></span>
+                                        <span class="mac-btn close"></span><span class="mac-btn minimize"></span><span class="mac-btn maximize"></span>
                                     </div>
                                     <div class="mac-sub-title">My_Records.app</div>
                                 </div>
@@ -237,12 +76,166 @@
                                         </div>
                                     </div>
                                     <div class="sns-footer">
-                                        <span>👍 Like</span>
-                                        <span>💬 Comment</span>
-                                        <span>🔄 Share</span>
+                                        <span>👍 Like</span><span>💬 Comment</span><span>🔄 Share</span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- 🌟 1단: 에반 + 하이디 + 코너 -->
+                        <div class="board-row cast-row">
+                            <div class="role-group">
+                                <div class="role-badge">에반 핸슨 Evan Hansen</div>
+                                <div class="actor-list">
+                                    <!-- 💡 각 배우 이미지의 width/height 수치를 직접 바꿔서 크기를 개별 조절하세요 -->
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_박강현.png" class="actor-img" style="width: 150px; height: 180px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">박강현</div>
+                                        <div class="actor-count"><span class="my-count" id="count-박강현">0</span> <span class="total-count" id="total-박강현">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_임규형.png" class="actor-img" style="width: 150px; height: 180px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">임규형</div>
+                                        <div class="actor-count"><span class="my-count" id="count-임규형">0</span> <span class="total-count" id="total-임규형">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_나현우.png" class="actor-img" style="width: 150px; height: 180px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">나현우</div>
+                                        <div class="actor-count"><span class="my-count" id="count-나현우">0</span> <span class="total-count" id="total-나현우">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">하이디 핸슨 Heidi Hansen</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_하이디_김선영.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">김선영</div>
+                                        <div class="actor-count"><span class="my-count" id="count-김선영">0</span> <span class="total-count" id="total-김선영">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_하이디_신영숙.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">신영숙</div>
+                                        <div class="actor-count"><span class="my-count" id="count-신영숙">0</span> <span class="total-count" id="total-신영숙">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">코너 머피 Connor Murphy</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_코너_조민호.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">조민호</div>
+                                        <div class="actor-count"><span class="my-count" id="count-조민호">0</span> <span class="total-count" id="total-조민호">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_코너_김수호.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">김수호</div>
+                                        <div class="actor-count"><span class="my-count" id="count-김수호">0</span> <span class="total-count" id="total-김수호">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 🌟 2단: 조이 + 래리 + 신시아 -->
+                        <div class="board-row cast-row">
+                            <div class="role-group">
+                                <div class="role-badge">조이 머피 Zoe Murphy</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_조이_강지혜.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">강지혜</div>
+                                        <div class="actor-count"><span class="my-count" id="count-강지혜">0</span> <span class="total-count" id="total-강지혜">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_조이_장민제.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">장민제</div>
+                                        <div class="actor-count"><span class="my-count" id="count-장민제">0</span> <span class="total-count" id="total-장민제">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">래리 머피 Larry Murphy</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_래리_장현성.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">장현성</div>
+                                        <div class="actor-count"><span class="my-count" id="count-장현성">0</span> <span class="total-count" id="total-장현성">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_래리_정동근.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">정동근</div>
+                                        <div class="actor-count"><span class="my-count" id="count-정동근">0</span> <span class="total-count" id="total-정동근">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">신시아 머피 Cynthia Murphy</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_안시하.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">안시하</div>
+                                        <div class="actor-count"><span class="my-count" id="count-안시하">0</span> <span class="total-count" id="total-안시하">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_임민영.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">임민영</div>
+                                        <div class="actor-count"><span class="my-count" id="count-임민영">0</span> <span class="total-count" id="total-임민영">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_새봄.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">새봄</div>
+                                        <div class="actor-count"><span class="my-count" id="count-새봄">0</span> <span class="total-count" id="total-새봄">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 🌟 3단: 알라나 + 재러드 -->
+                        <div class="board-row cast-row">
+                            <div class="role-group">
+                                <div class="role-badge">알라나 벡 Alana Beck</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_알라나_강은세.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">강은세</div>
+                                        <div class="actor-count"><span class="my-count" id="count-강은세">0</span> <span class="total-count" id="total-강은세">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_알라나_염희진.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">염희진</div>
+                                        <div class="actor-count"><span class="my-count" id="count-염희진">0</span> <span class="total-count" id="total-염희진">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">재러드 클라인먼 Jared Kleinman</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_김강진.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">김강진</div>
+                                        <div class="actor-count"><span class="my-count" id="count-김강진">0</span> <span class="total-count" id="total-김강진">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_윤현선.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">윤현선</div>
+                                        <div class="actor-count"><span class="my-count" id="count-윤현선">0</span> <span class="total-count" id="total-윤현선">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_박건우.png" class="actor-img" style="width: 140px; height: 170px;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">박건우</div>
+                                        <div class="actor-count"><span class="my-count" id="count-박건우">0</span> <span class="total-count" id="total-박건우">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 비율을 맞추기 위한 빈 공간 (3단 우측 여백) -->
+                            <div style="flex: 1;"></div>
                         </div>
 
                     </div>
@@ -255,30 +248,18 @@
                             <div class="bubble bubble-right">#You_will_be_found</div>
                         </div>
 
-                        <!-- 🌟 내용물에 맞게 창 크기가 렌더링되도록 수정 -->
                         <div class="mac-sub-window map-window">
                             <div class="mac-sub-header">
                                 <div class="mac-buttons">
-                                    <span class="mac-btn close"></span>
-                                    <span class="mac-btn minimize"></span>
-                                    <span class="mac-btn maximize"></span>
+                                    <span class="mac-btn close"></span><span class="mac-btn minimize"></span><span class="mac-btn maximize"></span>
                                 </div>
                                 <div class="mac-sub-title">Seat_Map.app</div>
                             </div>
                             <div class="seat-map-board">
                                 <div class="seat-map-content">
-                                    <div class="seat-floor" id="floor-1">
-                                        <div class="floor-title">1F</div>
-                                        <div class="seat-grid" id="seat-grid-1f"></div>
-                                    </div>
-                                    <div class="seat-floor" id="floor-2">
-                                        <div class="floor-title">2F</div>
-                                        <div class="seat-grid" id="seat-grid-2f"></div>
-                                    </div>
-                                    <div class="seat-floor" id="floor-3">
-                                        <div class="floor-title">3F</div>
-                                        <div class="seat-grid" id="seat-grid-3f"></div>
-                                    </div>
+                                    <div class="seat-floor" id="floor-1"><div class="floor-title">1F</div><div class="seat-grid" id="seat-grid-1f"></div></div>
+                                    <div class="seat-floor" id="floor-2"><div class="floor-title">2F</div><div class="seat-grid" id="seat-grid-2f"></div></div>
+                                    <div class="seat-floor" id="floor-3"><div class="floor-title">3F</div><div class="seat-grid" id="seat-grid-3f"></div></div>
                                 </div>
                                 <div class="seat-legend">
                                     <span class="leg-box c1"></span> 1회 
