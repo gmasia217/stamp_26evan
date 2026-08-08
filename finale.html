@@ -13,7 +13,7 @@
 
     <div class="ui-container">
         <h1>정산 보드 미리보기 💻</h1>
-        <p>맥북 브라우저 테마가 적용되었습니다. 꽉 찬 와이드 비율로 조화롭게 배치되었습니다.</p>
+        <p>맥북 윈도우 창 테마가 적용되었습니다. 아래 버튼을 눌러 고화질로 저장하세요.</p>
         <button class="btn prim" onclick="downloadFinaleBoard()" id="download-btn">
             이미지 저장하기 📸
         </button>
@@ -22,16 +22,15 @@
         </button>
     </div>
 
-    <!-- 미리보기 및 캡처를 위한 래퍼 -->
+    <!-- 미리보기 및 캡처를 위한 래퍼 (절대 위치로 화면 밖 배치) -->
     <div class="capture-wrapper">
         
-        <!-- 전체 캡처 영역 (가로 1920px 고정, 세로는 내용에 맞게 자동 조절) -->
+        <!-- 🌟 잘림 방지를 위해 가로/세로 픽셀을 명시적으로 고정한 도화지 -->
         <div id="finale-capture-area" class="capture-board">
             
-            <!-- 맥북 브라우저 창 -->
+            <!-- 메인 맥북 브라우저 창 -->
             <div class="mac-window">
                 
-                <!-- 브라우저 상단 헤더 -->
                 <div class="mac-header">
                     <div class="mac-left-controls">
                         <div class="mac-buttons">
@@ -56,13 +55,12 @@
                     </div>
                 </div>
 
-                <!-- 브라우저 본문 내용 -->
                 <div class="mac-body">
                     
-                    <!-- 왼쪽 메인 영역 (캐스팅 보드) -->
+                    <!-- 왼쪽: 메인 캐스팅 보드 -->
                     <div class="board-main">
                         
-                        <!-- 1번째 줄: 로고 + 에반 핸슨 -->
+                        <!-- 1. 로고 + 에반 핸슨 -->
                         <div class="board-row top-row">
                             <img src="./evan_logo.png" alt="DEAR EVAN HANSEN" class="board-logo">
                             
@@ -88,7 +86,7 @@
                             </div>
                         </div>
 
-                        <!-- 2번째 줄: 하이디, 코너, 조이 -->
+                        <!-- 2. 하이디, 코너, 조이 -->
                         <div class="board-row middle-row">
                             <div class="role-group">
                                 <div class="role-badge">🔍 하이디 핸슨 Heidi Hansen</div>
@@ -139,7 +137,7 @@
                             </div>
                         </div>
 
-                        <!-- 3번째 줄: 래리, 신시아 -->
+                        <!-- 3. 래리, 신시아 -->
                         <div class="board-row middle-row">
                             <div class="role-group">
                                 <div class="role-badge">🔍 래리 머피 Larry Murphy</div>
@@ -179,8 +177,8 @@
                             </div>
                         </div>
 
-                        <!-- 4번째 줄: 재러드, 알라나 -->
-                        <div class="board-row middle-row">
+                        <!-- 4. 재러드, 알라나 -->
+                        <div class="board-row middle-row" style="margin-bottom: 0;">
                             <div class="role-group">
                                 <div class="role-badge">🔍 재러드 클라인먼 Jared Kleinman</div>
                                 <div class="actor-list">
@@ -219,8 +217,61 @@
                             </div>
                         </div>
 
-                        <!-- 5번째 줄: SNS 총 관람 횟수 박스 -->
-                        <div class="board-row bottom-row">
+                    </div>
+
+                    <!-- 오른쪽: 서브 창들 (좌석표 창 + 토탈 창) -->
+                    <div class="board-side">
+                        
+                        <!-- 말풍선 -->
+                        <div class="speech-bubbles">
+                            <div class="bubble bubble-left">Dear Evan Hansen,<br>Today is going to be a good day!</div>
+                            <div class="bubble bubble-right">#You_will_be_found</div>
+                        </div>
+
+                        <!-- 🌟 1. 서브 맥북 창: 좌석표 -->
+                        <div class="mac-sub-window" style="flex-grow: 1; display: flex; flex-direction: column;">
+                            <div class="mac-sub-header">
+                                <div class="mac-buttons">
+                                    <span class="mac-btn close"></span>
+                                    <span class="mac-btn minimize"></span>
+                                    <span class="mac-btn maximize"></span>
+                                </div>
+                                <div class="mac-sub-title">Seat_Map.app</div>
+                            </div>
+                            <div class="seat-map-board">
+                                <div class="seat-map-content">
+                                    <div class="seat-floor" id="floor-1">
+                                        <div class="floor-title">1F</div>
+                                        <div class="seat-grid" id="seat-grid-1f"></div>
+                                    </div>
+                                    <div class="seat-floor" id="floor-2">
+                                        <div class="floor-title">2F</div>
+                                        <div class="seat-grid" id="seat-grid-2f"></div>
+                                    </div>
+                                    <div class="seat-floor" id="floor-3">
+                                        <div class="floor-title">3F</div>
+                                        <div class="seat-grid" id="seat-grid-3f"></div>
+                                    </div>
+                                </div>
+                                <div class="seat-legend">
+                                    <span class="leg-box c1"></span> 1회 
+                                    <span class="leg-box c2"></span> 2회 
+                                    <span class="leg-box c3"></span> 3회 
+                                    <span class="leg-box c4"></span> 4회이상
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 🌟 2. 서브 맥북 창: TOTAL 박스 -->
+                        <div class="mac-sub-window">
+                            <div class="mac-sub-header">
+                                <div class="mac-buttons">
+                                    <span class="mac-btn close"></span>
+                                    <span class="mac-btn minimize"></span>
+                                    <span class="mac-btn maximize"></span>
+                                </div>
+                                <div class="mac-sub-title">My_Records.app</div>
+                            </div>
                             <div class="sns-card">
                                 <div class="sns-header">
                                     <img src="./evan_icon.jpg" class="sns-profile">
@@ -240,51 +291,9 @@
                                     <span>🔄 Share</span>
                                 </div>
                             </div>
-                            <div class="decorative-text">
-                                "Dear Evan Hansen,<br>Today is going to be a good day and here's why..."
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 오른쪽 서브 영역 (말풍선, 좌석표) -->
-                    <div class="board-side">
-                        <!-- 말풍선 (순서 변경됨) -->
-                        <div class="speech-bubbles">
-                            <div class="bubble bubble-left">Dear Evan Hansen,<br>Today is going to be a good day!</div>
-                            <div class="bubble bubble-right">#You_will_be_found</div>
                         </div>
 
-                        <!-- 좌석표가 남는 여백을 채우도록 유연하게 확장됨 -->
-                        <div class="seat-map-board">
-                            <div class="seat-map-header">
-                                <span class="icon">👍 ❤️</span>
-                                <span class="close-btn">✕</span>
-                            </div>
-                            <!-- 좌석 컨텐츠가 중앙에 예쁘게 모이도록 내부 정렬 -->
-                            <div class="seat-map-content">
-                                <div class="seat-floor" id="floor-1">
-                                    <div class="floor-title">1F</div>
-                                    <div class="seat-grid" id="seat-grid-1f"></div>
-                                </div>
-                                <div class="seat-floor" id="floor-2">
-                                    <div class="floor-title">2F</div>
-                                    <div class="seat-grid" id="seat-grid-2f"></div>
-                                </div>
-                                <div class="seat-floor" id="floor-3">
-                                    <div class="floor-title">3F</div>
-                                    <div class="seat-grid" id="seat-grid-3f"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="seat-legend">
-                                <span class="leg-box c1"></span> 1회 
-                                <span class="leg-box c2"></span> 2회 
-                                <span class="leg-box c3"></span> 3회 
-                                <span class="leg-box c4"></span> 4회이상
-                            </div>
-                        </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
