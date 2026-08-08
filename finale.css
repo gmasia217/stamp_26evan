@@ -28,32 +28,21 @@ body {
 .btn.ghost:hover { background: #cbd5e1; }
 
 /* ==========================================
-   🌟 캡처 래퍼: 미리보기 가능 & 가로 스크롤 지원
+   캡처 래퍼 및 배경
    ========================================== */
 .capture-wrapper {
-    width: 100%;
-    max-width: 1920px;
-    overflow-x: auto; /* 화면이 작아도 스크롤해서 미리보기 가능 */
-    padding-bottom: 20px;
+    width: 100%; max-width: 1920px; overflow-x: auto; padding-bottom: 20px;
 }
 
-/* 🌟 높이를 auto로 두어 잘림 현상 원천 차단 */
 .capture-board {
-    width: 1920px;
-    height: auto; 
-    min-height: 1080px; 
-    padding: 60px; 
-    background-color: #eaf4fb;
-    box-sizing: border-box;
-    margin: 0 auto;
+    width: 1920px; height: auto; padding: 60px; 
+    background-color: #eaf4fb; box-sizing: border-box; margin: 0 auto;
 }
 
 /* 메인 맥북 브라우저 창 */
 .mac-window {
-    width: 100%;
-    height: 100%; 
-    background-color: #ffffff;
-    border-radius: 12px;
+    width: 100%; height: auto; 
+    background-color: #ffffff; border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     display: flex; flex-direction: column; overflow: hidden; 
 }
@@ -62,7 +51,6 @@ body {
 .mac-header, .mac-sub-header {
     display: flex; align-items: center; position: relative; flex-shrink: 0;
 }
-
 .mac-header { height: 54px; background-color: #174ca2; padding: 0 20px; justify-content: space-between; }
 .mac-sub-header { height: 36px; background-color: #e2e8f0; padding: 0 15px; border-bottom: 1px solid #cbd5e1; }
 
@@ -84,32 +72,27 @@ body {
 }
 .mac-address-bar .star-icon { font-size: 16px; color: #cbd5e1; }
 .mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
+.mac-sub-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #475569; }
 
-.mac-sub-title {
-    position: absolute; left: 50%; transform: translateX(-50%);
-    font-size: 13px; font-weight: 700; color: #475569;
-}
-
-/* 브라우저 본문 레이아웃 (그리드 적용) */
+/* 🌟 브라우저 본문 레이아웃: 늘어남(Stretch) 방지 */
 .mac-body {
     display: flex;
+    align-items: flex-start; /* 🌟 핵심: 우측 좌석표 창이 불필요하게 찢어지며 늘어나는 것 방지 */
     gap: 60px;
     padding: 50px 60px;
     box-sizing: border-box;
-    height: 100%;
+    height: auto;
 }
 
 /* ==========================================
-   왼쪽 메인 영역 (캐스팅 보드)
+   왼쪽 메인 영역 (조화로운 캐스팅 보드)
    ========================================== */
 .board-main {
-    flex: 1.6;
-    display: flex; flex-direction: column; justify-content: flex-start; gap: 40px;
+    flex: 1.6; display: flex; flex-direction: column; justify-content: flex-start; gap: 50px;
 }
 .board-row { display: flex; width: 100%; justify-content: space-between; align-items: flex-end; }
-.bottom-row { margin-top: auto; padding-top: 20px; }
+.bottom-row { margin-top: auto; }
 
-/* 🌟 로고 좌측 상단 여백 조절 */
 .top-row { align-items: flex-start; }
 .logo-wrap { padding: 0 20px 20px 0; }
 .board-logo { width: 250px; object-fit: contain; } 
@@ -117,35 +100,27 @@ body {
 .role-group { display: flex; flex-direction: column; align-items: center; }
 .role-badge {
     background: #f1f5f9; color: #174ca2; padding: 8px 20px; 
-    border-radius: 20px; font-size: 18px; font-weight: 700;
+    border-radius: 20px; font-size: 16px; font-weight: 700;
     margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.actor-list { display: flex; gap: 30px; }
+.actor-list { display: flex; gap: 20px; }
 .actor-item { display: flex; flex-direction: column; align-items: center; }
 
 .actor-name {
     font-size: 18px; color: #1e293b; font-weight: 800; text-align: center;
     line-height: 1.2; margin-bottom: 12px;
 }
-.actor-name .eng-name { font-size: 14px; color: #64748b; font-weight: 600; }
 
-/* 🌟 액자(Wrapper)로 사진 늘어남 현상 방지 */
 .actor-img-wrap {
-    width: 140px; 
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    margin-bottom: 10px;
+    width: 140px; height: 160px; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 10px;
 }
 
+/* 🌟 html2canvas 렌더링을 완벽하게 맞춘 단일 그림자 효과 */
 .actor-img {
-    max-width: 100%; 
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    filter: drop-shadow(2px 0px 0px white) drop-shadow(-2px 0px 0px white) drop-shadow(0px 2px 0px white) drop-shadow(0px -2px 0px white) drop-shadow(0px 6px 8px rgba(0,0,0,0.2));
+    max-width: 100%; max-height: 100%; width: auto; height: auto;
+    filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.25)); /* 미리보기와 다운로드 100% 일치 */
+    display: block; 
 }
 
 .actor-count {
@@ -157,11 +132,11 @@ body {
 .actor-count .total-count { color: #94a3b8; font-size: 15px; }
 
 /* ==========================================
-   오른쪽 서브 영역 (말풍선 + 좌석표 창)
+   오른쪽 서브 영역 (말풍선 + 딱 맞는 좌석표 창)
    ========================================== */
 .board-side {
     width: 550px; flex-shrink: 0;
-    display: flex; flex-direction: column; gap: 30px; 
+    display: flex; flex-direction: column; gap: 40px; 
 }
 
 .speech-bubbles { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; }
@@ -180,38 +155,24 @@ body {
     border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #f8fafc transparent transparent;
 }
 
-/* 🌟 서브 맥북 창 컨테이너 공통 스타일 */
+/* 맥북 서브 창 공통 스타일 */
 .mac-sub-window {
-    background: #ffffff;
-    border-radius: 10px;
-    border: 1px solid #cbd5e1;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    overflow: hidden; 
-    display: flex;
-    flex-direction: column;
+    background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; 
+    display: flex; flex-direction: column;
 }
 
-.map-window {
-    flex-grow: 1; /* 남는 세로 공간을 자연스럽게 꽉 채움 */
-}
+/* 🌟 내용물에 맞게 자연스러운 높이 유지 */
+.map-window { height: auto; }
+.total-window { width: 360px; transform: rotate(2deg); margin-bottom: 20px;}
 
-.total-window {
-    width: 360px;
-}
-
-/* 좌석표 보드 내부 */
 .seat-map-board {
-    padding: 30px 40px; 
-    box-sizing: border-box; 
-    display: flex; flex-direction: column; justify-content: center; flex-grow: 1;
+    padding: 30px 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;
 }
-
-.seat-map-content { margin: auto 0; display: flex; flex-direction: column; gap: 25px; }
+.seat-map-content { display: flex; flex-direction: column; gap: 25px; margin-bottom: 20px; }
 .floor-title { text-align: center; font-size: 15px; font-weight: 700; color: #475569; margin-bottom: 12px; }
-
 .f-zone-col { display: flex; flex-direction: column; gap: 4px; align-items: center; }
 .f-seat-row { display: flex; gap: 3px; justify-content: center; }
-
 .f-seat-cell { width: 9px; height: 9px; border-radius: 2px; border: 1px solid #cbd5e1; box-sizing: border-box;}
 .f-seat-aisle { width: 8px; flex-shrink: 0; }
 .f-seat-half { width: 4px; height: 9px; pointer-events: none; }
@@ -225,7 +186,7 @@ body {
 
 .seat-legend {
     display: flex; justify-content: center; gap: 15px; font-size: 14px; color: #64748b; font-weight: 700;
-    margin-top: auto; padding-top: 25px; border-top: 1px solid #e2e8f0;
+    padding-top: 25px; border-top: 1px solid #e2e8f0;
 }
 .leg-box { display: inline-block; width: 14px; height: 14px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
 .leg-box.c1 { background: #78c6f5; }
@@ -233,7 +194,6 @@ body {
 .leg-box.c3 { background: #2682cc; }
 .leg-box.c4 { background: #083870; }
 
-/* TOTAL SNS 박스 내부 */
 .sns-card { width: 100%; box-sizing: border-box; }
 .sns-header { display: flex; align-items: center; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; }
 .sns-profile { width: 28px; height: 28px; border-radius: 50%; margin-right: 12px; }
