@@ -1,4 +1,5 @@
-// finale.js
+// finale.js (앞부분의 CONFIG, THEATER_ZONES, renderStats 등은 동일합니다.)
+
 const CONFIG = {
     ROLES: [
         { id: "cast1", label: "에반 핸슨", actors: ["박강현", "임규형", "나현우"] },
@@ -210,12 +211,19 @@ function downloadFinaleBoard() {
     btn.innerHTML = '이미지 생성 중... ⏳';
     btn.disabled = true;
 
-    // 🌟 windowWidth 설정으로 다운로드 시 오른쪽 잘림 현상 완벽 방지
+    // 🌟 가상 윈도우 크기를 강제로 지정하여 html2canvas 잘림 버그 완벽 차단
     html2canvas(captureArea, {
         scale: 2,           
         useCORS: true,      
         backgroundColor: null,
-        windowWidth: 2600
+        width: captureArea.offsetWidth,
+        height: captureArea.offsetHeight,
+        windowWidth: captureArea.offsetWidth,
+        windowHeight: captureArea.offsetHeight,
+        x: 0,
+        y: 0,
+        scrollX: 0,
+        scrollY: 0
     }).then(canvas => {
         let imgData = canvas.toDataURL("image/png");
         let link = document.createElement('a');
