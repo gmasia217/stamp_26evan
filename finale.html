@@ -13,7 +13,7 @@
 
     <div class="ui-container">
         <h1>정산 보드 미리보기 💻</h1>
-        <p>맥북 브라우저 테마(와이드 비율)가 적용되었습니다. 아래 버튼을 눌러 고화질로 저장하세요.</p>
+        <p>맥북 브라우저 테마가 적용되었습니다. 꽉 찬 와이드 비율로 조화롭게 배치되었습니다.</p>
         <button class="btn prim" onclick="downloadFinaleBoard()" id="download-btn">
             이미지 저장하기 📸
         </button>
@@ -25,13 +25,13 @@
     <!-- 미리보기 및 캡처를 위한 래퍼 -->
     <div class="capture-wrapper">
         
-        <!-- 전체 캡처 영역 -->
+        <!-- 전체 캡처 영역 (가로 1920px 고정, 세로는 내용에 맞게 자동 조절) -->
         <div id="finale-capture-area" class="capture-board">
             
             <!-- 맥북 브라우저 창 -->
             <div class="mac-window">
                 
-                <!-- 브라우저 상단 헤더 (파란색) -->
+                <!-- 브라우저 상단 헤더 -->
                 <div class="mac-header">
                     <div class="mac-left-controls">
                         <div class="mac-buttons">
@@ -59,7 +59,7 @@
                 <!-- 브라우저 본문 내용 -->
                 <div class="mac-body">
                     
-                    <!-- 왼쪽 메인 영역 -->
+                    <!-- 왼쪽 메인 영역 (캐스팅 보드) -->
                     <div class="board-main">
                         
                         <!-- 1번째 줄: 로고 + 에반 핸슨 -->
@@ -71,14 +71,17 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_에반_박강현.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">박강현<br><span class="eng-name">Kanghyun Park</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-박강현">0</span> <span class="total-count" id="total-박강현">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_에반_임규형.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">임규형<br><span class="eng-name">Kyuhyung Lim</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-임규형">0</span> <span class="total-count" id="total-임규형">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_에반_나현우.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">나현우<br><span class="eng-name">Hyunwoo Na</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-나현우">0</span> <span class="total-count" id="total-나현우">/ 0</span></div>
                                     </div>
                                 </div>
@@ -92,10 +95,12 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_하이디_김선영.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">김선영<br><span class="eng-name">Sunyoung Kim</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-김선영">0</span> <span class="total-count" id="total-김선영">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_하이디_신영숙.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">신영숙<br><span class="eng-name">Youngsook Shin</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-신영숙">0</span> <span class="total-count" id="total-신영숙">/ 0</span></div>
                                     </div>
                                 </div>
@@ -106,10 +111,12 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_코너_조민호.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">조민호<br><span class="eng-name">Minho Jo</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-조민호">0</span> <span class="total-count" id="total-조민호">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_코너_김수호.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">김수호<br><span class="eng-name">Suho Kim</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-김수호">0</span> <span class="total-count" id="total-김수호">/ 0</span></div>
                                     </div>
                                 </div>
@@ -120,10 +127,12 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_조이_강지혜.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">강지혜<br><span class="eng-name">Jihye Kang</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-강지혜">0</span> <span class="total-count" id="total-강지혜">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_조이_장민제.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">장민제<br><span class="eng-name">Minje Jang</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-장민제">0</span> <span class="total-count" id="total-장민제">/ 0</span></div>
                                     </div>
                                 </div>
@@ -137,10 +146,12 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_래리_장현성.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">장현성<br><span class="eng-name">Hyunsung Jang</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-장현성">0</span> <span class="total-count" id="total-장현성">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_래리_정동근.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">정동근<br><span class="eng-name">Donggeun Jung</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-정동근">0</span> <span class="total-count" id="total-정동근">/ 0</span></div>
                                     </div>
                                 </div>
@@ -151,14 +162,17 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_신시아_안시하.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">안시하<br><span class="eng-name">Siha Ahn</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-안시하">0</span> <span class="total-count" id="total-안시하">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_신시아_임민영.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">임민영<br><span class="eng-name">Minyoung Lim</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-임민영">0</span> <span class="total-count" id="total-임민영">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_신시아_새봄.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">새봄<br><span class="eng-name">Saebom</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-새봄">0</span> <span class="total-count" id="total-새봄">/ 0</span></div>
                                     </div>
                                 </div>
@@ -172,14 +186,17 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_재러드_김강진.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">김강진<br><span class="eng-name">Kangjin Kim</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-김강진">0</span> <span class="total-count" id="total-김강진">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_재러드_윤현선.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">윤현선<br><span class="eng-name">Hyunsun Yoon</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-윤현선">0</span> <span class="total-count" id="total-윤현선">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_재러드_박건우.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">박건우<br><span class="eng-name">Gunwoo Park</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-박건우">0</span> <span class="total-count" id="total-박건우">/ 0</span></div>
                                     </div>
                                 </div>
@@ -190,10 +207,12 @@
                                 <div class="actor-list">
                                     <div class="actor-item">
                                         <img src="./assets/cast_알라나_강은세.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">강은세<br><span class="eng-name">Eunse Kang</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-강은세">0</span> <span class="total-count" id="total-강은세">/ 0</span></div>
                                     </div>
                                     <div class="actor-item">
                                         <img src="./assets/cast_알라나_염희진.png" class="actor-img" onerror="this.src='./evan_icon.jpg'">
+                                        <div class="actor-name">염희진<br><span class="eng-name">Heejin Yeom</span></div>
                                         <div class="actor-count"><span class="my-count" id="count-염희진">0</span> <span class="total-count" id="total-염희진">/ 0</span></div>
                                     </div>
                                 </div>
@@ -212,7 +231,6 @@
                                     <div class="sns-tag">#TOTAL</div>
                                     <div class="sns-total">
                                         <span class="my-total" id="board-total">0</span> 
-                                        <!-- 전체 공연 횟수도 자동 계산되도록 ID 부여 -->
                                         <span class="overall-total" id="board-total-schedule">/ 0</span>
                                     </div>
                                 </div>
@@ -230,27 +248,32 @@
 
                     <!-- 오른쪽 서브 영역 (말풍선, 좌석표) -->
                     <div class="board-side">
+                        <!-- 말풍선 (순서 변경됨) -->
                         <div class="speech-bubbles">
                             <div class="bubble bubble-left">Dear Evan Hansen,<br>Today is going to be a good day!</div>
                             <div class="bubble bubble-right">#You_will_be_found</div>
                         </div>
 
+                        <!-- 좌석표가 남는 여백을 채우도록 유연하게 확장됨 -->
                         <div class="seat-map-board">
                             <div class="seat-map-header">
                                 <span class="icon">👍 ❤️</span>
                                 <span class="close-btn">✕</span>
                             </div>
-                            <div class="seat-floor" id="floor-1">
-                                <div class="floor-title">1F</div>
-                                <div class="seat-grid" id="seat-grid-1f"></div>
-                            </div>
-                            <div class="seat-floor" id="floor-2">
-                                <div class="floor-title">2F</div>
-                                <div class="seat-grid" id="seat-grid-2f"></div>
-                            </div>
-                            <div class="seat-floor" id="floor-3">
-                                <div class="floor-title">3F</div>
-                                <div class="seat-grid" id="seat-grid-3f"></div>
+                            <!-- 좌석 컨텐츠가 중앙에 예쁘게 모이도록 내부 정렬 -->
+                            <div class="seat-map-content">
+                                <div class="seat-floor" id="floor-1">
+                                    <div class="floor-title">1F</div>
+                                    <div class="seat-grid" id="seat-grid-1f"></div>
+                                </div>
+                                <div class="seat-floor" id="floor-2">
+                                    <div class="floor-title">2F</div>
+                                    <div class="seat-grid" id="seat-grid-2f"></div>
+                                </div>
+                                <div class="seat-floor" id="floor-3">
+                                    <div class="floor-title">3F</div>
+                                    <div class="seat-grid" id="seat-grid-3f"></div>
+                                </div>
                             </div>
                             
                             <div class="seat-legend">
