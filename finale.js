@@ -6,10 +6,10 @@ const CONFIG = {
         { id: "cast2", label: "하이디 핸슨", actors: ["김선영", "신영숙"] },
         { id: "cast3", label: "코너 머피", actors: ["조민호", "김수호"] },
         { id: "cast4", label: "조이 머피", actors: ["강지혜", "장민제"] },
-        { id: "cast5", label: "래리 머피", actors: ["장현성", "정동근"] },
+        { id: "cast5", label: "래리 머피", actors: ["장현성", "정동근", "김영훈"] }, // 김영훈 추가
         { id: "cast6", label: "신시아 머피", actors: ["안시하", "임민영", "새봄"] },
         { id: "cast7", label: "재러드 클라인먼", actors: ["김강진", "윤현선", "박건우"] },
-        { id: "cast8", label: "알라나 벡", actors: ["강은세", "염희진"] }
+        { id: "cast8", label: "알라나 벡", actors: ["강은세", "염희진", "손설빈"] } // 손설빈 추가
     ]
 };
 
