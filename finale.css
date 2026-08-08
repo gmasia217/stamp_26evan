@@ -28,14 +28,14 @@ body {
 .btn.ghost:hover { background: #cbd5e1; }
 
 /* ==========================================
-   🌟 캡처 래퍼: 전체 가로 크기를 2600px로 대폭 확장
+   🌟 캡처 래퍼: 전체 가로 크기를 2800px로 대폭 확장
    ========================================== */
 .capture-wrapper {
-    width: 100%; max-width: 2600px; overflow-x: auto; padding-bottom: 20px;
+    width: 100%; max-width: 2800px; overflow-x: auto; padding-bottom: 20px;
 }
 
 .capture-board {
-    width: 2600px; height: auto; min-height: 1200px; padding: 60px; 
+    width: 2800px; height: auto; padding: 60px; 
     background-color: #eaf4fb; box-sizing: border-box; margin: 0 auto;
 }
 
@@ -68,9 +68,9 @@ body {
 .mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
 .mac-sub-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #475569; }
 
-/* 🌟 브라우저 본문 레이아웃 */
+/* 🌟 브라우저 본문 레이아웃 (간격 조절) */
 .mac-body {
-    display: flex; align-items: flex-start; gap: 80px; padding: 50px 80px; box-sizing: border-box; height: 100%;
+    display: flex; align-items: flex-start; gap: 120px; padding: 50px 80px; box-sizing: border-box; height: 100%;
 }
 
 /* ==========================================
@@ -127,8 +127,12 @@ body {
    🌟 오른쪽 서브 영역 (말풍선 + 좌석표 + TOTAL창)
    ========================================== */
 .board-side {
-    width: 650px; /* 잘림 방지 및 여유 공간 확보 */
-    flex-shrink: 0; display: flex; flex-direction: column; gap: 40px; 
+    width: 680px; 
+    flex-shrink: 0; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 50px; 
+    margin-top: 80px; /* 🌟 오른쪽 요소들 전체를 자연스럽게 아래로 내림 */
 }
 
 .speech-bubbles { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; }
@@ -147,10 +151,9 @@ body {
     display: flex; flex-direction: column;
 }
 
+/* 🌟 내용물에 맞게 높이가 맞춰지도록 설정 */
 .map-window { height: max-content; }
-
-/* 🌟 오른쪽으로 이동한 TOTAL 박스 */
-.total-window { width: 90%; margin: 0 auto; transform: rotate(-1deg); }
+.total-window { width: 420px; margin: 0 auto; transform: rotate(-1deg); }
 
 .seat-map-board { padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
 .seat-map-content { margin: auto 0; display: flex; flex-direction: column; gap: 30px; }
@@ -169,7 +172,7 @@ body {
 .f-seat-cell.c3 { background: #2682cc; border-color: #2682cc; }
 .f-seat-cell.c4 { background: #083870; border-color: #083870; }
 
-.seat-legend { display: flex; justify-content: center; gap: 15px; font-size: 15px; color: #64748b; font-weight: 700; margin-top: auto; padding-top: 25px; border-top: 1px solid #e2e8f0; }
+.seat-legend { display: flex; justify-content: center; gap: 15px; font-size: 15px; color: #64748b; font-weight: 700; margin-top: 30px; padding-top: 25px; border-top: 1px solid #e2e8f0; }
 .leg-box { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
 .leg-box.c1 { background: #78c6f5; }
 .leg-box.c2 { background: #4ba6e6; }
@@ -177,12 +180,12 @@ body {
 .leg-box.c4 { background: #083870; }
 
 .sns-card { width: 100%; box-sizing: border-box; }
-.sns-header { display: flex; align-items: center; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; }
-.sns-profile { width: 28px; height: 28px; border-radius: 50%; margin-right: 12px; }
-.sns-name { font-weight: 700; font-size: 15px; color: #0f172a; flex: 1; }
+.sns-header { display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+.sns-profile { width: 30px; height: 30px; border-radius: 50%; margin-right: 12px; }
+.sns-name { font-weight: 700; font-size: 16px; color: #0f172a; flex: 1; }
 .sns-dots { color: #94a3b8; font-weight: bold; }
-.sns-body { padding: 30px 20px; text-align: center; }
-.sns-tag { color: #3b82f6; font-weight: 700; font-size: 20px; margin-bottom: 15px; text-align: left; }
-.sns-total .my-total { color: #e11d48; font-size: 60px; font-weight: 700; }
-.sns-total .overall-total { color: #64748b; font-size: 24px; font-weight: 600; }
-.sns-footer { padding: 14px 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 14px; font-weight: 600; }
+.sns-body { padding: 40px 20px; text-align: center; }
+.sns-tag { color: #3b82f6; font-weight: 700; font-size: 22px; margin-bottom: 15px; text-align: left; }
+.sns-total .my-total { color: #e11d48; font-size: 65px; font-weight: 700; }
+.sns-total .overall-total { color: #64748b; font-size: 26px; font-weight: 600; }
+.sns-footer { padding: 16px 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 15px; font-weight: 600; }
