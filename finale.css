@@ -1,8 +1,14 @@
 /* finale.css */
 
-* { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important; }
+* {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important;
+}
 
-body { background-color: #334155; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+body {
+    background-color: #334155; 
+    margin: 0; padding: 20px;
+    display: flex; flex-direction: column; align-items: center;
+}
 
 .ui-container {
     text-align: center; background: #ffffff; padding: 30px 40px;
@@ -21,21 +27,23 @@ body { background-color: #334155; margin: 0; padding: 20px; display: flex; flex-
 .btn.ghost { background: #e2e8f0; color: #475569; }
 .btn.ghost:hover { background: #cbd5e1; }
 
-/* 캡처 래퍼: 초광각 2400px (시원한 가로 비율) */
+/* 캡처 영역 */
 .capture-wrapper {
     width: 100%; max-width: 2400px; overflow-x: auto; padding-bottom: 20px;
 }
 
 .capture-board {
-    width: 2400px; height: auto; min-height: 1200px; padding: 60px; 
+    width: 2400px; height: auto; padding: 60px; 
     background-color: #eaf4fb; box-sizing: border-box; margin: 0 auto;
 }
 
+/* 메인 창 */
 .mac-window {
     width: 100%; height: 100%; background-color: #ffffff; border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; overflow: hidden; 
 }
 
+/* 헤더 공통 */
 .mac-header, .mac-sub-header { display: flex; align-items: center; position: relative; flex-shrink: 0; }
 .mac-header { height: 54px; background-color: #174ca2; padding: 0 20px; justify-content: space-between; }
 .mac-sub-header { height: 36px; background-color: #e2e8f0; padding: 0 15px; border-bottom: 1px solid #cbd5e1; }
@@ -60,23 +68,29 @@ body { background-color: #334155; margin: 0; padding: 20px; display: flex; flex-
 .mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
 .mac-sub-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #475569; }
 
-/* 브라우저 본문 레이아웃 */
+/* 본문 레이아웃 */
 .mac-body {
-    display: flex; align-items: stretch; gap: 70px; padding: 50px 70px; box-sizing: border-box; height: 100%;
+    display: flex; align-items: flex-start; gap: 70px; padding: 50px 70px; box-sizing: border-box; height: 100%;
 }
 
 /* ==========================================
    왼쪽 메인 영역 (캐스팅 보드)
    ========================================== */
 .board-main {
-    flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 60px;
+    flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 70px;
 }
 
-.top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;}
-.cast-row { display: flex; justify-content: space-between; align-items: flex-end; }
+/* 🌟 중앙 정렬된 조화로운 3단 캐스트 배치 */
+.cast-row { 
+    display: flex; 
+    justify-content: center; /* 그룹들을 중앙으로 모음 */
+    gap: 80px; /* 배역 그룹(에반, 하이디 등) 간의 간격 */
+    align-items: flex-end; 
+}
+.top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: -10px; }
 
 .logo-wrap { padding: 0; }
-.board-logo { width: 320px; object-fit: contain; margin-top: 10px; } 
+.board-logo { width: 340px; object-fit: contain; margin-top: 10px; } 
 
 .role-group { display: flex; flex-direction: column; align-items: center; }
 .role-badge {
@@ -85,27 +99,26 @@ body { background-color: #334155; margin: 0; padding: 20px; display: flex; flex-
     margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.actor-list { display: flex; gap: 35px; } 
+/* 배우들 간의 간격 */
+.actor-list { display: flex; gap: 30px; } 
 .actor-item { display: flex; flex-direction: column; align-items: center; }
 
 .actor-name {
     font-size: 20px; color: #1e293b; font-weight: 800; text-align: center;
-    line-height: 1.2; margin-bottom: 12px;
+    line-height: 1.3; margin-bottom: 15px;
 }
-.actor-name .eng-name { font-size: 14px; color: #64748b; font-weight: 600; }
+.actor-name .eng-name { font-size: 15px; color: #64748b; font-weight: 600; }
 
-/* 🌟 버그 픽스: 사진 컨테이너의 높이를 넉넉하게 주어 바닥을 기준으로 정렬 */
 .actor-img-wrap {
     display: flex; justify-content: center; align-items: flex-end; 
-    height: 190px; /* 고정 높이를 주어 배열이 어긋나지 않게 함 */
-    margin-bottom: 15px;
+    height: 190px; 
+    margin-bottom: 10px;
 }
 
 .actor-img {
-    /* 🌟 object-fit 속성 완전 삭제 및 렌더링 호환성 개선 */
     display: block; 
-    -webkit-filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.3)); 
-    filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.3)); 
+    -webkit-filter: drop-shadow(0px 6px 10px rgba(0,0,0,0.3)); 
+    filter: drop-shadow(0px 6px 10px rgba(0,0,0,0.3)); 
 }
 
 .actor-count {
@@ -117,7 +130,7 @@ body { background-color: #334155; margin: 0; padding: 20px; display: flex; flex-
 .actor-count .total-count { color: #94a3b8; font-size: 16px; }
 
 /* ==========================================
-   오른쪽 서브 영역 및 TOTAL 창
+   오른쪽 서브 영역 (말풍선 + 좌석표)
    ========================================== */
 .board-side {
     width: 600px; flex-shrink: 0; display: flex; flex-direction: column; gap: 40px; 
@@ -133,17 +146,18 @@ body { background-color: #334155; margin: 0; padding: 20px; display: flex; flex-
 .bubble-left { align-self: flex-start; border-radius: 20px 20px 20px 0; color: #334155; line-height: 1.5; }
 .bubble-left::after { content: ''; position: absolute; bottom: 0; left: -10px; border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #f8fafc transparent transparent; }
 
+/* 🌟 서브 창 공통 (높이를 내용에 딱 맞게 `height: max-content` 설정) */
 .mac-sub-window {
     background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; 
     display: flex; flex-direction: column;
 }
 
-.map-window { flex-grow: 1; }
-.total-window { width: 360px; transform: rotate(2deg); margin-right: 40px;}
+.map-window { height: max-content; }
+.total-window { width: 380px; transform: rotate(2deg); margin-right: 20px;}
 
-.seat-map-board { padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; flex-grow: 1; }
-.seat-map-content { margin: auto 0; display: flex; flex-direction: column; gap: 30px; }
+.seat-map-board { padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
+.seat-map-content { display: flex; flex-direction: column; gap: 30px; }
 .floor-title { text-align: center; font-size: 16px; font-weight: 700; color: #475569; margin-bottom: 12px; }
 .f-zone-col { display: flex; flex-direction: column; gap: 5px; align-items: center; }
 .f-seat-row { display: flex; gap: 4px; justify-content: center; }
@@ -159,20 +173,17 @@ body { background-color: #334155; margin: 0; padding: 20px; display: flex; flex-
 .f-seat-cell.c3 { background: #2682cc; border-color: #2682cc; }
 .f-seat-cell.c4 { background: #083870; border-color: #083870; }
 
-.seat-legend { display: flex; justify-content: center; gap: 15px; font-size: 15px; color: #64748b; font-weight: 700; margin-top: auto; padding-top: 25px; border-top: 1px solid #e2e8f0; }
+.seat-legend { display: flex; justify-content: center; gap: 15px; font-size: 15px; color: #64748b; font-weight: 700; margin-top: 30px; padding-top: 25px; border-top: 1px solid #e2e8f0; }
 .leg-box { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
-.leg-box.c1 { background: #78c6f5; }
-.leg-box.c2 { background: #4ba6e6; }
-.leg-box.c3 { background: #2682cc; }
-.leg-box.c4 { background: #083870; }
 
+/* TOTAL SNS 박스 내부 */
 .sns-card { width: 100%; box-sizing: border-box; }
-.sns-header { display: flex; align-items: center; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; }
-.sns-profile { width: 28px; height: 28px; border-radius: 50%; margin-right: 12px; }
-.sns-name { font-weight: 700; font-size: 15px; color: #0f172a; flex: 1; }
+.sns-header { display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+.sns-profile { width: 30px; height: 30px; border-radius: 50%; margin-right: 12px; }
+.sns-name { font-weight: 700; font-size: 16px; color: #0f172a; flex: 1; }
 .sns-dots { color: #94a3b8; font-weight: bold; }
-.sns-body { padding: 30px 20px; text-align: center; }
-.sns-tag { color: #3b82f6; font-weight: 700; font-size: 20px; margin-bottom: 15px; text-align: left; }
-.sns-total .my-total { color: #e11d48; font-size: 60px; font-weight: 700; }
-.sns-total .overall-total { color: #64748b; font-size: 24px; font-weight: 600; }
-.sns-footer { padding: 14px 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 14px; font-weight: 600; }
+.sns-body { padding: 40px 20px; text-align: center; }
+.sns-tag { color: #3b82f6; font-weight: 700; font-size: 22px; margin-bottom: 15px; text-align: left; }
+.sns-total .my-total { color: #e11d48; font-size: 65px; font-weight: 700; }
+.sns-total .overall-total { color: #64748b; font-size: 26px; font-weight: 600; }
+.sns-footer { padding: 16px 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 15px; font-weight: 600; }
