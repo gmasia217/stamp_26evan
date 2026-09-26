@@ -1,9 +1,9 @@
 /* ==========================================
-   폰트 정의 (배역 이름용 Cafe24Anemone)
+   폰트 정의 (배역 이름용 Cafe24AnemoneAir)
    ========================================== */
 @font-face {
-    font-family: 'Cafe24Anemone';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-family: 'Cafe24AnemoneAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/Cafe24Ohsquareair.woff') format('woff');
     font-weight: normal;
     font-display: swap;
 }
@@ -36,7 +36,7 @@ body {
 .btn.ghost:hover { background: #cbd5e1; }
 
 /* ==========================================
-   🌟 캡처 래퍼: 전체 가로 크기를 2800px로 확장
+   🌟 캡처 래퍼
    ========================================== */
 .capture-wrapper {
     width: 100%; max-width: 2800px; overflow-x: auto; padding-bottom: 20px;
@@ -76,7 +76,6 @@ body {
 .mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
 .mac-sub-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #475569; }
 
-/* 🌟 브라우저 본문 레이아웃 */
 .mac-body {
     display: flex; align-items: flex-start; gap: 80px; padding: 40px 60px; box-sizing: border-box; height: 100%;
 }
@@ -88,77 +87,52 @@ body {
     flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 40px;
 }
 
-/* 1단: 로고 + TOTAL 창 배치 */
 .row-first {
     display: flex; justify-content: flex-start; align-items: center; width: 100%; padding-right: 20px;
 }
 
-/* [수정 1] 로고 여백 보장 */
 .logo-wrap {
     display: flex; align-items: flex-start; 
-    padding-top: 15px;
-    padding-left: 25px;
+    padding-top: 15px; padding-left: 25px;
 }
 .board-logo { width: 400px; object-fit: contain; }
 
-/* [수정 2] TOTAL 창 위치 조정 (좌석배치도 제외 왼쪽 영역에서 중앙~살짝 오른쪽) */
+/* 기존의 깔끔한 TOTAL 창 디자인으로 복구 */
 .total-window {
-    margin-left: auto;
-    margin-right: 120px;
-    width: 380px;
-    border-radius: 12px;
-    overflow: hidden;
+    margin-left: auto; margin-right: 120px; width: 380px;
+    border-radius: 12px; overflow: hidden; background: #ffffff;
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
-
-/* SNS 카드의 프로필 및 스타일 */
-.sns-card {
-    padding: 20px;
-    background: #ffffff;
+.total-content {
+    padding: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px;
 }
-.sns-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
+.total-label {
+    font-size: 20px; font-weight: 800; color: #174ca2;
+    letter-spacing: 2px;
 }
-
-/* [수정 3 & 4] 프로필 사진 모서리 둥글게 + html2canvas 저장 시 그림자 유지 */
-.sns-profile {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px; /* 모서리 살짝 둥글게 */
-    object-fit: cover;
-    background-color: #ffffff; /* html2canvas 배경 인식을 위한 속성 */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22); /* 저장 시에도 선명하게 보이는 그림자 */
-    display: block;
+.total-numbers {
+    display: flex; align-items: baseline; gap: 10px;
+}
+.my-total {
+    font-size: 48px; font-weight: 800; color: #0f172a;
+}
+.overall-total {
+    font-size: 24px; font-weight: 600; color: #64748b;
 }
 
-.sns-name { font-weight: 700; font-size: 16px; color: #1e293b; }
-.sns-dots { margin-left: auto; color: #94a3b8; }
-
-.sns-body { margin-bottom: 15px; }
-.sns-tag { font-size: 14px; font-weight: 700; color: #174ca2; margin-bottom: 5px; }
-.sns-total { font-size: 32px; font-weight: 800; color: #0f172a; }
-.overall-total { font-size: 20px; color: #64748b; font-weight: 600; }
-
-.sns-footer {
-    display: flex; gap: 20px; font-size: 14px; color: #64748b; font-weight: 600;
-    border-top: 1px solid #f1f5f9; padding-top: 12px;
-}
-
-/* 2단, 3단, 4단 캐릭터 줄 */
+/* ==========================================
+   캐스팅 영역
+   ========================================== */
 .cast-row { 
     display: flex; justify-content: center; gap: 80px; align-items: flex-end; 
 }
-
 .role-group { display: flex; flex-direction: column; align-items: center; }
 
-/* [수정 5] 배역 이름 폰트 변경 (Cafe24Anemone 적용) */
+/* 폰트 수정: Cafe24AnemoneAir */
 .role-badge {
-    font-family: 'Cafe24Anemone', sans-serif !important;
+    font-family: 'Cafe24AnemoneAir', sans-serif !important;
     background: #f1f5f9; color: #174ca2; padding: 12px 28px; 
-    border-radius: 20px; font-size: 26px; font-weight: 800; text-transform: uppercase;
+    border-radius: 20px; font-size: 28px; font-weight: 800; text-transform: uppercase;
     margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -169,26 +143,20 @@ body {
     font-size: 22px; color: #1e293b; font-weight: 800; text-align: center;
     line-height: 1.3; margin-bottom: 12px;
 }
-
-/* [수정 3 & 4] 배우 캐스팅 프로필 사진 모서리 둥글게 및 이미지 저장 호환 그림자 */
 .actor-img-wrap {
     display: flex; justify-content: center; align-items: flex-end;
-    border-radius: 12px; /* 모서리 둥글게 */
-    background-color: #ffffff; /* html2canvas 인식용 백그라운드 */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); /* 저장 이미지에서도 보일 그림자 */
-    overflow: hidden;
+    border-radius: 12px; background-color: #ffffff; 
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); overflow: hidden;
 }
 .actor-img { display: block; border-radius: 12px; }
 
 .actor-count { margin-top: 8px; font-size: 16px; font-weight: 700; color: #475569; }
-.my-count { color: #174ca2; font-size: 18px; font-weight: 800; }
+.actor-count .my-count { color: #174ca2; font-size: 18px; font-weight: 800; }
 
 /* ==========================================
    오른쪽 서브 영역 (말풍선 + 좌석표)
    ========================================== */
-.board-side {
-    width: 600px; display: flex; flex-direction: column; gap: 30px;
-}
+.board-side { width: 600px; display: flex; flex-direction: column; gap: 30px; }
 
 .speech-bubbles { display: flex; flex-direction: column; gap: 15px; }
 .bubble {
@@ -204,9 +172,304 @@ body {
 .seat-floor { display: flex; align-items: center; gap: 15px; }
 .floor-title { font-weight: 800; color: #174ca2; width: 30px; }
 .seat-grid { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
+
+/* ==========================================
+   복구된 좌석(Seat) 박스 CSS
+   ========================================== */
+.seat-box {
+    width: 14px; height: 14px; border-radius: 3px;
+    background-color: #e2e8f0; /* 관람 안 한 기본 좌석 색상 */
+}
+/* 관람 횟수에 따른 좌석 색상 클래스 */
+.seat-box.c1 { background-color: #93c5fd; }
+.seat-box.c2 { background-color: #3b82f6; }
+.seat-box.c3 { background-color: #1d4ed8; }
+.seat-box.c4 { background-color: #1e3a8a; }
+
+/* 좌석 범례 */
 .seat-legend { margin-top: 20px; display: flex; gap: 15px; font-size: 13px; color: #64748b; font-weight: 600; align-items: center; }
 .leg-box { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
 .leg-box.c1 { background: #93c5fd; }
 .leg-box.c2 { background: #3b82f6; }
 .leg-box.c3 { background: #1d4ed8; }
 .leg-box.c4 { background: #1e3a8a; }
+```eof
+
+```html:finale.html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디어 에반 핸슨 정산 보드</title>
+    <link rel="stylesheet" href="./finale.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+
+    <div class="ui-container">
+        <h1>정산 보드 미리보기 💻</h1>
+        <p>좌석표를 복구하고 TOTAL 디자인을 원래대로 돌려놓았습니다.</p>
+        <button class="btn prim" onclick="downloadFinaleBoard()" id="download-btn">
+            이미지 저장하기 📸
+        </button>
+        <button class="btn ghost" onclick="location.href='index.html'">
+            메인으로 돌아가기
+        </button>
+    </div>
+
+    <!-- 미리보기 래퍼 -->
+    <div class="capture-wrapper">
+        <div id="finale-capture-area" class="capture-board">
+            
+            <div class="mac-window">
+                <div class="mac-header">
+                    <div class="mac-left-controls">
+                        <div class="mac-buttons">
+                            <span class="mac-btn close"></span>
+                            <span class="mac-btn minimize"></span>
+                            <span class="mac-btn maximize"></span>
+                        </div>
+                        <div class="mac-nav-icons"><span>❮</span><span>❯</span><span>↻</span></div>
+                    </div>
+                    <div class="mac-address-bar">
+                        <span class="address-text">DEAR EVAN HANSEN |</span><span class="star-icon">☆</span>
+                    </div>
+                    <div class="mac-right-controls"><span class="hamburger-menu">≡</span></div>
+                </div>
+
+                <div class="mac-body">
+                    
+                    <div class="board-main">
+                        
+                        <!-- 1단: 로고 + 깔끔한 버전의 TOTAL 창 -->
+                        <div class="board-row row-first">
+                            <div class="logo-wrap">
+                                <img src="./evan_logo.png" alt="DEAR EVAN HANSEN" class="board-logo" onerror="this.src='./evan_icon.jpg'">
+                            </div>
+
+                            <div class="mac-sub-window total-window">
+                                <div class="mac-sub-header">
+                                    <div class="mac-buttons">
+                                        <span class="mac-btn close"></span><span class="mac-btn minimize"></span><span class="mac-btn maximize"></span>
+                                    </div>
+                                    <div class="mac-sub-title">Total_Count.app</div>
+                                </div>
+                                <div class="total-content">
+                                    <div class="total-label">TOTAL COUNT</div>
+                                    <div class="total-numbers">
+                                        <span class="my-total" id="board-total">0</span> 
+                                        <span class="overall-total" id="board-total-schedule">/ 0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2단: EVAN HANSEN + HEIDI HANSEN -->
+                        <div class="board-row cast-row">
+                            <div class="role-group">
+                                <div class="role-badge">EVAN HANSEN</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_박강현.png" class="actor-img" style="height: 220px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">박강현</div>
+                                        <div class="actor-count"><span class="my-count" id="count-박강현">0</span> <span class="total-count" id="total-박강현">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_임규형.png" class="actor-img" style="height: 220px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">임규형</div>
+                                        <div class="actor-count"><span class="my-count" id="count-임규형">0</span> <span class="total-count" id="total-임규형">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_에반_나현우.png" class="actor-img" style="height: 220px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">나현우</div>
+                                        <div class="actor-count"><span class="my-count" id="count-나현우">0</span> <span class="total-count" id="total-나현우">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">HEIDI HANSEN</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_하이디_김선영.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">김선영</div>
+                                        <div class="actor-count"><span class="my-count" id="count-김선영">0</span> <span class="total-count" id="total-김선영">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_하이디_신영숙.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">신영숙</div>
+                                        <div class="actor-count"><span class="my-count" id="count-신영숙">0</span> <span class="total-count" id="total-신영숙">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3단: CONNOR MURPHY + ZOE MURPHY + LARRY MURPHY -->
+                        <div class="board-row cast-row">
+                            <div class="role-group">
+                                <div class="role-badge">CONNOR MURPHY</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_코너_조민호.png" class="actor-img" style="height: 205px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">조민호</div>
+                                        <div class="actor-count"><span class="my-count" id="count-조민호">0</span> <span class="total-count" id="total-조민호">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_코너_김수호.png" class="actor-img" style="height: 205px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">김수호</div>
+                                        <div class="actor-count"><span class="my-count" id="count-김수호">0</span> <span class="total-count" id="total-김수호">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">ZOE MURPHY</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_조이_강지혜.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">강지혜</div>
+                                        <div class="actor-count"><span class="my-count" id="count-강지혜">0</span> <span class="total-count" id="total-강지혜">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_조이_장민제.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">장민제</div>
+                                        <div class="actor-count"><span class="my-count" id="count-장민제">0</span> <span class="total-count" id="total-장민제">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">LARRY MURPHY</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_래리_장현성.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">장현성</div>
+                                        <div class="actor-count"><span class="my-count" id="count-장현성">0</span> <span class="total-count" id="total-장현성">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_래리_정동근.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">정동근</div>
+                                        <div class="actor-count"><span class="my-count" id="count-정동근">0</span> <span class="total-count" id="total-정동근">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_래리_김영훈.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">김영훈</div>
+                                        <div class="actor-count"><span class="my-count" id="count-김영훈">0</span> <span class="total-count" id="total-김영훈">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4단: CYNTHIA MURPHY + JARED KLEINMAN + ALANA BECK -->
+                        <div class="board-row cast-row">
+                            <div class="role-group">
+                                <div class="role-badge">CYNTHIA MURPHY</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_안시하.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">안시하</div>
+                                        <div class="actor-count"><span class="my-count" id="count-안시하">0</span> <span class="total-count" id="total-안시하">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_임민영.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">임민영</div>
+                                        <div class="actor-count"><span class="my-count" id="count-임민영">0</span> <span class="total-count" id="total-임민영">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_신시아_새봄.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">새봄</div>
+                                        <div class="actor-count"><span class="my-count" id="count-새봄">0</span> <span class="total-count" id="total-새봄">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">JARED KLEINMAN</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_김강진.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">김강진</div>
+                                        <div class="actor-count"><span class="my-count" id="count-김강진">0</span> <span class="total-count" id="total-김강진">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_윤현선.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">윤현선</div>
+                                        <div class="actor-count"><span class="my-count" id="count-윤현선">0</span> <span class="total-count" id="total-윤현선">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_재러드_박건우.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">박건우</div>
+                                        <div class="actor-count"><span class="my-count" id="count-박건우">0</span> <span class="total-count" id="total-박건우">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-group">
+                                <div class="role-badge">ALANA BECK</div>
+                                <div class="actor-list">
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_알라나_강은세.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">강은세</div>
+                                        <div class="actor-count"><span class="my-count" id="count-강은세">0</span> <span class="total-count" id="total-강은세">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_알라나_염희진.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">염희진</div>
+                                        <div class="actor-count"><span class="my-count" id="count-염희진">0</span> <span class="total-count" id="total-염희진">/ 0</span></div>
+                                    </div>
+                                    <div class="actor-item">
+                                        <div class="actor-img-wrap"><img src="./assets/cast_알라나_손설빈.png" class="actor-img" style="height: 200px; width: auto;" onerror="this.src='./evan_icon.jpg'"></div>
+                                        <div class="actor-name">손설빈</div>
+                                        <div class="actor-count"><span class="my-count" id="count-손설빈">0</span> <span class="total-count" id="total-손설빈">/ 0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="board-side">
+                        
+                        <div class="speech-bubbles">
+                            <div class="bubble bubble-left">Dear Evan Hansen,<br>Today is going to be a good day!</div>
+                            <div class="bubble bubble-right">#You_will_be_found</div>
+                        </div>
+
+                        <div class="mac-sub-window map-window">
+                            <div class="mac-sub-header">
+                                <div class="mac-buttons">
+                                    <span class="mac-btn close"></span><span class="mac-btn minimize"></span><span class="mac-btn maximize"></span>
+                                </div>
+                                <div class="mac-sub-title">Seat_Map.app</div>
+                            </div>
+                            <div class="seat-map-board">
+                                <div class="seat-map-content">
+                                    <div class="seat-floor" id="floor-1"><div class="floor-title">1F</div><div class="seat-grid" id="seat-grid-1f"></div></div>
+                                    <div class="seat-floor" id="floor-2"><div class="floor-title">2F</div><div class="seat-grid" id="seat-grid-2f"></div></div>
+                                    <div class="seat-floor" id="floor-3"><div class="floor-title">3F</div><div class="seat-grid" id="seat-grid-3f"></div></div>
+                                </div>
+                                <div class="seat-legend">
+                                    <span class="leg-box c1"></span> 1회 
+                                    <span class="leg-box c2"></span> 2회 
+                                    <span class="leg-box c3"></span> 3회 
+                                    <span class="leg-box c4"></span> 4회이상
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./finale.js"></script>
+</body>
+</html>
+```eof
+
+**수정된 부분 요약:**
+1. 누락되었던 **`.seat-box` CSS 클래스를 복구**하여 Javascript(finale.js)가 뿌려주는 좌석들이 정상적으로 보이게 만들었습니다.
+2. TOTAL 창을 임의의 SNS 명함 스타일에서 원래 텍스트가 강조된 **깔끔한 사각형 형태(`total-content`)로 롤백**했습니다.
+3. 배역 폰트를 요청해주신 **`Cafe24AnemoneAir`**로 적용했습니다! 확인해 보시고 또 어색한 곳이 있다면 편하게 말씀해주세요.
