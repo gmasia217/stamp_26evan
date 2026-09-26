@@ -5,24 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>디어 에반 핸슨 정산 보드</title>
     <style>
-/* ==========================================
-   폰트 정의 (배역 이름용 Cafe24AnemoneAir + 배우 이름용 Elice DX Neolli)
-   ========================================== */
-@font-face {
-    font-family: 'Cafe24AnemoneAir';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/Cafe24Ohsquareair.woff') format('woff');
-    font-weight: normal;
-    font-display: swap;
+* {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important;
 }
 
+/* [수정 5] 배우 이름 전용 폰트 */
 @import url('https://fonts.elice.io/css?family=Elice+DX+Neolli');
 
-* {
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif;
-}
-
 body {
-    background-color: #334155;
+    background-color: #334155; 
     margin: 0; padding: 20px;
     display: flex; flex-direction: column; align-items: center;
 }
@@ -36,7 +27,7 @@ body {
 .ui-container p { color: #64748b; margin-bottom: 25px; line-height: 1.4; }
 
 .btn {
-    padding: 12px 24px; border: none; border-radius: 8px; font-size: 15px;
+    padding: 12px 24px; border: none; border-radius: 8px; font-size: 15px; 
     font-weight: 700; cursor: pointer; transition: all 0.2s; margin: 0 5px;
 }
 .btn.prim { background: #174ca2; color: white; }
@@ -45,20 +36,20 @@ body {
 .btn.ghost:hover { background: #cbd5e1; }
 
 /* ==========================================
-   🌟 캡처 래퍼
+   🌟 캡처 래퍼: 전체 가로 크기를 2800px로 확장
    ========================================== */
 .capture-wrapper {
     width: 100%; max-width: 2800px; overflow-x: auto; padding-bottom: 20px;
 }
 
 .capture-board {
-    width: 2800px; height: auto; padding: 40px;
+    width: 2800px; height: auto; padding: 40px; 
     background-color: #eaf4fb; box-sizing: border-box; margin: 0 auto;
 }
 
 .mac-window {
     width: 100%; height: 100%; background-color: #ffffff; border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; overflow: hidden; 
 }
 
 .mac-header, .mac-sub-header { display: flex; align-items: center; position: relative; flex-shrink: 0; }
@@ -68,7 +59,7 @@ body {
 .mac-left-controls { display: flex; align-items: center; gap: 20px; }
 .mac-buttons { display: flex; gap: 8px; }
 .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
-.mac-sub-header .mac-btn { width: 10px; height: 10px; }
+.mac-sub-header .mac-btn { width: 10px; height: 10px; } 
 
 .mac-btn.close { background-color: #ff5f56; }
 .mac-btn.minimize { background-color: #ffbd2e; }
@@ -85,7 +76,7 @@ body {
 .mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
 .mac-sub-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #475569; }
 
-/* [수정 6] 좌석배치도 + 말풍선 영역을 세로 중앙 쪽으로 내림 */
+/* [수정 6] 브라우저 본문 레이아웃: 좌석표+말풍선을 세로 중앙 쪽으로 내림 */
 .mac-body {
     display: flex; align-items: center; gap: 80px; padding: 40px 60px; box-sizing: border-box; height: 100%;
 }
@@ -97,129 +88,131 @@ body {
     flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 40px;
 }
 
-/* [수정 2] TOTAL 창을 왼쪽 영역 기준 중앙보다 살짝 오른쪽에 배치 */
+/* [수정 2] 1단: 로고 + TOTAL 창 배치 - 중앙 정렬 후 TOTAL 창을 살짝 오른쪽으로 */
 .row-first {
-    display: flex; justify-content: center; align-items: center; width: 100%;
-    gap: 40px; padding-right: 0;
+    display: flex; justify-content: center; align-items: center; width: 100%; gap: 40px; padding-right: 0;
 }
 
 /* [수정 1] 로고 여백 추가 */
 .logo-wrap {
-    display: flex; align-items: flex-start;
-    padding: 20px 0 0 30px;
+    display: flex; align-items: flex-start; padding: 20px 0 0 30px;
 }
 .board-logo { width: 400px; object-fit: contain; }
 
-/* 기존의 깔끔한 TOTAL 창 디자인 + 중앙에서 살짝 오른쪽으로 이동 */
-.total-window {
-    margin-left: 60px; margin-right: 0; width: 380px;
-    border-radius: 12px; overflow: hidden; background: #ffffff;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-}
-.total-content {
-    padding: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px;
-}
-.total-label {
-    font-size: 20px; font-weight: 800; color: #174ca2;
-    letter-spacing: 2px;
-}
-.total-numbers {
-    display: flex; align-items: baseline; gap: 10px;
-}
-.my-total {
-    font-size: 48px; font-weight: 800; color: #0f172a;
-}
-.overall-total {
-    font-size: 24px; font-weight: 600; color: #64748b;
+/* 2단, 3단, 4단 캐릭터 줄 */
+.cast-row { 
+    display: flex; justify-content: center; gap: 80px; align-items: flex-end; 
 }
 
-/* ==========================================
-   캐스팅 영역
-   ========================================== */
-.cast-row {
-    display: flex; justify-content: center; gap: 80px; align-items: flex-end;
-}
 .role-group { display: flex; flex-direction: column; align-items: center; }
-
-/* 폰트 수정: Cafe24AnemoneAir */
 .role-badge {
-    font-family: 'Cafe24AnemoneAir', sans-serif !important;
-    background: #f1f5f9; color: #174ca2; padding: 12px 28px;
-    border-radius: 20px; font-size: 28px; font-weight: 800; text-transform: uppercase;
+    background: #f1f5f9; color: #174ca2; padding: 12px 28px; 
+    border-radius: 20px; font-size: 24px; font-weight: 800; text-transform: uppercase;
     margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.actor-list { display: flex; gap: 35px; }
+.actor-list { display: flex; gap: 35px; } 
 .actor-item { display: flex; flex-direction: column; align-items: center; }
 
-/* [수정 5] 배우 이름 폰트를 Elice DX Neolli로 변경 */
+/* [수정 5] 배우 이름 폰트 변경 (전역 !important 규칙보다 우선되도록 !important 적용) */
 .actor-name {
     font-family: 'Elice DX Neolli', 'Apple SD Gothic Neo', sans-serif !important;
     font-size: 22px; color: #1e293b; font-weight: 800; text-align: center;
     line-height: 1.3; margin-bottom: 12px;
 }
+
+/* [수정 4] 그림자를 filter(drop-shadow) 대신 box-shadow로 전환
+   → filter: drop-shadow는 html2canvas 기본 렌더러로는 캡처되지 않아
+     저장한 이미지에서만 그림자가 사라지는 문제가 있었음.
+     box-shadow는 기본 렌더러에서도 100% 그대로 캡처됨. */
 .actor-img-wrap {
-    display: flex; justify-content: center; align-items: flex-end;
-    border-radius: 14px; background-color: #ffffff;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); overflow: hidden;
+    display: flex; justify-content: center; align-items: flex-end; 
+    height: 230px; margin-bottom: 10px;
+    border-radius: 14px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.3);
 }
-/* [수정 3] 프로필 사진 모서리 둥글게 (기존보다 살짝 더 둥글게) */
-.actor-img { display: block; border-radius: 14px; }
 
-.actor-count { margin-top: 8px; font-size: 16px; font-weight: 700; color: #475569; }
-.actor-count .my-count { color: #174ca2; font-size: 18px; font-weight: 800; }
+/* [수정 3] 프로필 사진 모서리 둥글게 */
+.actor-img {
+    display: block; 
+    border-radius: 14px;
+}
+
+.actor-count {
+    background: white; padding: 8px 22px; border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); font-weight: 700;
+    transform: rotate(-3deg); margin-top: -5px; z-index: 2;
+}
+.actor-count .my-count { color: #e11d48; font-size: 32px; }
+.actor-count .total-count { color: #94a3b8; font-size: 18px; }
 
 /* ==========================================
-   오른쪽 서브 영역 (말풍선 + 좌석표)
+   🌟 오른쪽 서브 영역 (말풍선 + 좌석표)
    ========================================== */
-/* [수정 6] board-side를 아래쪽(중앙 쪽)으로 살짝 내림 */
-.board-side { width: 600px; display: flex; flex-direction: column; gap: 30px; margin-top: 60px; }
+.board-side {
+    width: 650px; 
+    flex-shrink: 0; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 35px; 
+    margin-top: 60px; /* [수정 6] 아래(중앙) 쪽으로 내림 */
+}
 
-.speech-bubbles { display: flex; flex-direction: column; gap: 15px; }
+.speech-bubbles { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; }
 .bubble {
-    padding: 16px 24px; border-radius: 20px; font-size: 16px; font-weight: 700; line-height: 1.4;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: relative; background: #f8fafc; border: 1px solid #e2e8f0;
+    padding: 18px 28px; border-radius: 20px; font-size: 24px; font-weight: 700; color: #1e293b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: fit-content;
 }
-.bubble-left { background: #174ca2; color: #ffffff; align-self: flex-start; border-bottom-left-radius: 4px; }
-.bubble-right { background: #3b82f6; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 4px; }
+.bubble-right::after { content: ''; position: absolute; bottom: -10px; right: 20px; border-width: 10px 10px 0 0; border-style: solid; border-color: #f8fafc transparent transparent transparent; }
+.bubble-left { align-self: flex-start; border-radius: 20px 20px 20px 0; color: #334155; line-height: 1.5; }
+.bubble-left::after { content: ''; position: absolute; bottom: 0; left: -10px; border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #f8fafc transparent transparent; }
 
-.map-window { width: 100%; background: #ffffff; border-radius: 12px; overflow: hidden; }
-.seat-map-board { padding: 20px; }
-.seat-map-content { display: flex; flex-direction: column; gap: 20px; }
-.seat-floor { display: flex; align-items: center; gap: 15px; }
-.floor-title { font-weight: 800; color: #174ca2; width: 30px; }
-.seat-grid { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
-
-/* ==========================================
-   좌석(Seat) 박스 CSS
-   (레거시 seat-box 클래스 + finale.js가 실제로 그리는 f-seat-* 클래스 둘 다 지원)
-   ========================================== */
-.seat-box,
-.f-zone-col .f-seat-row > div {
-    width: 14px; height: 14px; border-radius: 3px;
-    background-color: #e2e8f0; /* 관람 안 한 기본 좌석 색상 */
+.mac-sub-window {
+    background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; 
+    display: flex; flex-direction: column;
 }
 
-.f-zone-col { display: flex; flex-direction: column; gap: 3px; }
-.f-seat-row { display: flex; gap: 3px; }
-.f-seat-cell { width: 14px; height: 14px; border-radius: 3px; background-color: #e2e8f0; }
-.f-seat-cell.hidden { background-color: transparent; }
-.f-seat-aisle { width: 8px; height: 14px; }
-.f-seat-half { width: 7px; height: 14px; }
+.map-window { height: max-content; }
 
-/* 관람 횟수에 따른 좌석 색상 클래스 (레거시 + 신규 클래스 모두 대응) */
-.seat-box.c1, .f-seat-cell.c1 { background-color: #93c5fd; }
-.seat-box.c2, .f-seat-cell.c2 { background-color: #3b82f6; }
-.seat-box.c3, .f-seat-cell.c3 { background-color: #1d4ed8; }
-.seat-box.c4, .f-seat-cell.c4 { background-color: #1e3a8a; }
+/* [수정 2] TOTAL 창: 살짝 오른쪽으로 이동 */
+.total-window { width: 450px; margin-left: 60px; transform: rotate(-1deg); }
 
-/* 좌석 범례 */
-.seat-legend { margin-top: 20px; display: flex; gap: 15px; font-size: 13px; color: #64748b; font-weight: 600; align-items: center; }
-.leg-box { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
-.leg-box.c1 { background: #93c5fd; }
-.leg-box.c2 { background: #3b82f6; }
-.leg-box.c3 { background: #1d4ed8; }
-.leg-box.c4 { background: #1e3a8a; }
+.seat-map-board { padding: 35px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
+.seat-map-content { margin: auto 0; display: flex; flex-direction: column; gap: 25px; }
+.floor-title { text-align: center; font-size: 18px; font-weight: 700; color: #475569; margin-bottom: 12px; }
+.f-zone-col { display: flex; flex-direction: column; gap: 5px; align-items: center; }
+.f-seat-row { display: flex; gap: 4px; justify-content: center; }
+
+.f-seat-cell { width: 11px; height: 11px; border-radius: 2px; border: 1px solid #cbd5e1; box-sizing: border-box;}
+.f-seat-aisle { width: 10px; flex-shrink: 0; }
+.f-seat-half { width: 5.5px; height: 11px; pointer-events: none; }
+.f-seat-cell.hidden { border-color: transparent; background: transparent; }
+
+.f-seat-cell.c0 { background: #f8fafc; border-color: #e2e8f0; }
+.f-seat-cell.c1 { background: #78c6f5; border-color: #78c6f5; }
+.f-seat-cell.c2 { background: #4ba6e6; border-color: #4ba6e6; }
+.f-seat-cell.c3 { background: #2682cc; border-color: #2682cc; }
+.f-seat-cell.c4 { background: #083870; border-color: #083870; }
+
+.seat-legend { display: flex; justify-content: center; gap: 15px; font-size: 16px; color: #64748b; font-weight: 700; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+.leg-box { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+.leg-box.c1 { background: #78c6f5; }
+.leg-box.c2 { background: #4ba6e6; }
+.leg-box.c3 { background: #2682cc; }
+.leg-box.c4 { background: #083870; }
+
+.sns-card { width: 100%; box-sizing: border-box; }
+.sns-header { display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+.sns-profile { width: 32px; height: 32px; border-radius: 50%; margin-right: 12px; }
+.sns-name { font-weight: 700; font-size: 18px; color: #0f172a; flex: 1; }
+.sns-dots { color: #94a3b8; font-weight: bold; }
+.sns-body { padding: 30px 20px; text-align: center; }
+.sns-tag { color: #3b82f6; font-weight: 700; font-size: 24px; margin-bottom: 12px; text-align: left; }
+.sns-total .my-total { color: #e11d48; font-size: 72px; font-weight: 700; }
+.sns-total .overall-total { color: #64748b; font-size: 28px; font-weight: 600; }
+.sns-footer { padding: 16px 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 16px; font-weight: 600; }
 
 </style>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -228,7 +221,7 @@ body {
 
     <div class="ui-container">
         <h1>정산 보드 미리보기 💻</h1>
-        <p>로고 여백, TOTAL 창 위치, 프로필 모서리, 그림자, 배우 이름 폰트, 좌석표 위치를 수정했습니다.</p>
+        <p>로고 여백, TOTAL 창 위치, 프로필 모서리/그림자, 배우 이름 폰트, 좌석표 위치를 수정했습니다.</p>
         <button class="btn prim" onclick="downloadFinaleBoard()" id="download-btn">
             이미지 저장하기 📸
         </button>
@@ -237,11 +230,14 @@ body {
         </button>
     </div>
 
-    <!-- 미리보기 래퍼 -->
+    <!-- 미리보기 래퍼 (가로 스크롤 가능) -->
     <div class="capture-wrapper">
+        
+        <!-- 전체 캡처 영역 (2800px 초광각 와이드) -->
         <div id="finale-capture-area" class="capture-board">
-
+            
             <div class="mac-window">
+                <!-- 브라우저 헤더 -->
                 <div class="mac-header">
                     <div class="mac-left-controls">
                         <div class="mac-buttons">
@@ -258,27 +254,39 @@ body {
                 </div>
 
                 <div class="mac-body">
-
+                    
+                    <!-- 🌟 왼쪽 메인 영역 (로고, TOTAL 창, 캐스팅 보드) -->
                     <div class="board-main">
-
-                        <!-- 1단: 로고 + TOTAL 창 -->
+                        
+                        <!-- 1단: 로고 (왼쪽 상단 고정) + TOTAL 창 -->
                         <div class="board-row row-first">
                             <div class="logo-wrap">
                                 <img src="./evan_logo.png" alt="DEAR EVAN HANSEN" class="board-logo" onerror="this.src='./evan_icon.jpg'">
                             </div>
 
+                            <!-- TOTAL 박스 맥북 창 (1단 오른쪽) -->
                             <div class="mac-sub-window total-window">
                                 <div class="mac-sub-header">
                                     <div class="mac-buttons">
                                         <span class="mac-btn close"></span><span class="mac-btn minimize"></span><span class="mac-btn maximize"></span>
                                     </div>
-                                    <div class="mac-sub-title">Total_Count.app</div>
+                                    <div class="mac-sub-title">My_Records.app</div>
                                 </div>
-                                <div class="total-content">
-                                    <div class="total-label">TOTAL COUNT</div>
-                                    <div class="total-numbers">
-                                        <span class="my-total" id="board-total">0</span>
-                                        <span class="overall-total" id="board-total-schedule">/ 0</span>
+                                <div class="sns-card">
+                                    <div class="sns-header">
+                                        <img src="./evan_icon.jpg" class="sns-profile">
+                                        <span class="sns-name">Evan Hansen</span>
+                                        <span class="sns-dots">•••</span>
+                                    </div>
+                                    <div class="sns-body">
+                                        <div class="sns-tag">#TOTAL</div>
+                                        <div class="sns-total">
+                                            <span class="my-total" id="board-total">0</span> 
+                                            <span class="overall-total" id="board-total-schedule">/ 0</span>
+                                        </div>
+                                    </div>
+                                    <div class="sns-footer">
+                                        <span>👍 Like</span><span>💬 Comment</span><span>🔄 Share</span>
                                     </div>
                                 </div>
                             </div>
@@ -448,13 +456,15 @@ body {
 
                     </div>
 
+                    <!-- 🌟 오른쪽 서브 영역 (말풍선 + 좌석표) -->
                     <div class="board-side">
-
+                        
                         <div class="speech-bubbles">
                             <div class="bubble bubble-left">Dear Evan Hansen,<br>Today is going to be a good day!</div>
                             <div class="bubble bubble-right">#You_will_be_found</div>
                         </div>
 
+                        <!-- 좌석표 맥북 창 -->
                         <div class="mac-sub-window map-window">
                             <div class="mac-sub-header">
                                 <div class="mac-buttons">
@@ -469,9 +479,9 @@ body {
                                     <div class="seat-floor" id="floor-3"><div class="floor-title">3F</div><div class="seat-grid" id="seat-grid-3f"></div></div>
                                 </div>
                                 <div class="seat-legend">
-                                    <span class="leg-box c1"></span> 1회
-                                    <span class="leg-box c2"></span> 2회
-                                    <span class="leg-box c3"></span> 3회
+                                    <span class="leg-box c1"></span> 1회 
+                                    <span class="leg-box c2"></span> 2회 
+                                    <span class="leg-box c3"></span> 3회 
                                     <span class="leg-box c4"></span> 4회이상
                                 </div>
                             </div>
@@ -525,9 +535,9 @@ const THEATER_ZONES = [
                 if(r<=3) { L = padLeft(range(1,7), 9); C = range(1, cMax); R = padRight(range(1,7), 9); }
                 else if(r===4) { L = padLeft(range(1,8), 9); C = range(1, cMax); R = padRight(range(1,8), 9); }
                 else if(r<=20) { L = range(1,9); C = range(1, cMax); R = range(1,9); }
-                else if(r===21) { L = padLeft(range(1,6), 9); C = range(1, cMax); R = padRight(range(1,7), 9); }
-
-                L = mapToBlock(L, 'A구역');
+                else if(r===21) { L = padLeft(range(1,6), 9); C = range(1, cMax); R = padRight(range(1,7), 9); } 
+                
+                L = mapToBlock(L, 'A구역'); 
                 C = centerInBlock(mapToBlock(C, 'B구역'), 17);
                 R = mapToBlock(R, 'C구역');
                 rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
@@ -548,8 +558,8 @@ const THEATER_ZONES = [
                 else if(r===9) { L = Array(9).fill(null); C = range(1, 13); R = Array(9).fill(null); }
                 else if(r===10) { L = Array(9).fill(null); C = range(1, 12); R = Array(9).fill(null); }
                 else if(r===11) { L = Array(9).fill(null); C = range(1, 11); R = Array(9).fill(null); }
-
-                L = mapToBlock(L, 'A구역');
+                
+                L = mapToBlock(L, 'A구역'); 
                 C = centerInBlock(mapToBlock(C, 'B구역'), 16);
                 R = mapToBlock(R, 'C구역');
                 rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
@@ -585,7 +595,7 @@ function loadData() {
 function getValidRecords() {
     let validRecords = [];
     let grouped = {};
-
+    
     (state.records || []).forEach(r => {
         let k = r.date + '_' + r.time;
         if (!grouped[k]) grouped[k] = [];
@@ -606,11 +616,11 @@ function getValidRecords() {
 
 function renderStats() {
     const validRecords = getValidRecords();
-    const scheduleRecords = state.schedule || [];
-
+    const scheduleRecords = state.schedule || []; 
+    
     const totalCount = validRecords.length;
     const totalScheduleCount = scheduleRecords.length;
-
+    
     const totalEl = document.getElementById('board-total');
     if (totalEl) totalEl.textContent = totalCount;
 
@@ -621,18 +631,18 @@ function renderStats() {
         const castKey = `cast${idx + 1}`;
         role.actors.forEach(actor => {
             const count = validRecords.filter(r => r[castKey] === actor).length;
-            const totalCnt = scheduleRecords.filter(s => s[castKey] === actor).length;
-
+            const totalCnt = scheduleRecords.filter(s => s[castKey] === actor).length; 
+            
             const safeActorId = actor.replace(/\s+/g, '');
             const actorEl = document.getElementById(`count-${safeActorId}`);
             const actorTotalEl = document.getElementById(`total-${safeActorId}`);
-
+            
             if (actorEl) {
                 actorEl.textContent = count > 0 ? count : '0';
                 if(count === 0) actorEl.style.color = '#94a3b8';
-                else actorEl.style.color = '#e11d48';
+                else actorEl.style.color = '#e11d48'; 
             }
-
+            
             if (actorTotalEl) {
                 actorTotalEl.textContent = `/ ${totalCnt}`;
             }
@@ -644,7 +654,7 @@ function renderStats() {
 
 function renderFinaleSeatMap(validRecords) {
     let seatMap = {};
-
+    
     validRecords.forEach(r => {
         if(r.seatZone && r.seatRow !== "" && r.seatNum !== "") {
             const k = `${r.seatZone}-${r.seatBlock || ''}-${r.seatRow.toUpperCase()}-${r.seatNum}`;
@@ -657,7 +667,7 @@ function renderFinaleSeatMap(validRecords) {
         if(cnt === 3) return 'c3';
         if(cnt === 2) return 'c2';
         if(cnt === 1) return 'c1';
-        return 'c0';
+        return 'c0'; 
     };
 
     THEATER_ZONES.forEach((z) => {
@@ -680,7 +690,7 @@ function renderFinaleSeatMap(validRecords) {
             hmHtml += `</div>`;
         });
         hmHtml += `</div>`;
-
+        
         const targetId = z.name === '1층' ? 'seat-grid-1f' : (z.name === '2층' ? 'seat-grid-2f' : 'seat-grid-3f');
         const targetEl = document.getElementById(targetId);
         if (targetEl) targetEl.innerHTML = hmHtml;
@@ -689,22 +699,22 @@ function renderFinaleSeatMap(validRecords) {
 
 function downloadFinaleBoard() {
     window.scrollTo(0, 0);
-
+    
     const captureArea = document.getElementById('finale-capture-area');
     const btn = document.getElementById('download-btn');
-
+    
     const originalText = btn.innerHTML;
     btn.innerHTML = '이미지 생성 중... ⏳';
     btn.disabled = true;
 
     // 🌟 가상 윈도우 크기를 강제로 지정하여 html2canvas 잘림 버그 완벽 차단
-    // 🌟 [수정 4] foreignObjectRendering: true → box-shadow/필터 계열이 캡처본에서도 그대로 보이게 함
+    // (foreignObjectRendering은 로컬 이미지 캡처 시 이미지가 깨지는 문제가 있어 사용하지 않음.
+    //  그림자는 finale.css에서 filter 대신 box-shadow로 처리했기 때문에 기본 렌더러로도 정상 캡처됩니다.)
     html2canvas(captureArea, {
-        scale: 2,
-        useCORS: true,
+        scale: 2,           
+        useCORS: true,      
         allowTaint: true,
         backgroundColor: null,
-        foreignObjectRendering: true,
         width: captureArea.offsetWidth,
         height: captureArea.offsetHeight,
         windowWidth: captureArea.offsetWidth,
@@ -720,7 +730,7 @@ function downloadFinaleBoard() {
         link.download = `Dear_Evan_Hansen_정산판_${today}.png`;
         link.href = imgData;
         link.click();
-
+        
         btn.innerHTML = originalText;
         btn.disabled = false;
     }).catch(err => {
