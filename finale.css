@@ -1,5 +1,15 @@
+/* ==========================================
+   폰트 정의 (배역 이름용 Cafe24Anemone)
+   ========================================== */
+@font-face {
+    font-family: 'Cafe24Anemone';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
 * {
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important;
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif;
 }
 
 body {
@@ -78,15 +88,64 @@ body {
     flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 40px;
 }
 
-/* 1단: 로고(왼쪽 상단 고정) + TOTAL 창 배치 */
+/* 1단: 로고 + TOTAL 창 배치 */
 .row-first {
-    display: flex; justify-content: space-between; align-items: center; width: 100%; padding-right: 20px;
+    display: flex; justify-content: flex-start; align-items: center; width: 100%; padding-right: 20px;
 }
 
+/* [수정 1] 로고 여백 보장 */
 .logo-wrap {
-    display: flex; align-items: flex-start; padding-left: 10px;
+    display: flex; align-items: flex-start; 
+    padding-top: 15px;
+    padding-left: 25px;
 }
 .board-logo { width: 400px; object-fit: contain; }
+
+/* [수정 2] TOTAL 창 위치 조정 (좌석배치도 제외 왼쪽 영역에서 중앙~살짝 오른쪽) */
+.total-window {
+    margin-left: auto;
+    margin-right: 120px;
+    width: 380px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* SNS 카드의 프로필 및 스타일 */
+.sns-card {
+    padding: 20px;
+    background: #ffffff;
+}
+.sns-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+/* [수정 3 & 4] 프로필 사진 모서리 둥글게 + html2canvas 저장 시 그림자 유지 */
+.sns-profile {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px; /* 모서리 살짝 둥글게 */
+    object-fit: cover;
+    background-color: #ffffff; /* html2canvas 배경 인식을 위한 속성 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22); /* 저장 시에도 선명하게 보이는 그림자 */
+    display: block;
+}
+
+.sns-name { font-weight: 700; font-size: 16px; color: #1e293b; }
+.sns-dots { margin-left: auto; color: #94a3b8; }
+
+.sns-body { margin-bottom: 15px; }
+.sns-tag { font-size: 14px; font-weight: 700; color: #174ca2; margin-bottom: 5px; }
+.sns-total { font-size: 32px; font-weight: 800; color: #0f172a; }
+.overall-total { font-size: 20px; color: #64748b; font-weight: 600; }
+
+.sns-footer {
+    display: flex; gap: 20px; font-size: 14px; color: #64748b; font-weight: 600;
+    border-top: 1px solid #f1f5f9; padding-top: 12px;
+}
 
 /* 2단, 3단, 4단 캐릭터 줄 */
 .cast-row { 
@@ -94,9 +153,12 @@ body {
 }
 
 .role-group { display: flex; flex-direction: column; align-items: center; }
+
+/* [수정 5] 배역 이름 폰트 변경 (Cafe24Anemone 적용) */
 .role-badge {
+    font-family: 'Cafe24Anemone', sans-serif !important;
     background: #f1f5f9; color: #174ca2; padding: 12px 28px; 
-    border-radius: 20px; font-size: 24px; font-weight: 800; text-transform: uppercase;
+    border-radius: 20px; font-size: 26px; font-weight: 800; text-transform: uppercase;
     margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -108,87 +170,43 @@ body {
     line-height: 1.3; margin-bottom: 12px;
 }
 
+/* [수정 3 & 4] 배우 캐스팅 프로필 사진 모서리 둥글게 및 이미지 저장 호환 그림자 */
 .actor-img-wrap {
-    display: flex; justify-content: center; align-items: flex-end; 
-    height: 230px; margin-bottom: 10px;
+    display: flex; justify-content: center; align-items: flex-end;
+    border-radius: 12px; /* 모서리 둥글게 */
+    background-color: #ffffff; /* html2canvas 인식용 백그라운드 */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); /* 저장 이미지에서도 보일 그림자 */
+    overflow: hidden;
 }
+.actor-img { display: block; border-radius: 12px; }
 
-.actor-img {
-    display: block; 
-    -webkit-filter: drop-shadow(0px 6px 10px rgba(0,0,0,0.3)); 
-    filter: drop-shadow(0px 6px 10px rgba(0,0,0,0.3)); 
-}
-
-.actor-count {
-    background: white; padding: 8px 22px; border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15); font-weight: 700;
-    transform: rotate(-3deg); margin-top: -5px; z-index: 2;
-}
-.actor-count .my-count { color: #e11d48; font-size: 32px; }
-.actor-count .total-count { color: #94a3b8; font-size: 18px; }
+.actor-count { margin-top: 8px; font-size: 16px; font-weight: 700; color: #475569; }
+.my-count { color: #174ca2; font-size: 18px; font-weight: 800; }
 
 /* ==========================================
-   🌟 오른쪽 서브 영역 (말풍선 + 좌석표)
+   오른쪽 서브 영역 (말풍선 + 좌석표)
    ========================================== */
 .board-side {
-    width: 650px; 
-    flex-shrink: 0; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 35px; 
-    margin-top: 0;
+    width: 600px; display: flex; flex-direction: column; gap: 30px;
 }
 
-.speech-bubbles { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; }
+.speech-bubbles { display: flex; flex-direction: column; gap: 15px; }
 .bubble {
-    position: relative; background: #f8fafc; border: 1px solid #e2e8f0;
-    padding: 18px 28px; border-radius: 20px; font-size: 24px; font-weight: 700; color: #1e293b;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: fit-content;
+    padding: 16px 24px; border-radius: 20px; font-size: 16px; font-weight: 700; line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-.bubble-right::after { content: ''; position: absolute; bottom: -10px; right: 20px; border-width: 10px 10px 0 0; border-style: solid; border-color: #f8fafc transparent transparent transparent; }
-.bubble-left { align-self: flex-start; border-radius: 20px 20px 20px 0; color: #334155; line-height: 1.5; }
-.bubble-left::after { content: ''; position: absolute; bottom: 0; left: -10px; border-width: 0 10px 15px 0; border-style: solid; border-color: transparent #f8fafc transparent transparent; }
+.bubble-left { background: #174ca2; color: #ffffff; align-self: flex-start; border-bottom-left-radius: 4px; }
+.bubble-right { background: #3b82f6; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 4px; }
 
-.mac-sub-window {
-    background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; 
-    display: flex; flex-direction: column;
-}
-
-.map-window { height: max-content; }
-.total-window { width: 450px; margin: 0; transform: rotate(-1deg); }
-
-.seat-map-board { padding: 35px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
-.seat-map-content { margin: auto 0; display: flex; flex-direction: column; gap: 25px; }
-.floor-title { text-align: center; font-size: 18px; font-weight: 700; color: #475569; margin-bottom: 12px; }
-.f-zone-col { display: flex; flex-direction: column; gap: 5px; align-items: center; }
-.f-seat-row { display: flex; gap: 4px; justify-content: center; }
-
-.f-seat-cell { width: 11px; height: 11px; border-radius: 2px; border: 1px solid #cbd5e1; box-sizing: border-box;}
-.f-seat-aisle { width: 10px; flex-shrink: 0; }
-.f-seat-half { width: 5.5px; height: 11px; pointer-events: none; }
-.f-seat-cell.hidden { border-color: transparent; background: transparent; }
-
-.f-seat-cell.c0 { background: #f8fafc; border-color: #e2e8f0; }
-.f-seat-cell.c1 { background: #78c6f5; border-color: #78c6f5; }
-.f-seat-cell.c2 { background: #4ba6e6; border-color: #4ba6e6; }
-.f-seat-cell.c3 { background: #2682cc; border-color: #2682cc; }
-.f-seat-cell.c4 { background: #083870; border-color: #083870; }
-
-.seat-legend { display: flex; justify-content: center; gap: 15px; font-size: 16px; color: #64748b; font-weight: 700; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
-.leg-box { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
-.leg-box.c1 { background: #78c6f5; }
-.leg-box.c2 { background: #4ba6e6; }
-.leg-box.c3 { background: #2682cc; }
-.leg-box.c4 { background: #083870; }
-
-.sns-card { width: 100%; box-sizing: border-box; }
-.sns-header { display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
-.sns-profile { width: 32px; height: 32px; border-radius: 50%; margin-right: 12px; }
-.sns-name { font-weight: 700; font-size: 18px; color: #0f172a; flex: 1; }
-.sns-dots { color: #94a3b8; font-weight: bold; }
-.sns-body { padding: 30px 20px; text-align: center; }
-.sns-tag { color: #3b82f6; font-weight: 700; font-size: 24px; margin-bottom: 12px; text-align: left; }
-.sns-total .my-total { color: #e11d48; font-size: 72px; font-weight: 700; }
-.sns-total .overall-total { color: #64748b; font-size: 28px; font-weight: 600; }
-.sns-footer { padding: 16px 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 16px; font-weight: 600; }
+.map-window { width: 100%; background: #ffffff; border-radius: 12px; overflow: hidden; }
+.seat-map-board { padding: 20px; }
+.seat-map-content { display: flex; flex-direction: column; gap: 20px; }
+.seat-floor { display: flex; align-items: center; gap: 15px; }
+.floor-title { font-weight: 800; color: #174ca2; width: 30px; }
+.seat-grid { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
+.seat-legend { margin-top: 20px; display: flex; gap: 15px; font-size: 13px; color: #64748b; font-weight: 600; align-items: center; }
+.leg-box { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.leg-box.c1 { background: #93c5fd; }
+.leg-box.c2 { background: #3b82f6; }
+.leg-box.c3 { background: #1d4ed8; }
+.leg-box.c4 { background: #1e3a8a; }
