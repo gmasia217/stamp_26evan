@@ -119,18 +119,18 @@ body {
      저장한 이미지에서만 그림자가 사라지는 문제가 있었음.
      box-shadow는 기본 렌더러에서도 100% 그대로 캡처됨. */
 .actor-img-wrap {
-    display: flex; justify-content: center; align-items: flex-end; 
+    display: flex; justify-content: center; align-items: center; 
     height: 290px; margin-bottom: 10px;
     border-radius: 14px;
     box-shadow: 0 6px 10px rgba(0,0,0,0.3);
 }
 
-/* [수정 4] 프로필 사진 모두 더 크게 (HTML의 inline height를 덮어씀) */
+/* [수정 4] 프로필 사진 모두 더 크게 (모든 배우 사진에 동일 높이 적용 → 인라인 높이값 제거로 위쪽 여백 통일) */
 .actor-img {
     display: block; 
     border-radius: 14px;
-    height: 270px !important;
-    width: auto !important;
+    height: 270px;
+    width: auto;
 }
 
 .actor-count {
