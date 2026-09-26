@@ -39,9 +39,9 @@ const THEATER_ZONES = [
                 if(r<=3) { L = padLeft(range(1,7), 9); C = range(1, cMax); R = padRight(range(1,7), 9); }
                 else if(r===4) { L = padLeft(range(1,8), 9); C = range(1, cMax); R = padRight(range(1,8), 9); }
                 else if(r<=20) { L = range(1,9); C = range(1, cMax); R = range(1,9); }
-                else if(r===21) { L = padLeft(range(1,6), 9); C = range(1, cMax); R = padRight(range(1,7), 9); } 
-                
-                L = mapToBlock(L, 'A구역'); 
+                else if(r===21) { L = padLeft(range(1,6), 9); C = range(1, cMax); R = padRight(range(1,7), 9); }
+
+                L = mapToBlock(L, 'A구역');
                 C = centerInBlock(mapToBlock(C, 'B구역'), 17);
                 R = mapToBlock(R, 'C구역');
                 rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
@@ -62,8 +62,8 @@ const THEATER_ZONES = [
                 else if(r===9) { L = Array(9).fill(null); C = range(1, 13); R = Array(9).fill(null); }
                 else if(r===10) { L = Array(9).fill(null); C = range(1, 12); R = Array(9).fill(null); }
                 else if(r===11) { L = Array(9).fill(null); C = range(1, 11); R = Array(9).fill(null); }
-                
-                L = mapToBlock(L, 'A구역'); 
+
+                L = mapToBlock(L, 'A구역');
                 C = centerInBlock(mapToBlock(C, 'B구역'), 16);
                 R = mapToBlock(R, 'C구역');
                 rows.push({ id: String(r), map: [...L, 'a', ...C, 'a', ...R] });
@@ -99,7 +99,7 @@ function loadData() {
 function getValidRecords() {
     let validRecords = [];
     let grouped = {};
-    
+
     (state.records || []).forEach(r => {
         let k = r.date + '_' + r.time;
         if (!grouped[k]) grouped[k] = [];
@@ -120,11 +120,11 @@ function getValidRecords() {
 
 function renderStats() {
     const validRecords = getValidRecords();
-    const scheduleRecords = state.schedule || []; 
-    
+    const scheduleRecords = state.schedule || [];
+
     const totalCount = validRecords.length;
     const totalScheduleCount = scheduleRecords.length;
-    
+
     const totalEl = document.getElementById('board-total');
     if (totalEl) totalEl.textContent = totalCount;
 
@@ -135,18 +135,18 @@ function renderStats() {
         const castKey = `cast${idx + 1}`;
         role.actors.forEach(actor => {
             const count = validRecords.filter(r => r[castKey] === actor).length;
-            const totalCnt = scheduleRecords.filter(s => s[castKey] === actor).length; 
-            
+            const totalCnt = scheduleRecords.filter(s => s[castKey] === actor).length;
+
             const safeActorId = actor.replace(/\s+/g, '');
             const actorEl = document.getElementById(`count-${safeActorId}`);
             const actorTotalEl = document.getElementById(`total-${safeActorId}`);
-            
+
             if (actorEl) {
                 actorEl.textContent = count > 0 ? count : '0';
                 if(count === 0) actorEl.style.color = '#94a3b8';
-                else actorEl.style.color = '#e11d48'; 
+                else actorEl.style.color = '#e11d48';
             }
-            
+
             if (actorTotalEl) {
                 actorTotalEl.textContent = `/ ${totalCnt}`;
             }
@@ -158,7 +158,7 @@ function renderStats() {
 
 function renderFinaleSeatMap(validRecords) {
     let seatMap = {};
-    
+
     validRecords.forEach(r => {
         if(r.seatZone && r.seatRow !== "" && r.seatNum !== "") {
             const k = `${r.seatZone}-${r.seatBlock || ''}-${r.seatRow.toUpperCase()}-${r.seatNum}`;
@@ -171,7 +171,7 @@ function renderFinaleSeatMap(validRecords) {
         if(cnt === 3) return 'c3';
         if(cnt === 2) return 'c2';
         if(cnt === 1) return 'c1';
-        return 'c0'; 
+        return 'c0';
     };
 
     THEATER_ZONES.forEach((z) => {
@@ -194,7 +194,7 @@ function renderFinaleSeatMap(validRecords) {
             hmHtml += `</div>`;
         });
         hmHtml += `</div>`;
-        
+
         const targetId = z.name === '1층' ? 'seat-grid-1f' : (z.name === '2층' ? 'seat-grid-2f' : 'seat-grid-3f');
         const targetEl = document.getElementById(targetId);
         if (targetEl) targetEl.innerHTML = hmHtml;
@@ -203,19 +203,22 @@ function renderFinaleSeatMap(validRecords) {
 
 function downloadFinaleBoard() {
     window.scrollTo(0, 0);
-    
+
     const captureArea = document.getElementById('finale-capture-area');
     const btn = document.getElementById('download-btn');
-    
+
     const originalText = btn.innerHTML;
     btn.innerHTML = '이미지 생성 중... ⏳';
     btn.disabled = true;
 
     // 🌟 가상 윈도우 크기를 강제로 지정하여 html2canvas 잘림 버그 완벽 차단
+    // 🌟 [수정 4] foreignObjectRendering: true → box-shadow/필터 계열이 캡처본에서도 그대로 보이게 함
     html2canvas(captureArea, {
-        scale: 2,           
-        useCORS: true,      
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
         backgroundColor: null,
+        foreignObjectRendering: true,
         width: captureArea.offsetWidth,
         height: captureArea.offsetHeight,
         windowWidth: captureArea.offsetWidth,
@@ -231,7 +234,7 @@ function downloadFinaleBoard() {
         link.download = `Dear_Evan_Hansen_정산판_${today}.png`;
         link.href = imgData;
         link.click();
-        
+
         btn.innerHTML = originalText;
         btn.disabled = false;
     }).catch(err => {
