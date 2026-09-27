@@ -2,7 +2,6 @@
     font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important;
 }
 
-/* 배우 이름 전용 폰트 */
 @font-face {
     font-family: 'Cafe24AnemoneAir';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/Cafe24Ohsquareair.woff') format('woff');
@@ -75,13 +74,14 @@ body {
 .mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
 .mac-sub-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #475569; }
 
-/* 3. 좌우 여백 더 주기 (60px -> 120px) */
+/* 2, 3. 상하 여백 증가 및 전체 세로 길이 확장 (상하 padding: 80px -> 120px) */
 .mac-body {
-    display: flex; align-items: center; gap: 80px; padding: 80px 120px; box-sizing: border-box; height: 100%;
+    display: flex; align-items: center; gap: 80px; padding: 120px 120px; box-sizing: border-box; height: 100%;
 }
 
+/* 2. 단(row) 간의 상하 간격 증가 (gap: 40px -> 80px) */
 .board-main {
-    flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 40px;
+    flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 80px;
 }
 
 .row-first {
@@ -99,7 +99,6 @@ body {
 
 .role-group { display: flex; flex-direction: column; align-items: center; }
 
-/* 2. 배역 이름 크기 작게 (font-size: 24px -> 20px, padding 조절) */
 .role-badge {
     background: #f1f5f9; color: #174ca2; padding: 10px 24px; 
     border-radius: 20px; font-size: 20px; font-weight: 800; text-transform: uppercase;
@@ -115,7 +114,6 @@ body {
     line-height: 1.3; margin-bottom: 12px;
 }
 
-/* 1. 프로필 사진 크기 더 키우기 (height: 320px -> 380px) */
 .actor-img-wrap {
     display: flex; justify-content: center; align-items: center; 
     height: 380px; margin-bottom: 10px; padding: 10px; 
@@ -148,7 +146,6 @@ body {
     margin-top: 60px; 
 }
 
-/* 4. 좌석 배치도와의 간격을 위해 하단 여백(margin-bottom) 30px 추가 */
 .speech-bubbles { 
     display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; 
     margin-bottom: 30px;
@@ -171,8 +168,8 @@ body {
 
 .map-window { height: max-content; }
 
-/* 5. total 창을 오른쪽으로 좀 더 이동 (margin-left: 100px -> 180px) */
-.total-window { width: 340px; margin-left: 180px; transform: rotate(-1deg); }
+/* 1. TOTAL 창 전체적으로 크기 확대 (width 340px -> 420px) */
+.total-window { width: 420px; margin-left: 180px; transform: rotate(-1deg); }
 
 .seat-map-board { padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
 .seat-map-content { margin: auto 0; display: flex; flex-direction: column; gap: 30px; }
@@ -198,13 +195,14 @@ body {
 .leg-box.c3 { background: #2682cc; }
 .leg-box.c4 { background: #083870; }
 
+/* 1. TOTAL 창 내부 폰트, 여백 등 비례 확장 */
 .sns-card { width: 100%; box-sizing: border-box; }
-.sns-header { display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
-.sns-profile { width: 32px; height: 32px; border-radius: 50%; margin-right: 12px; }
-.sns-name { font-weight: 700; font-size: 18px; color: #0f172a; flex: 1; }
-.sns-dots { color: #94a3b8; font-weight: bold; }
-.sns-body { padding: 22px 20px; text-align: center; }
-.sns-tag { color: #3b82f6; font-weight: 700; font-size: 18px; margin-bottom: 8px; text-align: left; }
-.sns-total .my-total { color: #e11d48; font-size: 52px; font-weight: 700; }
-.sns-total .overall-total { color: #64748b; font-size: 20px; font-weight: 600; }
-.sns-footer { padding: 16px 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 16px; font-weight: 600; }
+.sns-header { display: flex; align-items: center; padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
+.sns-profile { width: 48px; height: 48px; border-radius: 50%; margin-right: 16px; object-fit: cover; }
+.sns-name { font-weight: 700; font-size: 20px; color: #0f172a; flex: 1; }
+.sns-dots { color: #94a3b8; font-weight: bold; font-size: 18px; }
+.sns-body { padding: 30px 24px; text-align: center; }
+.sns-tag { color: #3b82f6; font-weight: 700; font-size: 20px; margin-bottom: 12px; text-align: left; }
+.sns-total .my-total { color: #e11d48; font-size: 60px; font-weight: 700; }
+.sns-total .overall-total { color: #64748b; font-size: 22px; font-weight: 600; }
+.sns-footer { padding: 20px 24px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; color: #94a3b8; font-size: 18px; font-weight: 600; }
