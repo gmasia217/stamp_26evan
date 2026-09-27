@@ -2,7 +2,7 @@
     font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Dotum', sans-serif !important;
 }
 
-/* [수정 6] 배우 이름 전용 폰트 */
+/* 6. 배우 이름 전용 폰트 추가 */
 @font-face {
     font-family: 'Cafe24AnemoneAir';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/Cafe24Ohsquareair.woff') format('woff');
@@ -34,13 +34,12 @@ body {
 .btn.ghost:hover { background: #cbd5e1; }
 
 /* ==========================================
-   🌟 캡처 래퍼: 전체 가로 크기를 2800px로 확장
+   1. 캡처 래퍼 및 보드: 우측 잘림 방지를 위해 3200px로 확장
    ========================================== */
 .capture-wrapper {
-    width: 100%; max-width: 2800px; overflow-x: auto; padding-bottom: 20px;
+    width: 100%; max-width: 3200px; overflow-x: auto; padding-bottom: 20px;
 }
 
-/* [수정 1] 좌석배치도가 잘리지 않도록 전체 캡처 보드 폭 확대 */
 .capture-board {
     width: 3200px; height: auto; padding: 40px; 
     background-color: #eaf4fb; box-sizing: border-box; margin: 0 auto;
@@ -75,7 +74,6 @@ body {
 .mac-right-controls .hamburger-menu { color: #ffffff; font-size: 20px; font-weight: bold; }
 .mac-sub-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #475569; }
 
-/* [수정 6] 브라우저 본문 레이아웃: 좌석표+말풍선을 세로 중앙 쪽으로 내림 + 창과 내용 사이 위아래 여백 확대 */
 .mac-body {
     display: flex; align-items: center; gap: 80px; padding: 80px 60px; box-sizing: border-box; height: 100%;
 }
@@ -87,18 +85,16 @@ body {
     flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 40px;
 }
 
-/* [수정 2] 1단: 로고는 왼쪽 정렬, TOTAL 창은 남는 공간 중앙보다 살짝 오른쪽 */
 .row-first {
     display: flex; justify-content: flex-start; align-items: center; width: 100%; gap: 40px; padding-right: 0;
 }
 
-/* [수정 2] 로고를 다시 살짝 키움 (전에 너무 작아졌던 것 보정) */
 .logo-wrap {
     display: flex; align-items: flex-start; padding: 20px 0 0 40px;
 }
-.board-logo { width: 320px; object-fit: contain; }
+/* 2. 로고 크기 키우기 */
+.board-logo { width: 360px; object-fit: contain; }
 
-/* 2단, 3단, 4단 캐릭터 줄 */
 .cast-row { 
     display: flex; justify-content: center; gap: 80px; align-items: flex-end; 
 }
@@ -113,37 +109,42 @@ body {
 .actor-list { display: flex; gap: 35px; } 
 .actor-item { display: flex; flex-direction: column; align-items: center; }
 
-/* [수정 6,7] 배우 이름 폰트를 Cafe24AnemoneAir로, 색은 검정으로 변경 */
+/* 6, 7. 배우 이름 폰트(Cafe24AnemoneAir) 및 색상(검정) 변경 */
 .actor-name {
     font-family: 'Cafe24AnemoneAir', 'Apple SD Gothic Neo', sans-serif !important;
-    font-size: 19px; color: #000000; font-weight: 800; text-align: center;
+    font-size: 21px; color: #000000; font-weight: 800; text-align: center;
     line-height: 1.3; margin-bottom: 12px;
 }
 
-/* [수정 4] 사진을 감싸던 틀(테두리/그림자/배경)을 전부 제거 → 사진 자체만 보이도록 */
+/* 3, 4. 프로필 사진 크기 확대 및 네모 틀/그림자 제거 */
 .actor-img-wrap {
     display: flex; justify-content: center; align-items: center; 
-    height: 340px; margin-bottom: 10px;
+    height: 320px; margin-bottom: 10px;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-/* [수정 3] 프로필 사진 더 크게, 틀/그림자 없이 사진만 표시 */
 .actor-img {
     display: block; 
     height: 320px;
     width: auto;
+    border-radius: 0;
 }
 
-/* [수정 5] 관람 횟수를 감싸던 박스/그림자/기울임 제거 → 텍스트만 표시 */
+/* 5. 관람 횟수 네모 박스, 기울기, 그림자 제거 */
 .actor-count {
-    font-weight: 700;
-    margin-top: 4px;
+    background: transparent; padding: 0; border-radius: 0;
+    box-shadow: none; font-weight: 700;
+    transform: none; margin-top: 4px; z-index: 2;
+    text-align: center;
 }
-/* [수정 8] 관람 횟수 색상 변경 */
+/* 8. 관람 횟수 색상 변경 */
 .actor-count .my-count { color: #1D4F9A; font-size: 32px; }
 .actor-count .total-count { color: #94a3b8; font-size: 18px; }
 
 /* ==========================================
-   🌟 오른쪽 서브 영역 (말풍선 + 좌석표)
+   오른쪽 서브 영역 (말풍선 + 좌석표)
    ========================================== */
 .board-side {
     width: 780px; 
@@ -151,7 +152,7 @@ body {
     display: flex; 
     flex-direction: column; 
     gap: 35px; 
-    margin-top: 60px; /* 아래(중앙) 쪽으로 내림 */
+    margin-top: 60px; 
 }
 
 .speech-bubbles { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: flex-end; }
@@ -172,10 +173,8 @@ body {
 
 .map-window { height: max-content; }
 
-/* [수정 2] TOTAL 창: 크기를 줄이고 살짝 오른쪽으로 이동 */
 .total-window { width: 340px; margin-left: 60px; transform: rotate(-1deg); }
 
-/* [수정 5] 좌석배치도를 더 크게, 이를 감싸는 창도 함께 확대 */
 .seat-map-board { padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
 .seat-map-content { margin: auto 0; display: flex; flex-direction: column; gap: 30px; }
 .floor-title { text-align: center; font-size: 20px; font-weight: 700; color: #475569; margin-bottom: 14px; }
